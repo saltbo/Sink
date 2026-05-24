@@ -21,13 +21,8 @@
   },
   "login": {
     "title": "Đăng nhập",
-    "description": "Nhập token của trang để đăng nhập",
-    "tips": "Mẹo",
-    "preview_token": "Token của chế độ xem trước là",
-    "submit": "Đăng nhập",
-    "failed": "Đăng nhập thất bại, vui lòng thử lại",
-    "token_label": "Token trang",
-    "token_required": "Vui lòng nhập token"
+    "description": "Đăng nhập bằng FlareAuth để quản lý liên kết của bạn.",
+    "submit": "Đăng nhập bằng FlareAuth"
   },
   "logout": {
     "title": "Đăng xuất?",

@@ -21,13 +21,8 @@
   },
   "login": {
     "title": "Connexion",
-    "description": "Entrez votre jeton pour vous connecter",
-    "tips": "Astuces",
-    "preview_token": "Le jeton du site pour le mode aperçu est",
-    "submit": "Connexion",
-    "failed": "Échec de la connexion, veuillez réessayer",
-    "token_label": "Jeton du site",
-    "token_required": "Le jeton est requis"
+    "description": "Connectez-vous avec FlareAuth pour gérer vos liens.",
+    "submit": "Se connecter avec FlareAuth"
   },
   "logout": {
     "title": "Déconnexion ?",

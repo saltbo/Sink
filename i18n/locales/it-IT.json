@@ -21,13 +21,8 @@
   },
   "login": {
     "title": "Accedi",
-    "description": "Inserisci il token del sito per accedere",
-    "tips": "Suggerimenti",
-    "preview_token": "Il token del sito per la modalità anteprima è",
-    "submit": "Accedi",
-    "failed": "Accesso fallito, riprova",
-    "token_label": "Token del Sito",
-    "token_required": "Il token è obbligatorio"
+    "description": "Accedi con FlareAuth per gestire i tuoi link.",
+    "submit": "Accedi con FlareAuth"
   },
   "logout": {
     "title": "Disconnettersi?",
