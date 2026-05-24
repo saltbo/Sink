@@ -3,7 +3,7 @@ import { z } from 'zod'
 defineRouteMeta({
   openAPI: {
     description: 'Query a short link by slug',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
     parameters: [
       {
         name: 'slug',

@@ -42,7 +42,7 @@
     {
       "binding": "DB",
       "database_name": "sink",
-      "database_id": "104db330-89c5-443c-be04-7554ac958712",
+      "database_id": "104db330-89c5-443c-be04-7554ac958712", // IMPORTANT: Change this to your D1 database ID
       "migrations_dir": "migrations"
     }
   ],

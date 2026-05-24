@@ -7,7 +7,7 @@ import { ofetch } from 'ofetch'
 defineRouteMeta({
   openAPI: {
     description: 'Check target URLs for existing short links',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
     requestBody: {
       required: true,
       content: {

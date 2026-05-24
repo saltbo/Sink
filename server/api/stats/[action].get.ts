@@ -4,6 +4,12 @@ import { generateCsv } from '#shared/utils/csv'
 import { createExportFilename } from '#shared/utils/export-file'
 import { z } from 'zod'
 
+defineRouteMeta({
+  openAPI: {
+    security: [{ sessionCookie: [] }],
+  },
+})
+
 const { select } = SqlBricks
 
 const CsvColumns = ['slug', 'url', 'viewer', 'views', 'referer'] as const

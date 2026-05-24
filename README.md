@@ -62,11 +62,7 @@
 
 ## 🪧 Demo
 
-Experience the demo at [Sink.Cool](https://sink.cool/dashboard). Log in using the Site Token below:
-
-```txt
-Site Token: SinkCool
-```
+Experience the demo at [Sink.Cool](https://sink.cool/dashboard). Dashboard access uses the configured FlareAuth OIDC application.
 
 <details>
   <summary><b>Screenshots</b></summary>
@@ -78,7 +74,7 @@ Site Token: SinkCool
 ## 🧱 Technologies Used
 
 - **Framework**: [Nuxt](https://nuxt.com/)
-- **Database**: [Cloudflare Workers KV](https://developers.cloudflare.com/kv/)
+- **Database**: [Cloudflare D1](https://developers.cloudflare.com/d1/) for owned link data, with [Workers KV](https://developers.cloudflare.com/kv/) as the public redirect projection
 - **Analytics Engine**: [Cloudflare Workers Analytics Engine](https://developers.cloudflare.com/analytics/)
 - **UI Components**: [shadcn-vue](https://www.shadcn-vue.com/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
@@ -93,7 +89,7 @@ We welcome your contributions and PRs.
 - [x] Raycast Extension - [Raycast-Sink](https://github.com/foru17/raycast-sink)
 - [x] Apple Shortcuts - [Sink Shortcuts](https://s.search1api.com/sink001)
 - [x] iOS App - [Sink](https://apps.apple.com/app/id6745417598)
-- [ ] Enhanced Link Management (with Cloudflare D1)
+- [x] Enhanced Link Management (with Cloudflare D1)
 - [ ] Analytics Enhancements (Support for merging filter conditions)
 - [x] Dashboard Performance Optimization (Infinite loading)
 - [x] API, migration, backup, and redirect tests
@@ -126,7 +122,7 @@ We currently do not support native MCP Server, but we have OpenAPI documentation
 
 > Replace the domain name in `OPENAPI_SPEC_URL` with your own domain name.
 >
-> The `API_KEY` is the same as the `NUXT_SITE_TOKEN` in the environment variables.
+> Sink's dashboard and management APIs now use the `sink_session` HttpOnly cookie created by FlareAuth login. Public API keys for headless MCP/API usage are deferred, so a Bearer token proxy configuration is not currently supported.
 
 ```json
 {
@@ -138,7 +134,6 @@ We currently do not support native MCP Server, but we have OpenAPI documentation
       ],
       "env": {
         "OPENAPI_SPEC_URL": "https://sink.cool/_docs/openapi.json",
-        "API_KEY": "SinkCool",
         "TOOL_WHITELIST": "/api/link"
       }
     }

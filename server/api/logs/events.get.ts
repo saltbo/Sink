@@ -2,6 +2,12 @@ import type { H3Event } from 'h3'
 import { QuerySchema } from '#shared/schemas/query'
 import { date2unix } from '@/utils/time'
 
+defineRouteMeta({
+  openAPI: {
+    security: [{ sessionCookie: [] }],
+  },
+})
+
 const { select } = SqlBricks
 
 function query2sql(query: Query, event: H3Event, ownerLinkIds: string[]): string {

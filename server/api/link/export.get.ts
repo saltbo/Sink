@@ -3,7 +3,7 @@ import type { ExportData, Link } from '#shared/schemas/link'
 defineRouteMeta({
   openAPI: {
     description: 'Export all links with pagination',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
     parameters: [
       {
         name: 'cursor',

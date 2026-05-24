@@ -4,7 +4,7 @@ import { z } from 'zod'
 defineRouteMeta({
   openAPI: {
     description: 'Delete a short link',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
     requestBody: {
       required: true,
       content: {

@@ -1,6 +1,7 @@
 defineRouteMeta({
   openAPI: {
     description: 'Get the location of the user',
+    security: [{ sessionCookie: [] }],
     responses: {
       200: {
         description: 'The location of the user',
