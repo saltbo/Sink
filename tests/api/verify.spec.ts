@@ -1,9 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { fetch, fetchWithAuth } from '../utils'
+import { fetch, fetchWithAuth, TEST_USER_ID } from '../utils'
 
 interface VerifyResponse {
-  name: string
-  url: string
+  authenticated: boolean
+  user: {
+    id: string
+    email?: string
+    name?: string
+    roles?: string[]
+  }
 }
 
 describe('/api/verify', () => {
@@ -12,10 +17,9 @@ describe('/api/verify', () => {
     expect(response.status).toBe(200)
 
     const data = await response.json() as VerifyResponse
-    expect(data).toHaveProperty('name')
-    expect(data).toHaveProperty('url')
-    expect(data.name).toBeTypeOf('string')
-    expect(data.url).toBeTypeOf('string')
+    expect(data.authenticated).toBe(true)
+    expect(data.user.id).toBe(TEST_USER_ID)
+    expect(data.user.email).toBe('test@example.com')
   })
 
   it('returns correct response structure', async () => {
@@ -24,8 +28,8 @@ describe('/api/verify', () => {
     expect(response.headers.get('Content-Type')).toContain('application/json')
 
     const data = await response.json() as VerifyResponse
-    expect(data.name).toBe('Sink')
-    expect(data.url).toBe('https://sink.cool')
+    expect(data.user.name).toBe('Test User')
+    expect(data.user.roles).toEqual(['admin'])
   })
 
   it('returns 401 when accessing without auth', async () => {
@@ -33,9 +37,9 @@ describe('/api/verify', () => {
     expect(response.status).toBe(401)
   })
 
-  it('returns 401 with invalid token', async () => {
+  it('returns 401 with invalid session cookie', async () => {
     const response = await fetch('/api/verify', {
-      headers: { Authorization: 'Bearer invalid-token-12345' },
+      headers: { Cookie: 'sink_session=invalid-token-12345' },
     })
     expect(response.status).toBe(401)
   })

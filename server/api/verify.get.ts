@@ -1,20 +1,22 @@
 defineRouteMeta({
   openAPI: {
-    description: 'Verify the site token',
+    description: 'Verify the current app session',
     responses: {
       200: {
-        description: 'The site token is valid',
+        description: 'The current app session is valid',
       },
       default: {
-        description: 'The site token is invalid',
+        description: 'The current app session is invalid',
       },
     },
   },
 })
 
-export default eventHandler(() => {
+export default eventHandler(async (event) => {
+  const session = await requireAuthSession(event)
+
   return {
-    name: 'Sink',
-    url: 'https://sink.cool',
+    authenticated: true,
+    user: session.user,
   }
 })

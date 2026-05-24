@@ -10,6 +10,16 @@ interface User {
 
 const { isMobile } = useSidebar()
 
+const { data: session } = await useFetch<{
+  authenticated: boolean
+  user: {
+    name?: string
+    email?: string
+  } | null
+}>('/api/auth/me', {
+  credentials: 'same-origin',
+})
+
 const hostname = computed<string>(() => {
   if (import.meta.client) {
     return window.location.hostname
@@ -18,13 +28,16 @@ const hostname = computed<string>(() => {
 })
 
 const user = computed<User>(() => ({
-  name: 'Root',
-  email: `root@${hostname.value}`,
+  name: session.value?.user?.name ?? 'Sink',
+  email: session.value?.user?.email ?? `user@${hostname.value}`,
   avatar: '/sink.png',
 }))
 
-function logOut() {
-  localStorage.removeItem('SinkSiteToken')
+async function logOut() {
+  await $fetch('/api/auth/logout', {
+    method: 'POST',
+    credentials: 'same-origin',
+  })
   navigateTo('/dashboard/login')
 }
 </script>

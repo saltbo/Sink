@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:test'
 import { describe, expect, it, vi } from 'vitest'
-import { deleteStoredLink, fetch, getStoredD1Link, getStoredLink, postJson } from '../utils'
+import { deleteStoredLink, fetch, getAuthCookie, getStoredD1Link, getStoredLink, postJson, TEST_USER_ID } from '../utils'
 
 describe.sequential('d1 link repository projection', () => {
   it('creates links in D1 and projects them to KV', async () => {
@@ -11,7 +11,7 @@ describe.sequential('d1 link repository projection', () => {
     expect(response.status).toBe(201)
 
     const storedD1Link = await getStoredD1Link(slug)
-    expect(storedD1Link?.owner_id).toBe('site-token')
+    expect(storedD1Link?.owner_id).toBe(TEST_USER_ID)
     expect(storedD1Link?.status).toBe('active')
     expect(storedD1Link?.url).toBe(url)
 
@@ -127,7 +127,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const response = await fetch('/api/link/list?limit=10', {
         headers: {
-          Authorization: 'Bearer test-token',
+          Cookie: await getAuthCookie(),
         },
       })
       expect(response.status).toBe(200)
@@ -161,7 +161,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const response = await fetch('/api/link/search', {
         headers: {
-          Authorization: 'Bearer test-token',
+          Cookie: await getAuthCookie(),
         },
       })
       expect(response.status).toBe(200)
@@ -198,7 +198,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const firstResponse = await fetch('/api/link/list?limit=2', {
         headers: {
-          Authorization: 'Bearer test-token',
+          Cookie: await getAuthCookie(),
         },
       })
       expect(firstResponse.status).toBe(200)
@@ -214,7 +214,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const secondResponse = await fetch(`/api/link/list?limit=2&cursor=${firstPage.cursor}`, {
         headers: {
-          Authorization: 'Bearer test-token',
+          Cookie: await getAuthCookie(),
         },
       })
       expect(secondResponse.status).toBe(200)

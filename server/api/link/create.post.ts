@@ -5,16 +5,17 @@ defineRouteMeta({
     $global: {
       components: {
         securitySchemes: {
-          bearerAuth: {
-            type: 'http',
-            scheme: 'bearer',
-            description: 'Use NUXT_SITE_TOKEN as the bearer token',
+          sessionCookie: {
+            type: 'apiKey',
+            in: 'cookie',
+            name: 'sink_session',
+            description: 'Authenticated app session cookie',
           },
         },
       },
     },
     description: 'Create a new short link',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
     requestBody: {
       required: true,
       content: {
