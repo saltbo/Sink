@@ -19,7 +19,7 @@ describe('/api/verify', () => {
     const data = await response.json() as VerifyResponse
     expect(data.authenticated).toBe(true)
     expect(data.user.id).toBe(TEST_USER_ID)
-    expect(data.user.email).toBe('test@example.com')
+    expect(data.user.email).toBe(`${TEST_USER_ID}@example.com`)
   })
 
   it('returns correct response structure', async () => {

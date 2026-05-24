@@ -138,6 +138,36 @@ Recommended values:
 
 Default is empty (disabled). Users can still manually mark links as unsafe in the dashboard regardless of this setting.
 
+## `NUXT_RESERVED_SLUGS`
+
+Adds comma-separated slugs that cannot be created as short links. Sink always reserves system routes and static asset paths such as `api`, `auth`, `_docs`, `dashboard`, `login`, `logout`, `assets`, `image`, `docs`, `openapi`, `swagger`, `scalar`, `_assets`, `_nuxt`, and `_ipx`.
+
+Default is empty.
+
+## `NUXT_LINK_CREATE_QUOTA_LIMIT`
+
+Sets the maximum number of new links a user can create during the quota window. Existing-link upserts do not consume quota.
+
+Default is `1000`.
+
+## `NUXT_LINK_CREATE_QUOTA_WINDOW_SECONDS`
+
+Sets the quota window size in seconds.
+
+Default is `86400` (24 hours).
+
+## `NUXT_LINK_CREATE_RATE_LIMIT`
+
+Sets the maximum number of link creation attempts allowed in the short rate-limit window. Imports are weighted by the number of submitted links.
+
+Default is `120`.
+
+## `NUXT_LINK_CREATE_RATE_LIMIT_WINDOW_SECONDS`
+
+Sets the short rate-limit window size in seconds.
+
+Default is `60`.
+
 ## `NUXT_NOT_FOUND_REDIRECT`
 
 Optional custom redirect target when a slug is not found.
