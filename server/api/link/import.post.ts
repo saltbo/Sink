@@ -1,6 +1,22 @@
 import type { ImportResult } from '#shared/schemas/import'
+import type { Link } from '#shared/schemas/link'
 import { ImportDataSchema } from '#shared/schemas/import'
 import { nanoid } from '#shared/schemas/link'
+
+interface ImportCandidate {
+  index: number
+  link: Link
+}
+
+function getImportErrorReason(error: unknown): string {
+  if (!(error instanceof Error))
+    return 'Unknown error'
+
+  if ('statusText' in error && typeof error.statusText === 'string' && error.statusText)
+    return error.statusText
+
+  return error.message || 'Unknown error'
+}
 
 defineRouteMeta({
   openAPI: {
@@ -56,6 +72,7 @@ export default eventHandler(async (event) => {
   const maxLinks = Math.floor(+kvBatchLimit / 2)
 
   const importData = await readValidatedBody(event, ImportDataSchema.parse)
+  const ownerId = getCurrentLinkOwnerId(event)
 
   if (importData.links.length > maxLinks) {
     throw createError({
@@ -63,6 +80,8 @@ export default eventHandler(async (event) => {
       statusText: `Too many links. Maximum ${maxLinks} links per request.`,
     })
   }
+
+  await consumeLinkCreateRateLimit(event, ownerId, importData.links.length)
 
   const result: ImportResult = {
     success: 0,
@@ -73,6 +92,7 @@ export default eventHandler(async (event) => {
     failedItems: [],
   }
 
+  const candidates: ImportCandidate[] = []
   for (let i = 0; i < importData.links.length; i++) {
     const linkData = importData.links[i]
 
@@ -89,7 +109,12 @@ export default eventHandler(async (event) => {
 
     try {
       const slug = normalizeSlug(event, linkData.slug)
-      const ownerId = getCurrentLinkOwnerId(event)
+      if (isReservedSlug(event, slug)) {
+        result.failedItems.push({ index: i, slug, url: linkData.url, reason: 'Slug is reserved' })
+        result.failed++
+        continue
+      }
+
       if (await getOwnerLink(event, ownerId, slug) || await activeSlugExists(event, slug)) {
         result.skippedItems.push({ index: i, slug, url: linkData.url })
         result.skipped++
@@ -109,9 +134,7 @@ export default eventHandler(async (event) => {
         link.password = await normalizeLinkPasswordForStorage(link.password)
       }
 
-      await createOwnerLink(event, ownerId, link)
-      result.successItems.push({ index: i, slug, url: linkData.url })
-      result.success++
+      candidates.push({ index: i, link })
     }
     catch (error) {
       result.failed++
@@ -119,10 +142,37 @@ export default eventHandler(async (event) => {
         index: i,
         slug: linkData.slug,
         url: linkData.url,
-        reason: error instanceof Error ? error.message : 'Unknown error',
+        reason: getImportErrorReason(error),
       })
     }
   }
+
+  await reserveLinkCreateQuota(event, ownerId, candidates.length)
+
+  let createdCount = 0
+  for (const candidate of candidates) {
+    try {
+      const createdLink = await createOwnerLink(event, ownerId, candidate.link)
+      createdCount++
+      result.successItems.push({ index: candidate.index, slug: createdLink.slug, url: createdLink.url })
+      result.success++
+    }
+    catch (error) {
+      const persistedLink = await getOwnerLink(event, ownerId, candidate.link.slug)
+      if (persistedLink?.id === candidate.link.id)
+        createdCount++
+
+      result.failed++
+      result.failedItems.push({
+        index: candidate.index,
+        slug: candidate.link.slug,
+        url: candidate.link.url,
+        reason: getImportErrorReason(error),
+      })
+    }
+  }
+
+  await releaseLinkCreateQuota(event, ownerId, candidates.length - createdCount)
 
   setResponseHeader(event, 'Cache-Control', 'no-store')
 

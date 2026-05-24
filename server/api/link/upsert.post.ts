@@ -46,11 +46,14 @@ export default eventHandler(async (event) => {
   const ownerId = getCurrentLinkOwnerId(event)
 
   await prepareIncomingLink(event, link)
+  assertSlugIsNotReserved(event, link.slug)
 
   const existingLink = await getOwnerLink(event, ownerId, link.slug)
   if (existingLink) {
     return { ...buildLinkResponse(event, existingLink), status: 'existing' }
   }
+
+  await consumeLinkCreateRateLimit(event, ownerId)
 
   if (await activeSlugExists(event, link.slug)) {
     throw createError({
@@ -59,9 +62,21 @@ export default eventHandler(async (event) => {
     })
   }
 
+  await reserveLinkCreateQuota(event, ownerId, 1)
   await hashLinkPasswordForCreate(link)
 
-  const createdLink = await createOwnerLink(event, ownerId, link)
+  let createdLink
+  try {
+    createdLink = await createOwnerLink(event, ownerId, link)
+  }
+  catch (error) {
+    const persistedLink = await getOwnerLink(event, ownerId, link.slug)
+    if (persistedLink?.id !== link.id)
+      await releaseLinkCreateQuota(event, ownerId, 1)
+
+    throw error
+  }
+
   setResponseStatus(event, 201)
   return { ...buildLinkResponse(event, createdLink), status: 'created' }
 })
