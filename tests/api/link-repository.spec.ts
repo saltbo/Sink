@@ -1,5 +1,5 @@
 import { env } from 'cloudflare:test'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { deleteStoredLink, fetch, getStoredD1Link, getStoredLink, postJson } from '../utils'
 
 describe.sequential('d1 link repository projection', () => {
@@ -109,31 +109,128 @@ describe.sequential('d1 link repository projection', () => {
     await deleteStoredLink(slug)
   })
 
-  it('includes legacy KV projections in owner-scoped management lists', async () => {
+  it('does not scan legacy KV projections in owner-scoped management lists', async () => {
     const slug = `legacy-list-${crypto.randomUUID()}`
     const legacyUrl = 'https://example.com/legacy-list'
     const now = Math.floor(Date.now() / 1000)
+    const listSpy = vi.spyOn(env.KV, 'list')
 
-    await env.KV.put(`link:${slug}`, JSON.stringify({
-      id: `legacy-${slug.slice(0, 18)}`,
-      slug,
-      url: legacyUrl,
-      createdAt: now,
-      updatedAt: now,
-    }))
+    try {
+      await deleteStoredLink(slug)
+      await env.KV.put(`link:${slug}`, JSON.stringify({
+        id: `legacy-${slug.slice(0, 18)}`,
+        slug,
+        url: legacyUrl,
+        createdAt: now,
+        updatedAt: now,
+      }))
 
-    const response = await fetch('/api/link/list?limit=999', {
-      headers: {
-        Authorization: 'Bearer test-token',
-      },
-    })
-    expect(response.status).toBe(200)
+      const response = await fetch('/api/link/list?limit=10', {
+        headers: {
+          Authorization: 'Bearer test-token',
+        },
+      })
+      expect(response.status).toBe(200)
 
-    const data = await response.json() as { links: Array<{ slug: string, url: string }> }
-    expect(data.links).toContainEqual(expect.objectContaining({ slug, url: legacyUrl }))
-    expect(await getStoredD1Link(slug)).toMatchObject({ slug, url: legacyUrl })
+      const data = await response.json() as { links: Array<{ slug: string, url: string }> }
+      expect(data.links).not.toContainEqual(expect.objectContaining({ slug, url: legacyUrl }))
+      expect(await getStoredD1Link(slug)).toBeNull()
+      expect(listSpy).not.toHaveBeenCalled()
+    }
+    finally {
+      listSpy.mockRestore()
+      await deleteStoredLink(slug)
+    }
+  })
 
-    await deleteStoredLink(slug)
+  it('does not scan legacy KV projections in owner-scoped search', async () => {
+    const slug = `legacy-search-${crypto.randomUUID()}`
+    const legacyUrl = 'https://example.com/legacy-search'
+    const now = Math.floor(Date.now() / 1000)
+    const listSpy = vi.spyOn(env.KV, 'list')
+
+    try {
+      await deleteStoredLink(slug)
+      await env.KV.put(`link:${slug}`, JSON.stringify({
+        id: `legacy-${slug.slice(0, 18)}`,
+        slug,
+        url: legacyUrl,
+        createdAt: now,
+        updatedAt: now,
+      }))
+
+      const response = await fetch('/api/link/search', {
+        headers: {
+          Authorization: 'Bearer test-token',
+        },
+      })
+      expect(response.status).toBe(200)
+
+      const data = await response.json() as Array<{ slug: string, url: string }>
+      expect(data).not.toContainEqual(expect.objectContaining({ slug, url: legacyUrl }))
+      expect(await getStoredD1Link(slug)).toBeNull()
+      expect(listSpy).not.toHaveBeenCalled()
+    }
+    finally {
+      listSpy.mockRestore()
+      await deleteStoredLink(slug)
+    }
+  })
+
+  it('paginates owner-scoped lists from D1 without scanning KV', async () => {
+    const listSpy = vi.spyOn(env.KV, 'list')
+    const slugs = [
+      `d1-page-a-${crypto.randomUUID()}`,
+      `d1-page-b-${crypto.randomUUID()}`,
+      `d1-page-c-${crypto.randomUUID()}`,
+    ]
+
+    try {
+      await Promise.all(slugs.map(slug => deleteStoredLink(slug)))
+
+      for (const slug of slugs) {
+        const response = await postJson('/api/link/create', {
+          slug,
+          url: `https://example.com/${slug}`,
+        })
+        expect(response.status).toBe(201)
+      }
+
+      const firstResponse = await fetch('/api/link/list?limit=2', {
+        headers: {
+          Authorization: 'Bearer test-token',
+        },
+      })
+      expect(firstResponse.status).toBe(200)
+
+      const firstPage = await firstResponse.json() as {
+        links: Array<{ slug: string }>
+        list_complete: boolean
+        cursor?: string
+      }
+      expect(firstPage.links).toHaveLength(2)
+      expect(firstPage.list_complete).toBe(false)
+      expect(firstPage.cursor).toBeDefined()
+
+      const secondResponse = await fetch(`/api/link/list?limit=2&cursor=${firstPage.cursor}`, {
+        headers: {
+          Authorization: 'Bearer test-token',
+        },
+      })
+      expect(secondResponse.status).toBe(200)
+
+      const secondPage = await secondResponse.json() as {
+        links: Array<{ slug: string }>
+        list_complete: boolean
+      }
+      expect(secondPage.links.length).toBeGreaterThanOrEqual(1)
+      expect(new Set([...firstPage.links, ...secondPage.links].map(link => link.slug)).size).toBeGreaterThanOrEqual(3)
+      expect(listSpy).not.toHaveBeenCalled()
+    }
+    finally {
+      listSpy.mockRestore()
+      await Promise.all(slugs.map(slug => deleteStoredLink(slug)))
+    }
   })
 
   it('soft-deletes D1 links and removes the KV projection', async () => {

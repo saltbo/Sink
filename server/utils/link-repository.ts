@@ -254,27 +254,6 @@ export async function migrateProjectedLinkToD1(event: H3Event, ownerId: string, 
   return authoritativeLink
 }
 
-export async function migrateProjectedLinksToD1(event: H3Event, ownerId: string): Promise<void> {
-  const { KV } = event.context.cloudflare.env
-  let cursor: string | undefined
-
-  do {
-    const list = await KV.list({
-      prefix: 'link:',
-      limit: 1000,
-      cursor,
-    })
-
-    for (const key of list.keys) {
-      await migrateProjectedLinkToD1(event, ownerId, key.name.replace('link:', ''))
-    }
-
-    cursor = 'cursor' in list ? list.cursor : undefined
-    if (list.list_complete)
-      break
-  } while (cursor)
-}
-
 export async function updateOwnerLink(event: H3Event, ownerId: string, link: Link): Promise<Link> {
   const authoritativeLink = LinkSchema.parse({
     ...link,
@@ -346,8 +325,6 @@ export async function deleteOwnerLink(event: H3Event, ownerId: string, slug: str
 }
 
 export async function listOwnerLinks(event: H3Event, ownerId: string, options: ListOwnerLinksOptions): Promise<ListOwnerLinksResult> {
-  await migrateProjectedLinksToD1(event, ownerId)
-
   const offset = parseListOffset(options.cursor)
   const now = nowInSeconds()
   const result = await getDb(event)
@@ -373,8 +350,6 @@ export async function listOwnerLinks(event: H3Event, ownerId: string, options: L
 }
 
 export async function searchOwnerLinks(event: H3Event, ownerId: string): Promise<SearchOwnerLinkResult[]> {
-  await migrateProjectedLinksToD1(event, ownerId)
-
   const result = await getDb(event)
     .prepare(`
       SELECT slug, url, comment
