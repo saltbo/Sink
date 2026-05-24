@@ -60,7 +60,7 @@ The app session lifetime in seconds. Default is 604800 seconds (7 days).
 
 ### `NUXT_AUTH_ALLOW_INSECURE`
 
-Set to `true` only for local HTTP testing. Production deployments should leave this unset or `false` so auth cookies require HTTPS.
+Set to literal `true` only for local HTTP testing. Production deployments should leave this unset so auth cookies require HTTPS. Any other value, including the string `false`, is treated as disabled.
 
 ## Cloudflare Bindings
 

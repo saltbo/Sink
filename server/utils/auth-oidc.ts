@@ -3,6 +3,7 @@ import type { IDToken, UserInfoResponse } from 'openid-client'
 import type { CurrentUser } from './auth-session'
 import { createError, getRequestURL } from 'h3'
 import * as client from 'openid-client'
+import { isAuthAllowInsecure } from './auth-config'
 
 function getRequiredConfig(event: H3Event, key: 'authIssuer' | 'authClientId' | 'authRedirectUri'): string {
   const value = useRuntimeConfig(event)[key]
@@ -31,7 +32,7 @@ export async function getOidcClient(event: H3Event): Promise<client.Configuratio
     },
     config.authClientSecret ? client.ClientSecretPost(config.authClientSecret) : client.None(),
     {
-      execute: config.authAllowInsecure ? [client.allowInsecureRequests] : undefined,
+      execute: isAuthAllowInsecure(config.authAllowInsecure) ? [client.allowInsecureRequests] : undefined,
     },
   )
 }

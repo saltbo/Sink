@@ -1,5 +1,6 @@
 import type { H3Event } from 'h3'
 import { createError, deleteCookie, getCookie, setCookie } from 'h3'
+import { isAuthAllowInsecure } from './auth-config'
 
 export const AUTH_SESSION_COOKIE = 'sink_session'
 export const AUTH_TRANSACTION_COOKIE = 'sink_oidc'
@@ -97,7 +98,7 @@ function getSessionSecret(event: H3Event): string {
 }
 
 function secureCookies(event: H3Event): boolean {
-  return !useRuntimeConfig(event).authAllowInsecure
+  return !isAuthAllowInsecure(useRuntimeConfig(event).authAllowInsecure)
 }
 
 export async function setOidcTransaction(event: H3Event, transaction: OidcTransaction): Promise<void> {

@@ -1,5 +1,6 @@
 import { fetchMock, SELF } from 'cloudflare:test'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { isAuthAllowInsecure } from '../../server/utils/auth-config'
 import { fetch, getAuthCookie, TEST_AUTH_SESSION_COOKIE, TEST_USER_ID } from '../utils'
 
 const issuer = 'http://flareauth.test'
@@ -73,6 +74,15 @@ describe('/api/auth', () => {
 
   afterEach(() => {
     fetchMock.assertNoPendingInterceptors()
+  })
+
+  it('only enables insecure auth transport for literal true', () => {
+    expect(isAuthAllowInsecure(true)).toBe(true)
+    expect(isAuthAllowInsecure('true')).toBe(true)
+    expect(isAuthAllowInsecure(false)).toBe(false)
+    expect(isAuthAllowInsecure('false')).toBe(false)
+    expect(isAuthAllowInsecure('TRUE')).toBe(false)
+    expect(isAuthAllowInsecure(undefined)).toBe(false)
   })
 
   it('redirects to FlareAuth authorization endpoint with PKCE, state, and nonce', async () => {
