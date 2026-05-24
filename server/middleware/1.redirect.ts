@@ -66,11 +66,27 @@ export default eventHandler(async (event) => {
     let link: Link | null = null
 
     const lowerCaseSlug = slug.toLowerCase()
-    link = await getLink(event, caseSensitive ? slug : lowerCaseSlug, linkCacheTtl)
+    const readRedirectLink = async (lookupSlug: string) => {
+      const projectedLink = await getProjectedLink(event, lookupSlug, linkCacheTtl)
+      if (projectedLink)
+        return projectedLink
+
+      if (!cloudflare.env.DB)
+        return null
+
+      const authoritativeLink = await getActiveLinkBySlug(event, lookupSlug)
+      if (!authoritativeLink)
+        return null
+
+      await projectLinkToKv(event, authoritativeLink)
+      return authoritativeLink
+    }
+
+    link = await readRedirectLink(caseSensitive ? slug : lowerCaseSlug)
 
     if (!caseSensitive && !link && lowerCaseSlug !== slug) {
       console.log('original slug fallback:', `slug:${slug} lowerCaseSlug:${lowerCaseSlug}`)
-      link = await getLink(event, slug, linkCacheTtl)
+      link = await readRedirectLink(slug)
     }
 
     if (link) {

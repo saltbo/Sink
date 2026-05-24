@@ -3,12 +3,14 @@ import { env, SELF } from 'cloudflare:test'
 import { expect } from 'vitest'
 import { LINK_PASSWORD_HASH_PREFIX, LINK_PASSWORD_MASK_PREFIX } from '../shared/utils/link-password'
 
+const TEST_SITE_TOKEN = import.meta.env.NUXT_SITE_TOKEN || 'test-token'
+
 export function fetchWithAuth(path: string, options?: RequestInit): Promise<Response> {
   return SELF.fetch(`http://localhost${path}`, {
     ...options,
     headers: {
       ...options?.headers,
-      Authorization: `Bearer ${import.meta.env.NUXT_SITE_TOKEN}`,
+      Authorization: `Bearer ${TEST_SITE_TOKEN}`,
     },
   })
 }
@@ -39,8 +41,20 @@ export async function getStoredLink(slug: string) {
   return await env.KV.get<Link>(`link:${slug}`, { type: 'json' })
 }
 
+export async function getStoredD1Link(slug: string) {
+  return await env.DB.prepare('SELECT * FROM links WHERE slug = ?').bind(slug).first<{
+    id: string
+    owner_id: string
+    slug: string
+    url: string
+    status: string
+    deleted_at: number | null
+  }>()
+}
+
 export async function deleteStoredLink(slug: string) {
   await env.KV.delete(`link:${slug}`)
+  await env.DB.prepare('DELETE FROM links WHERE slug = ?').bind(slug).run()
 }
 
 export async function deleteStoredLinks(slugs: string[]) {

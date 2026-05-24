@@ -3,7 +3,11 @@ import { loadEnv } from 'vite'
 
 export default defineWorkersConfig(({ mode }) => ({
   test: {
-    env: loadEnv(mode, process.cwd(), ''),
+    env: {
+      NUXT_SITE_TOKEN: 'test-token',
+      ...loadEnv(mode, process.cwd(), ''),
+    },
+    setupFiles: ['./tests/setup.ts'],
     poolOptions: {
       workers: {
         singleWorker: true,
@@ -12,6 +16,9 @@ export default defineWorkersConfig(({ mode }) => ({
           configPath: './wrangler.jsonc',
         },
         miniflare: {
+          bindings: {
+            NUXT_SITE_TOKEN: 'test-token',
+          },
           cf: true,
         },
       },

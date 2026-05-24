@@ -4,6 +4,7 @@
 declare namespace Cloudflare {
 	interface Env {
 		KV: KVNamespace;
+		DB: D1Database;
 		NUXT_SITE_TOKEN: string;
 		NUXT_CF_ACCOUNT_ID: string;
 		NUXT_CF_API_TOKEN: string;
