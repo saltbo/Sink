@@ -60,7 +60,7 @@ async function checkLink(
   const startedAt = Date.now()
   const checkedAt = new Date().toISOString()
   const slug = normalizeSlug(event, target.slug)
-  const storedLink = await getLink(event, slug)
+  const storedLink = await getOwnerLink(event, getCurrentLinkOwnerId(event), slug)
 
   if (!storedLink) {
     return {

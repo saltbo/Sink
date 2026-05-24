@@ -47,11 +47,11 @@ defineRouteMeta({
 
 export default eventHandler(async (event) => {
   const link = await readValidatedBody(event, LinkSchema.parse)
+  const ownerId = getCurrentLinkOwnerId(event)
 
   await prepareIncomingLink(event, link)
 
-  const existingLink = await getLink(event, link.slug)
-  if (existingLink) {
+  if (await activeSlugExists(event, link.slug) || await getOwnerLink(event, ownerId, link.slug)) {
     throw createError({
       status: 409,
       statusText: 'Link already exists',
@@ -60,7 +60,7 @@ export default eventHandler(async (event) => {
 
   await hashLinkPasswordForCreate(link)
 
-  await putLink(event, link)
+  const createdLink = await createOwnerLink(event, ownerId, link)
   setResponseStatus(event, 201)
-  return buildLinkResponse(event, link)
+  return buildLinkResponse(event, createdLink)
 })

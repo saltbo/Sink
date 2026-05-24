@@ -48,8 +48,9 @@ export default eventHandler(async (event) => {
     })
   }
   const link = await readValidatedBody(event, EditLinkSchema.parse)
+  const ownerId = getCurrentLinkOwnerId(event)
 
-  const existingLink: z.infer<typeof LinkSchema> | null = await getLink(event, link.slug)
+  const existingLink: z.infer<typeof LinkSchema> | null = await getOwnerLink(event, ownerId, link.slug)
   if (!existingLink) {
     throw createError({
       status: 404,
@@ -63,7 +64,7 @@ export default eventHandler(async (event) => {
   const newLink = mergeEditableLink(existingLink, link)
   await applyEditableLinkPassword(newLink, link.password)
 
-  await putLink(event, newLink)
+  const updatedLink = await updateOwnerLink(event, ownerId, newLink)
   setResponseStatus(event, 201)
-  return buildLinkResponse(event, newLink)
+  return buildLinkResponse(event, updatedLink)
 })

@@ -23,7 +23,7 @@
     "wrangler": "wrangler",
     "gen:types": "wrangler types",
     "deploy": "npm run deploy:pages",
-    "deploy:pages": "wrangler pages deploy dist",
+    "deploy:pages": "wrangler pages deploy .output/public --project-name sink",
     "deploy:worker": "wrangler deploy .output/server/index.mjs --assets .output/public",
     "preview": "wrangler dev .output/server/index.mjs --assets .output/public ",
     "postinstall": "npm run build:map && nuxt prepare",

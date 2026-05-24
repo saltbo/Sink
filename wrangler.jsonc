@@ -38,6 +38,14 @@
       "id": "5c3fbd2fbd144d7b82163883eabf4142" // IMPORTANT: Change this to your KV namespace ID
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sink",
+      "database_id": "104db330-89c5-443c-be04-7554ac958712",
+      "migrations_dir": "migrations"
+    }
+  ],
   "r2_buckets": [
     {
       "binding": "R2",

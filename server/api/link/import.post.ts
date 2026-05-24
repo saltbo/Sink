@@ -90,9 +90,8 @@ export default eventHandler(async (event) => {
 
     try {
       const slug = normalizeSlug(event, linkData.slug)
-      const existingLink = await getLink(event, slug)
-
-      if (existingLink) {
+      const ownerId = getCurrentLinkOwnerId(event)
+      if (await getOwnerLink(event, ownerId, slug) || await activeSlugExists(event, slug)) {
         result.skippedItems.push({ index: i, slug, url: linkData.url })
         result.skipped++
         continue
@@ -111,7 +110,7 @@ export default eventHandler(async (event) => {
         link.password = await normalizeLinkPasswordForStorage(link.password)
       }
 
-      await putLink(event, link)
+      await createOwnerLink(event, ownerId, link)
       result.successItems.push({ index: i, slug, url: linkData.url })
       result.success++
     }
