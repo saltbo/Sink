@@ -3,6 +3,12 @@ import type { H3Event } from 'h3'
 import { QuerySchema } from '#shared/schemas/query'
 import { z } from 'zod'
 
+defineRouteMeta({
+  openAPI: {
+    security: [{ sessionCookie: [] }],
+  },
+})
+
 const { select } = SqlBricks
 
 type MetricType = BlobsMap[keyof BlobsMap] | DoublesMap[keyof DoublesMap]

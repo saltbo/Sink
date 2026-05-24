@@ -3,7 +3,7 @@ import { z } from 'zod'
 defineRouteMeta({
   openAPI: {
     description: 'List all short links with pagination',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
     parameters: [
       {
         name: 'limit',

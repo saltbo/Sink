@@ -7,7 +7,7 @@ import { stripCodeFence } from '../../utils/ai'
 defineRouteMeta({
   openAPI: {
     description: 'Generate a slug using AI based on the URL',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
     parameters: [
       {
         name: 'url',

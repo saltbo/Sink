@@ -2,7 +2,11 @@
 
 ## 1. Why can't I create a link?
 
-Please check the Cloudflare KV bindings, the KV environment variable name should be all uppercase letters.
+Check the required Cloudflare bindings and migrations:
+
+1. `DB` must be bound to the D1 database, and all D1 migrations must be applied.
+2. `KV` must be bound to a Workers KV namespace, and the binding name must be uppercase.
+3. If the request comes from the dashboard, the FlareAuth session must be valid.
 
 <details>
   <summary><b>Screenshot</b></summary>
@@ -11,7 +15,13 @@ Please check the Cloudflare KV bindings, the KV environment variable name should
 
 ## 2. Why can't I log in?
 
-Please check if `NUXT_SITE_TOKEN` is set to pure numbers, Sink does not support pure number Tokens, we consider this to be unsafe.
+Check the FlareAuth OIDC configuration:
+
+1. `NUXT_AUTH_ISSUER` must point to the FlareAuth issuer used for OIDC discovery.
+2. `NUXT_AUTH_CLIENT_ID` and `NUXT_AUTH_CLIENT_SECRET` must match the FlareAuth application. Leave the secret empty only for public clients.
+3. `NUXT_AUTH_REDIRECT_URI` must exactly match the callback URL registered in FlareAuth, ending with `/api/auth/callback`.
+4. `NUXT_AUTH_SESSION_SECRET` must be configured.
+5. Production deployments must use HTTPS so the `sink_session` secure cookie can be set. Leave `NUXT_AUTH_ALLOW_INSECURE` unset in production; use literal `NUXT_AUTH_ALLOW_INSECURE=true` only for local HTTP testing.
 
 ## 3. Why can't I see the analytics data?
 
@@ -87,7 +97,7 @@ If a link has no per-link setting, it falls back to the global configuration.
 
 ## 11. How does the Import/Export feature work?
 
-Import and Export are designed to work within Cloudflare Workers' KV operation limits (50 per request by default).
+Import and Export are designed to work within Cloudflare Workers' KV operation limits (50 per request by default). Imported links are stored in D1 as the authoritative owner-scoped records and projected to KV for public redirects.
 
 - **Export**: Downloads links in batches, automatically paginating until complete.
 - **Import**: Uploads links in batches (half of `NUXT_PUBLIC_KV_BATCH_LIMIT`, default 25) since each link requires 2 KV operations (check existence + write).

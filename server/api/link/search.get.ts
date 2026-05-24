@@ -1,7 +1,7 @@
 defineRouteMeta({
   openAPI: {
     description: 'Search all links (returns slug, url, comment for each link)',
-    security: [{ bearerAuth: [] }],
+    security: [{ sessionCookie: [] }],
   },
 })
 

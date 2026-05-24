@@ -1,6 +1,7 @@
 defineRouteMeta({
   openAPI: {
     description: 'Verify the current app session',
+    security: [{ sessionCookie: [] }],
     responses: {
       200: {
         description: 'The current app session is valid',

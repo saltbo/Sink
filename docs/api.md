@@ -1,6 +1,6 @@
 # Sink API
 
-Sink provides a complete RESTful API for managing short links. Full API documentation is available via OpenAPI.
+Sink provides authenticated management APIs for short links and analytics. Full API documentation is available via OpenAPI.
 
 ## OpenAPI Documentation
 
@@ -12,33 +12,33 @@ Visit your Sink instance at `https://your-domain/_docs/scalar` for interactive A
 
 ## Authentication
 
-All API endpoints require authentication via Bearer token in the `Authorization` header:
+Management API endpoints require the authenticated app session created by FlareAuth login. Browser requests from the dashboard send the HttpOnly `sink_session` cookie automatically.
 
 ```http
-Authorization: Bearer YOUR_SITE_TOKEN
+Cookie: sink_session=...
 ```
 
-The token is the same as `NUXT_SITE_TOKEN` configured in your environment variables.
+To create a session, open `/dashboard/login`, complete the FlareAuth OIDC Authorization Code + PKCE flow, and return through `/api/auth/callback`. Unsafe methods also require a same-origin `Origin` header. Public API keys and Bearer-token access for headless clients are deferred and are not part of this MVP.
 
 ## API Endpoints
 
 ### Links
 
-| Method | Endpoint            | Description                            |
-| ------ | ------------------- | -------------------------------------- |
-| `POST` | `/api/link/create`  | Create a new short link                |
-| `PUT`  | `/api/link/edit`    | Update an existing link                |
-| `POST` | `/api/link/upsert`  | Create or update a link by slug        |
-| `POST` | `/api/link/delete`  | Delete a link                          |
-| `GET`  | `/api/link/query`   | Get a link by slug                     |
-| `GET`  | `/api/link/search`  | Search links                           |
-| `GET`  | `/api/link/list`    | List all links (paginated)             |
-| `GET`  | `/api/link/export`  | Export all links as paginated JSON     |
-| `POST` | `/api/link/import`  | Import links from exported JSON        |
-| `GET`  | `/api/link/ai`      | Generate an AI-powered slug suggestion |
-| `GET`  | `/api/link/og-ai`   | Generate AI-powered OpenGraph metadata |
-| `POST` | `/api/upload/image` | Upload an OpenGraph image to R2        |
-| `POST` | `/api/backup`       | Trigger a manual KV backup to R2       |
+| Method | Endpoint            | Description                                 |
+| ------ | ------------------- | ------------------------------------------- |
+| `POST` | `/api/link/create`  | Create a new short link                     |
+| `PUT`  | `/api/link/edit`    | Update an existing link                     |
+| `POST` | `/api/link/upsert`  | Create or update a link by slug             |
+| `POST` | `/api/link/delete`  | Delete a link                               |
+| `GET`  | `/api/link/query`   | Get a link by slug                          |
+| `GET`  | `/api/link/search`  | Search links                                |
+| `GET`  | `/api/link/list`    | List all links (paginated)                  |
+| `GET`  | `/api/link/export`  | Export all links as paginated JSON          |
+| `POST` | `/api/link/import`  | Import links from exported JSON             |
+| `GET`  | `/api/link/ai`      | Generate an AI-powered slug suggestion      |
+| `GET`  | `/api/link/og-ai`   | Generate AI-powered OpenGraph metadata      |
+| `POST` | `/api/upload/image` | Upload an OpenGraph image to R2             |
+| `POST` | `/api/backup`       | Trigger a manual KV projection backup to R2 |
 
 ### Analytics
 
@@ -56,7 +56,8 @@ The token is the same as `NUXT_SITE_TOKEN` configured in your environment variab
 
 ```http
 POST /api/link/create
-Authorization: Bearer SinkCool
+Cookie: sink_session=...
+Origin: https://your-domain.example
 Content-Type: application/json
 
 {
@@ -127,7 +128,7 @@ Password-protected links render an HTML password form for browser visitors. API 
 
 ```http
 GET /api/link/og-ai?url=https%3A%2F%2Fgithub.com%2Fmiantiao-me%2FSink&locale=en-US
-Authorization: Bearer SinkCool
+Cookie: sink_session=...
 ```
 
 ```json
@@ -141,7 +142,7 @@ Authorization: Bearer SinkCool
 
 ```http
 GET /api/stats/export?startAt=1717200000&endAt=1719791999&slug=sink
-Authorization: Bearer SinkCool
+Cookie: sink_session=...
 ```
 
 The response is `text/csv` with these columns:

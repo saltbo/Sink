@@ -30,6 +30,8 @@ Sink uses FlareAuth through standard OpenID Connect Authorization Code + PKCE. C
 https://your-sink-domain.example/api/auth/callback
 ```
 
+Use scopes `openid profile email`. If your FlareAuth application is confidential, configure the client secret in Cloudflare as `NUXT_AUTH_CLIENT_SECRET`; public clients can leave it empty. Configure the application logout destination to your Sink origin or `/dashboard/login`; Sink clears the local `sink_session` cookie on `/api/auth/logout`, but identity-provider logout is handled by FlareAuth.
+
 ### `NUXT_AUTH_ISSUER`
 
 The FlareAuth issuer URL. Sink uses OIDC discovery from this URL.
@@ -50,9 +52,35 @@ The absolute callback URL registered in FlareAuth, ending with `/api/auth/callba
 
 A long random secret used to sign Sink's HttpOnly session cookies. Rotate this value to invalidate all active Sink sessions.
 
+Sink sets two HttpOnly cookies: `sink_oidc` for the temporary login transaction and `sink_session` for the app session. Both use `SameSite=Lax`, path `/`, and secure cookies by default.
+
 ### `NUXT_AUTH_SESSION_TTL_SECONDS`
 
 The app session lifetime in seconds. Default is 604800 seconds (7 days).
+
+### `NUXT_AUTH_ALLOW_INSECURE`
+
+Set to literal `true` only for local HTTP testing. Production deployments should leave this unset so auth cookies require HTTPS. Any other value, including the string `false`, is treated as disabled.
+
+## Cloudflare Bindings
+
+Sink requires these Cloudflare bindings:
+
+| Binding     | Type                     | Required                | Purpose                                                                  |
+| ----------- | ------------------------ | ----------------------- | ------------------------------------------------------------------------ |
+| `DB`        | D1 database              | Yes                     | Authoritative link ownership, soft deletes, and per-user create counters |
+| `KV`        | Workers KV namespace     | Yes                     | Public redirect projection and legacy KV-only import source              |
+| `ANALYTICS` | Analytics Engine dataset | Yes for analytics pages | Click analytics and real-time event queries                              |
+| `R2`        | R2 bucket                | Optional                | OpenGraph image upload and KV backup storage                             |
+| `AI`        | Workers AI               | Optional                | AI slug and OpenGraph metadata generation                                |
+
+Run D1 migrations before serving traffic:
+
+```bash
+pnpm wrangler d1 migrations apply sink --remote
+```
+
+For a new deployment, create and bind the D1 database before applying migrations. The configured D1 database name in `wrangler.jsonc` is `sink`; update the `database_id` for your Cloudflare account.
 
 ## `NUXT_REDIRECT_STATUS_CODE`
 
@@ -125,7 +153,29 @@ This feature requires:
 1. R2 bucket binding configured in `wrangler.jsonc`
 2. Create R2 bucket: `wrangler r2 bucket create sink`
 
-Backups are stored in R2 with the path `backups/links-{timestamp}.json` and run daily at 00:00 UTC.
+Backups are stored in R2 with the path `backups/links-{timestamp}.json` and run daily at 00:00 UTC. This backs up KV redirect projections only; it does not back up D1-only data such as users, ownership, soft-deleted rows, or quota counters. Use Cloudflare D1 export or backup tooling for authoritative database backups.
+
+## Legacy KV-to-D1 Migration
+
+Sink now treats D1 as the authoritative store for dashboard-owned links. KV remains the redirect projection and migration source for legacy Sink deployments.
+
+Automatic lazy migration runs when an authenticated user opens, edits, or checks a legacy slug: Sink reads `link:<slug>` from KV, inserts an active D1 row for the current FlareAuth user, and keeps the KV projection. Legacy links become owned by the signed-in FlareAuth user that triggers migration. Because active slugs are globally unique, a slug that already exists as an active D1 row for another owner will not migrate for the current user.
+
+Owner-scoped list, search, and export endpoints intentionally do not scan KV. Legacy links continue to redirect from KV, but they will not appear in the dashboard or export until they are migrated into D1.
+
+For a complete migration, use a worker-safe manual pass:
+
+1. Deploy the D1-backed version with `DB` and `KV` bound.
+2. Apply all D1 migrations.
+3. Sign in as the FlareAuth user who should own the legacy links.
+4. Enumerate legacy KV keys with the `link:` prefix in batches using Wrangler or the Cloudflare dashboard.
+5. For each slug, call an authenticated management endpoint that loads the slug, such as `GET /api/link/query?slug=<slug>`, with the dashboard session cookie.
+6. Compare the `KV.list({ prefix: 'link:' })` count with active D1 rows for the intended owner.
+7. Spot-check dashboard list, search, and export for migrated links.
+8. Delete one migrated slug's KV projection in a staging environment and visit the public short URL to verify D1 can hydrate KV on redirect cache miss.
+9. Keep a D1 export and a KV backup before deleting any legacy backup data.
+
+If you need unattended bulk migration, add a one-off authenticated Worker job that paginates `KV.list({ prefix: 'link:' })`, validates each value with `LinkSchema`, inserts D1 rows for a configured owner id, and records failures. Keep it outside the request path because KV namespace scans can exceed normal request time limits.
 
 ## `NUXT_SAFE_BROWSING_DOH`
 
