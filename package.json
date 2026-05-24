@@ -70,6 +70,7 @@
     "mysql-bricks": "^2.0.0",
     "nanoid": "^5.1.6",
     "nuxt": "^4.3.0",
+    "openid-client": "^6.8.4",
     "p-limit": "^7.3.0",
     "pluralize": "^8.0.0",
     "qr-code-styling": "^1.9.2",

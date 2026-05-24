@@ -48,8 +48,8 @@ function getDb(event: H3Event): D1Database {
   return event.context.cloudflare.env.DB
 }
 
-export function getCurrentLinkOwnerId(_event: H3Event): string {
-  return DEFAULT_LINK_OWNER_ID
+export function getCurrentLinkOwnerId(event: H3Event): string {
+  return event.context.auth?.user.id ?? DEFAULT_LINK_OWNER_ID
 }
 
 function nowInSeconds(): number {

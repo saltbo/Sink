@@ -22,6 +22,38 @@ Sets the default length of the generated SLUG.
 
 Sets the maximum number of KV operations per request for import/export. Default is 50 (Cloudflare Workers limit per request). Import operations use half of this value since each link requires 2 KV operations (check existence + write).
 
+## FlareAuth OIDC Authentication
+
+Sink uses FlareAuth through standard OpenID Connect Authorization Code + PKCE. Create a FlareAuth OIDC application and register this callback URL:
+
+```txt
+https://your-sink-domain.example/api/auth/callback
+```
+
+### `NUXT_AUTH_ISSUER`
+
+The FlareAuth issuer URL. Sink uses OIDC discovery from this URL.
+
+### `NUXT_AUTH_CLIENT_ID`
+
+The OIDC client ID for the Sink application.
+
+### `NUXT_AUTH_CLIENT_SECRET`
+
+The OIDC client secret for the Sink application. Configure this as a secret in Cloudflare.
+
+### `NUXT_AUTH_REDIRECT_URI`
+
+The absolute callback URL registered in FlareAuth, ending with `/api/auth/callback`.
+
+### `NUXT_AUTH_SESSION_SECRET`
+
+A long random secret used to sign Sink's HttpOnly session cookies. Rotate this value to invalidate all active Sink sessions.
+
+### `NUXT_AUTH_SESSION_TTL_SECONDS`
+
+The app session lifetime in seconds. Default is 604800 seconds (7 days).
+
 ## `NUXT_REDIRECT_STATUS_CODE`
 
 Redirects default to use HTTP 301 status code, you can set it to `302`/`307`/`308`.

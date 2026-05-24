@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { LogOut } from 'lucide-vue-next'
 
-const { removeToken } = useAuthToken()
-
-function logOut() {
-  removeToken()
+async function logOut() {
+  await $fetch('/api/auth/logout', {
+    method: 'POST',
+    credentials: 'same-origin',
+  })
   navigateTo('/dashboard/login')
 }
 </script>

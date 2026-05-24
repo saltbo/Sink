@@ -3,14 +3,57 @@ import { env, SELF } from 'cloudflare:test'
 import { expect } from 'vitest'
 import { LINK_PASSWORD_HASH_PREFIX, LINK_PASSWORD_MASK_PREFIX } from '../shared/utils/link-password'
 
-const TEST_SITE_TOKEN = import.meta.env.NUXT_SITE_TOKEN || 'test-token'
+export const TEST_USER_ID = 'test-user'
+export const TEST_AUTH_SESSION_COOKIE = 'sink_session'
+const TEST_SESSION_SECRET = import.meta.env.NUXT_AUTH_SESSION_SECRET || 'test-session-secret'
+const encoder = new TextEncoder()
 
-export function fetchWithAuth(path: string, options?: RequestInit): Promise<Response> {
+function base64UrlEncode(input: Uint8Array | string): string {
+  const bytes = typeof input === 'string' ? encoder.encode(input) : input
+  let value = ''
+  for (const byte of bytes)
+    value += String.fromCharCode(byte)
+
+  return btoa(value).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '')
+}
+
+async function getSigningKey(secret: string): Promise<CryptoKey> {
+  return await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  )
+}
+
+async function signSessionCookie(value: unknown, secret: string): Promise<string> {
+  const payload = base64UrlEncode(JSON.stringify(value))
+  const signature = await crypto.subtle.sign('HMAC', await getSigningKey(secret), encoder.encode(payload))
+  return `${payload}.${base64UrlEncode(new Uint8Array(signature))}`
+}
+
+export async function getAuthCookie(): Promise<string> {
+  const session = await signSessionCookie({
+    issuer: import.meta.env.NUXT_AUTH_ISSUER || 'https://auth.example.test',
+    expiresAt: Math.floor(Date.now() / 1000) + 60 * 60,
+    user: {
+      id: TEST_USER_ID,
+      email: 'test@example.com',
+      name: 'Test User',
+      roles: ['admin'],
+    },
+  }, TEST_SESSION_SECRET)
+
+  return `${TEST_AUTH_SESSION_COOKIE}=${session}`
+}
+
+export async function fetchWithAuth(path: string, options?: RequestInit): Promise<Response> {
   return SELF.fetch(`http://localhost${path}`, {
     ...options,
     headers: {
       ...options?.headers,
-      Authorization: `Bearer ${TEST_SITE_TOKEN}`,
+      Cookie: await getAuthCookie(),
     },
   })
 }
@@ -19,7 +62,7 @@ export function fetch(path: string, options?: RequestInit): Promise<Response> {
   return SELF.fetch(`http://localhost${path}`, options)
 }
 
-export function postJson(path: string, body: unknown, withAuth = true): Promise<Response> {
+export async function postJson(path: string, body: unknown, withAuth = true): Promise<Response> {
   const fn = withAuth ? fetchWithAuth : fetch
   return fn(path, {
     method: 'POST',
@@ -28,7 +71,7 @@ export function postJson(path: string, body: unknown, withAuth = true): Promise<
   })
 }
 
-export function putJson(path: string, body: unknown, withAuth = true): Promise<Response> {
+export async function putJson(path: string, body: unknown, withAuth = true): Promise<Response> {
   const fn = withAuth ? fetchWithAuth : fetch
   return fn(path, {
     method: 'PUT',
