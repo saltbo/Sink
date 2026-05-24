@@ -64,6 +64,30 @@
     "update": "Versi baru {version} tersedia (saat ini: {current})"
   },
   "home": {
+    "shortener": {
+      "badge": "Tautan pendek dengan analitik",
+      "title": "Buat tautan pendek dalam hitungan detik.",
+      "description": "Tempel URL tujuan, pilih slug yang mudah diingat bila perlu, lalu kelola setiap tautan dari dasbor.",
+      "form_title": "Pendekkan URL",
+      "form_description": "Tautan dari pengguna masuk disimpan ke ruang kerja Anda.",
+      "url_label": "URL tujuan",
+      "url_error": "Masukkan URL yang valid.",
+      "slug_label": "Slug kustom",
+      "slug_description": "Opsional. Gunakan huruf, angka, dan tanda hubung.",
+      "slug_error": "Gunakan hanya huruf, angka, dan tanda hubung.",
+      "create": "Buat tautan pendek",
+      "sign_in_to_create": "Masuk untuk membuat",
+      "sign_in_hint": "Masuk untuk menyimpan tautan ini. Tautan anonim tidak dibuat.",
+      "result_title": "Tautan pendek Anda siap",
+      "copy": "Salin tautan pendek",
+      "open": "Buka tautan pendek",
+      "dashboard": "Buka dasbor",
+      "points": {
+        "custom": "Slug kustom",
+        "analytics": "Analitik klik",
+        "control": "Kontrol tautan"
+      }
+    },
     "hero": {
       "github_repo": "Repositori GitHub"
     },

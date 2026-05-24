@@ -64,6 +64,30 @@
     "update": "Nouvelle version {version} disponible (actuelle : {current})"
   },
   "home": {
+    "shortener": {
+      "badge": "Liens courts avec analyses",
+      "title": "Créez un lien court en quelques secondes.",
+      "description": "Collez une URL de destination, choisissez un slug mémorable si besoin, puis gérez chaque lien depuis le tableau de bord.",
+      "form_title": "Raccourcir une URL",
+      "form_description": "Les liens authentifiés sont enregistrés dans votre espace.",
+      "url_label": "URL de destination",
+      "url_error": "Saisissez une URL valide.",
+      "slug_label": "Slug personnalisé",
+      "slug_description": "Facultatif. Utilisez des lettres, des chiffres et des traits d'union.",
+      "slug_error": "Utilisez uniquement des lettres, des chiffres et des traits d'union.",
+      "create": "Créer le lien court",
+      "sign_in_to_create": "Se connecter pour créer",
+      "sign_in_hint": "Connectez-vous pour enregistrer ce lien. Aucun lien anonyme n'est créé.",
+      "result_title": "Votre lien court est prêt",
+      "copy": "Copier le lien court",
+      "open": "Ouvrir le lien court",
+      "dashboard": "Ouvrir le tableau de bord",
+      "points": {
+        "custom": "Slugs personnalisés",
+        "analytics": "Analyse des clics",
+        "control": "Contrôles de lien"
+      }
+    },
     "hero": {
       "github_repo": "Dépôt GitHub"
     },

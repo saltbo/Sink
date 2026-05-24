@@ -64,6 +64,30 @@
     "update": "Neue Version {version} verfügbar (aktuell: {current})"
   },
   "home": {
+    "shortener": {
+      "badge": "Kurzlinks mit Analysen",
+      "title": "Erstelle in Sekunden einen Kurzlink.",
+      "description": "Füge eine Ziel-URL ein, wähle bei Bedarf einen einprägsamen Slug und verwalte jeden Link im Dashboard.",
+      "form_title": "URL kürzen",
+      "form_description": "Authentifizierte Links werden in deinem Arbeitsbereich gespeichert.",
+      "url_label": "Ziel-URL",
+      "url_error": "Gib eine gültige URL ein.",
+      "slug_label": "Eigener Slug",
+      "slug_description": "Optional. Verwende Buchstaben, Zahlen und Bindestriche.",
+      "slug_error": "Verwende nur Buchstaben, Zahlen und Bindestriche.",
+      "create": "Kurzlink erstellen",
+      "sign_in_to_create": "Zum Erstellen anmelden",
+      "sign_in_hint": "Melde dich an, um diesen Link zu speichern. Anonyme Links werden nicht erstellt.",
+      "result_title": "Dein Kurzlink ist bereit",
+      "copy": "Kurzlink kopieren",
+      "open": "Kurzlink öffnen",
+      "dashboard": "Dashboard öffnen",
+      "points": {
+        "custom": "Eigene Slugs",
+        "analytics": "Klickanalysen",
+        "control": "Link-Steuerung"
+      }
+    },
     "hero": {
       "github_repo": "GitHub-Repository"
     },

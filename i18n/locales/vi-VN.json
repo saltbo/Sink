@@ -64,6 +64,30 @@
     "update": "Phiên bản mới {version} có sẵn (hiện tại: {current})"
   },
   "home": {
+    "shortener": {
+      "badge": "Liên kết rút gọn kèm phân tích",
+      "title": "Tạo liên kết ngắn trong vài giây.",
+      "description": "Dán URL đích, chọn slug dễ nhớ khi cần và quản lý mọi liên kết trong bảng điều khiển.",
+      "form_title": "Rút gọn URL",
+      "form_description": "Liên kết đã xác thực được lưu vào không gian làm việc của bạn.",
+      "url_label": "URL đích",
+      "url_error": "Nhập một URL hợp lệ.",
+      "slug_label": "Slug tùy chỉnh",
+      "slug_description": "Tùy chọn. Dùng chữ cái, số và dấu gạch nối.",
+      "slug_error": "Chỉ dùng chữ cái, số và dấu gạch nối.",
+      "create": "Tạo liên kết ngắn",
+      "sign_in_to_create": "Đăng nhập để tạo",
+      "sign_in_hint": "Đăng nhập để lưu liên kết này. Không tạo liên kết ẩn danh.",
+      "result_title": "Liên kết ngắn của bạn đã sẵn sàng",
+      "copy": "Sao chép liên kết ngắn",
+      "open": "Mở liên kết ngắn",
+      "dashboard": "Mở bảng điều khiển",
+      "points": {
+        "custom": "Slug tùy chỉnh",
+        "analytics": "Phân tích lượt nhấp",
+        "control": "Kiểm soát liên kết"
+      }
+    },
     "hero": {
       "github_repo": "Kho GitHub"
     },
