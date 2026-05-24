@@ -69,6 +69,30 @@
     "update": "New version {version} available (current: {current})"
   },
   "home": {
+    "shortener": {
+      "badge": "Short links with analytics",
+      "title": "Create a short link in seconds.",
+      "description": "Paste a destination URL, choose a memorable slug when you need one, and manage every link from your dashboard.",
+      "form_title": "Shorten a URL",
+      "form_description": "Authenticated links are saved to your workspace.",
+      "url_label": "Destination URL",
+      "url_error": "Enter a valid URL.",
+      "slug_label": "Custom slug",
+      "slug_description": "Optional. Use letters, numbers, and hyphens.",
+      "slug_error": "Use letters, numbers, and hyphens only.",
+      "create": "Create short link",
+      "sign_in_to_create": "Sign in to create",
+      "sign_in_hint": "Sign in to save this link. Anonymous links are not created.",
+      "result_title": "Your short link is ready",
+      "copy": "Copy short link",
+      "open": "Open short link",
+      "dashboard": "Open dashboard",
+      "points": {
+        "custom": "Custom slugs",
+        "analytics": "Click analytics",
+        "control": "Link controls"
+      }
+    },
     "hero": {
       "github_repo": "GitHub Repo"
     },

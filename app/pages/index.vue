@@ -1,10 +1,6 @@
 <template>
   <div class="flex flex-col justify-center">
-    <HomeHero />
-    <HomeLogos />
+    <HomeShortener />
     <HomeFeatures />
-    <HomeStats />
-    <HomeTestimonials />
-    <HomeCta />
   </div>
 </template>

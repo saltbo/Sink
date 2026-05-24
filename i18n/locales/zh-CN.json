@@ -69,6 +69,30 @@
     "update": "新版本 {version} 可用（当前: {current}）"
   },
   "home": {
+    "shortener": {
+      "badge": "带分析的短链接",
+      "title": "几秒钟创建短链接。",
+      "description": "粘贴目标 URL，按需选择好记的短链后缀，并在仪表盘管理每个链接。",
+      "form_title": "缩短 URL",
+      "form_description": "已登录创建的链接会保存到你的工作区。",
+      "url_label": "目标 URL",
+      "url_error": "请输入有效的 URL。",
+      "slug_label": "自定义后缀",
+      "slug_description": "可选。使用字母、数字和连字符。",
+      "slug_error": "只能使用字母、数字和连字符。",
+      "create": "创建短链接",
+      "sign_in_to_create": "登录后创建",
+      "sign_in_hint": "登录即可保存此链接。不会创建匿名链接。",
+      "result_title": "你的短链接已创建",
+      "copy": "复制短链接",
+      "open": "打开短链接",
+      "dashboard": "打开仪表盘",
+      "points": {
+        "custom": "自定义后缀",
+        "analytics": "点击分析",
+        "control": "链接控制"
+      }
+    },
     "hero": {
       "github_repo": "GitHub 仓库"
     },

@@ -69,6 +69,30 @@
     "update": "Nova versão {version} disponível (atual: {current})"
   },
   "home": {
+    "shortener": {
+      "badge": "Links curtos com análises",
+      "title": "Crie um link curto em segundos.",
+      "description": "Cole uma URL de destino, escolha um slug memorável quando precisar e gerencie cada link pelo painel.",
+      "form_title": "Encurtar uma URL",
+      "form_description": "Links autenticados são salvos no seu espaço de trabalho.",
+      "url_label": "URL de destino",
+      "url_error": "Informe uma URL válida.",
+      "slug_label": "Slug personalizado",
+      "slug_description": "Opcional. Use letras, números e hífens.",
+      "slug_error": "Use apenas letras, números e hífens.",
+      "create": "Criar link curto",
+      "sign_in_to_create": "Entrar para criar",
+      "sign_in_hint": "Entre para salvar este link. Links anônimos não são criados.",
+      "result_title": "Seu link curto está pronto",
+      "copy": "Copiar link curto",
+      "open": "Abrir link curto",
+      "dashboard": "Abrir painel",
+      "points": {
+        "custom": "Slugs personalizados",
+        "analytics": "Análise de cliques",
+        "control": "Controles de link"
+      }
+    },
     "hero": {
       "github_repo": "Repositório GitHub"
     },

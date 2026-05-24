@@ -69,6 +69,30 @@
     "update": "新版本 {version} 可用（當前: {current}）"
   },
   "home": {
+    "shortener": {
+      "badge": "帶分析的短連結",
+      "title": "幾秒鐘建立短連結。",
+      "description": "貼上目標 URL，按需選擇好記的短連結後綴，並在儀表板管理每個連結。",
+      "form_title": "縮短 URL",
+      "form_description": "已登入建立的連結會儲存到你的工作區。",
+      "url_label": "目標 URL",
+      "url_error": "請輸入有效的 URL。",
+      "slug_label": "自訂後綴",
+      "slug_description": "選填。使用字母、數字和連字號。",
+      "slug_error": "只能使用字母、數字和連字號。",
+      "create": "建立短連結",
+      "sign_in_to_create": "登入後建立",
+      "sign_in_hint": "登入即可儲存此連結。不會建立匿名連結。",
+      "result_title": "你的短連結已建立",
+      "copy": "複製短連結",
+      "open": "開啟短連結",
+      "dashboard": "開啟儀表板",
+      "points": {
+        "custom": "自訂後綴",
+        "analytics": "點擊分析",
+        "control": "連結控制"
+      }
+    },
     "hero": {
       "github_repo": "GitHub 倉庫"
     },
