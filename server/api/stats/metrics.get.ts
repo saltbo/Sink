@@ -12,8 +12,8 @@ const MetricsQuerySchema = QuerySchema.extend({
   type: z.enum(validMetricTypes),
 })
 
-function query2sql(query: z.infer<typeof MetricsQuerySchema>, event: H3Event): string {
-  const filter = query2filter(query)
+function query2sql(query: z.infer<typeof MetricsQuerySchema>, event: H3Event, ownerLinkIds: string[]): string {
+  const filter = query2filter(query, ownerLinkIds)
   const { dataset } = useRuntimeConfig(event)
 
   const sql = select(`${logsMap[query.type]} as name, SUM(_sample_interval) as count`)
@@ -30,6 +30,7 @@ function query2sql(query: z.infer<typeof MetricsQuerySchema>, event: H3Event): s
 
 export default eventHandler(async (event) => {
   const query = await getValidatedQuery(event, MetricsQuerySchema.parse)
-  const sql = query2sql(query, event)
+  const scopedQuery = await scopeAnalyticsQuery(event, query)
+  const sql = query2sql(scopedQuery.query, event, scopedQuery.ownerLinkIds)
   return useWAE(event, sql)
 })

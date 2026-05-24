@@ -324,6 +324,40 @@ export async function deleteOwnerLink(event: H3Event, ownerId: string, slug: str
   await deleteKvProjection(event, slug)
 }
 
+function bindInValues(values: string[]): string {
+  return values.map(() => '?').join(', ')
+}
+
+export async function listOwnerActiveLinkIds(event: H3Event, ownerId: string): Promise<string[]> {
+  const result = await getDb(event)
+    .prepare(`
+      SELECT id
+      FROM links
+      WHERE owner_id = ? AND status = 'active' AND deleted_at IS NULL AND (expiration IS NULL OR expiration > ?)
+      ORDER BY updated_at DESC, id DESC
+    `)
+    .bind(ownerId, nowInSeconds())
+    .all<{ id: string }>()
+
+  return (result.results ?? []).map(link => link.id)
+}
+
+export async function listOwnerActiveLinkIdsByIds(event: H3Event, ownerId: string, ids: string[]): Promise<string[]> {
+  if (ids.length === 0)
+    return []
+
+  const result = await getDb(event)
+    .prepare(`
+      SELECT id
+      FROM links
+      WHERE owner_id = ? AND id IN (${bindInValues(ids)}) AND status = 'active' AND deleted_at IS NULL AND (expiration IS NULL OR expiration > ?)
+    `)
+    .bind(ownerId, ...ids, nowInSeconds())
+    .all<{ id: string }>()
+
+  return (result.results ?? []).map(link => link.id)
+}
+
 export async function listOwnerLinks(event: H3Event, ownerId: string, options: ListOwnerLinksOptions): Promise<ListOwnerLinksResult> {
   const offset = parseListOffset(options.cursor)
   const now = nowInSeconds()

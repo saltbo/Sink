@@ -1,12 +1,19 @@
 import { describe, expect, it } from 'vitest'
-import { fetch, fetchWithAuth, TEST_PNG_BYTES } from '../utils'
+import { fetch, fetchWithAuth, postJson, TEST_PNG_BYTES } from '../utils'
 
 describe('/api/upload/image', () => {
   it('uploads image with valid file and slug', async () => {
+    const slug = `test-upload-${crypto.randomUUID()}`
+    const createResponse = await postJson('/api/link/create', {
+      slug,
+      url: 'https://example.com/test-upload',
+    })
+    expect(createResponse.status).toBe(201)
+
     const formData = new FormData()
     const file = new File([TEST_PNG_BYTES], 'test.png', { type: 'image/png' })
     formData.append('file', file)
-    formData.append('slug', 'test-upload-slug')
+    formData.append('slug', slug)
 
     const response = await fetchWithAuth('/api/upload/image', {
       method: 'POST',
@@ -18,6 +25,26 @@ describe('/api/upload/image', () => {
     expect(data).toHaveProperty('url')
     expect(data).toHaveProperty('key')
     expect(data.url).toContain('/_assets/')
+  })
+
+  it('returns 404 when uploading for another user link', async () => {
+    const slug = `test-upload-other-${crypto.randomUUID()}`
+    const createResponse = await postJson('/api/link/create', {
+      slug,
+      url: 'https://example.com/test-upload-other',
+    }, true, { id: 'other-upload-owner' })
+    expect(createResponse.status).toBe(201)
+
+    const formData = new FormData()
+    const file = new File([TEST_PNG_BYTES], 'test.png', { type: 'image/png' })
+    formData.append('file', file)
+    formData.append('slug', slug)
+
+    const response = await fetchWithAuth('/api/upload/image', {
+      method: 'POST',
+      body: formData,
+    })
+    expect(response.status).toBe(404)
   })
 
   it('returns 400 when file is missing', async () => {

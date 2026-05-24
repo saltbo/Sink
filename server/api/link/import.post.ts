@@ -24,7 +24,6 @@ defineRouteMeta({
                   type: 'object',
                   required: ['url', 'slug'],
                   properties: {
-                    id: { type: 'string', description: 'Link ID (auto-generated if not provided)' },
                     url: { type: 'string', description: 'The target URL' },
                     slug: { type: 'string', description: 'The slug for the short link' },
                     comment: { type: 'string', description: 'Optional comment' },
@@ -100,7 +99,7 @@ export default eventHandler(async (event) => {
       const now = Math.floor(Date.now() / 1000)
       const link = {
         ...linkData,
-        id: linkData.id || nanoid(10)(),
+        id: nanoid(10)(),
         slug,
         createdAt: linkData.createdAt || now,
         updatedAt: linkData.updatedAt || now,

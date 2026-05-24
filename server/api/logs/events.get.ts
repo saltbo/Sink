@@ -4,8 +4,8 @@ import { date2unix } from '@/utils/time'
 
 const { select } = SqlBricks
 
-function query2sql(query: Query, event: H3Event): string {
-  const filter = query2filter(query)
+function query2sql(query: Query, event: H3Event, ownerLinkIds: string[]): string {
+  const filter = query2filter(query, ownerLinkIds)
   const { dataset } = useRuntimeConfig(event)
   const sql = select(`*`).from(dataset).where(filter).orderBy('timestamp DESC')
   appendTimeFilter(sql, query)
@@ -38,7 +38,8 @@ function events2logs(events: WAEEvents[]) {
 
 export default eventHandler(async (event) => {
   const query = await getValidatedQuery(event, QuerySchema.parse)
-  const sql = query2sql(query, event)
+  const scopedQuery = await scopeAnalyticsQuery(event, query)
+  const sql = query2sql(scopedQuery.query, event, scopedQuery.ownerLinkIds)
 
   const logs = await useWAE(event, sql) as { data: WAEEvents[] }
   return events2logs(logs?.data || [])

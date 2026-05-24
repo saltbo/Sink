@@ -36,5 +36,15 @@ export default eventHandler(async (event) => {
   }
 
   const { slug } = await readValidatedBody(event, DeleteSchema.parse)
-  await deleteOwnerLink(event, getCurrentLinkOwnerId(event), normalizeSlug(event, slug))
+  const ownerId = getCurrentLinkOwnerId(event)
+  const normalizedSlug = normalizeSlug(event, slug)
+
+  if (!await getOwnerLink(event, ownerId, normalizedSlug)) {
+    throw createError({
+      status: 404,
+      statusText: 'Link not found',
+    })
+  }
+
+  await deleteOwnerLink(event, ownerId, normalizedSlug)
 })

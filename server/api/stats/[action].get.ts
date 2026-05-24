@@ -34,8 +34,8 @@ function weightedReferers(column: string): string {
   return `ROUND((COUNT(DISTINCT ${column}) - MAX(if(${column} = '', 1, 0))) * SUM(_sample_interval) / COUNT())`
 }
 
-function query2sql(query: z.infer<typeof StatsExportQuerySchema>, event: H3Event): string {
-  const filter = query2filter(query)
+function query2sql(query: z.infer<typeof StatsExportQuerySchema>, event: H3Event, ownerLinkIds: string[]): string {
+  const filter = query2filter(query, ownerLinkIds)
   const { dataset } = useRuntimeConfig(event)
   const sql = select([
     `${logsMap.slug} as slug`,
@@ -63,7 +63,8 @@ export default eventHandler(async (event) => {
   }
 
   const query = await getValidatedQuery(event, StatsExportQuerySchema.parse)
-  const sql = query2sql(query, event)
+  const scopedQuery = await scopeAnalyticsQuery(event, query)
+  const sql = query2sql(scopedQuery.query, event, scopedQuery.ownerLinkIds)
   const result = await useWAE(event, sql) as { data?: AccessExportRow[] }
   const csv = toCsv(result.data ?? [])
 

@@ -33,14 +33,21 @@ async function signSessionCookie(value: unknown, secret: string): Promise<string
   return `${payload}.${base64UrlEncode(new Uint8Array(signature))}`
 }
 
-export async function getAuthCookie(): Promise<string> {
+interface TestAuthUser {
+  id?: string
+  email?: string
+  name?: string
+}
+
+export async function getAuthCookie(user: TestAuthUser = {}): Promise<string> {
+  const userId = user.id ?? TEST_USER_ID
   const session = await signSessionCookie({
     issuer: import.meta.env.NUXT_AUTH_ISSUER || 'https://auth.example.test',
     expiresAt: Math.floor(Date.now() / 1000) + 60 * 60,
     user: {
-      id: TEST_USER_ID,
-      email: 'test@example.com',
-      name: 'Test User',
+      id: userId,
+      email: user.email ?? `${userId}@example.com`,
+      name: user.name ?? 'Test User',
       roles: ['admin'],
     },
   }, TEST_SESSION_SECRET)
@@ -48,12 +55,12 @@ export async function getAuthCookie(): Promise<string> {
   return `${TEST_AUTH_SESSION_COOKIE}=${session}`
 }
 
-export async function fetchWithAuth(path: string, options?: RequestInit): Promise<Response> {
+export async function fetchWithAuth(path: string, options?: RequestInit, user?: TestAuthUser): Promise<Response> {
   return SELF.fetch(`http://localhost${path}`, {
     ...options,
     headers: {
       ...options?.headers,
-      Cookie: await getAuthCookie(),
+      Cookie: await getAuthCookie(user),
     },
   })
 }
@@ -62,22 +69,22 @@ export function fetch(path: string, options?: RequestInit): Promise<Response> {
   return SELF.fetch(`http://localhost${path}`, options)
 }
 
-export async function postJson(path: string, body: unknown, withAuth = true): Promise<Response> {
-  const fn = withAuth ? fetchWithAuth : fetch
-  return fn(path, {
+export async function postJson(path: string, body: unknown, withAuth = true, user?: TestAuthUser): Promise<Response> {
+  const options = {
     method: 'POST',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
-  })
+  }
+  return withAuth ? fetchWithAuth(path, options, user) : fetch(path, options)
 }
 
-export async function putJson(path: string, body: unknown, withAuth = true): Promise<Response> {
-  const fn = withAuth ? fetchWithAuth : fetch
-  return fn(path, {
+export async function putJson(path: string, body: unknown, withAuth = true, user?: TestAuthUser): Promise<Response> {
+  const options = {
     method: 'PUT',
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
-  })
+  }
+  return withAuth ? fetchWithAuth(path, options, user) : fetch(path, options)
 }
 
 export async function getStoredLink(slug: string) {

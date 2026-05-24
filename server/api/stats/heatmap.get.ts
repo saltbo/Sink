@@ -11,8 +11,8 @@ const HeatmapQuerySchema = QuerySchema.extend({
     .default('Etc/UTC'),
 })
 
-function query2sql(query: z.infer<typeof HeatmapQuerySchema>, event: H3Event): string {
-  const filter = query2filter(query)
+function query2sql(query: z.infer<typeof HeatmapQuerySchema>, event: H3Event, ownerLinkIds: string[]): string {
+  const filter = query2filter(query, ownerLinkIds)
   const { dataset } = useRuntimeConfig(event)
   const timezone = getSafeTimezone(query.clientTimezone)
   const tzTimestamp = `toDateTime(toUnixTimestamp(timestamp), '${timezone}')`
@@ -23,6 +23,7 @@ function query2sql(query: z.infer<typeof HeatmapQuerySchema>, event: H3Event): s
 
 export default eventHandler(async (event) => {
   const query = await getValidatedQuery(event, HeatmapQuerySchema.parse)
-  const sql = query2sql(query, event)
+  const scopedQuery = await scopeAnalyticsQuery(event, query)
+  const sql = query2sql(scopedQuery.query, event, scopedQuery.ownerLinkIds)
   return useWAE(event, sql)
 })
