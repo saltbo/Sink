@@ -21,13 +21,8 @@
   },
   "login": {
     "title": "Login",
-    "description": "Insira seu token do site para entrar",
-    "tips": "Dicas",
-    "preview_token": "O token do site para modo de visualização é",
-    "submit": "Entrar",
-    "failed": "Falha no login, por favor tente novamente",
-    "token_label": "Token do site",
-    "token_required": "Token é obrigatório"
+    "description": "Entre com FlareAuth para gerenciar seus links.",
+    "submit": "Entrar com FlareAuth"
   },
   "logout": {
     "title": "Sair?",

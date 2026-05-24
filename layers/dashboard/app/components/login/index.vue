@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { LogIn } from 'lucide-vue-next'
 
+const route = useRoute()
+
+const returnTo = computed(() => {
+  const value = route.query.returnTo
+  return typeof value === 'string' && value.startsWith('/dashboard') ? value : '/dashboard'
+})
+
 function logIn() {
-  navigateTo('/api/auth/login?returnTo=/dashboard', { external: true })
+  navigateTo(`/api/auth/login?returnTo=${encodeURIComponent(returnTo.value)}`, { external: true })
 }
 </script>
 

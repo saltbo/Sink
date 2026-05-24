@@ -21,13 +21,8 @@
   },
   "login": {
     "title": "登录",
-    "description": "请输入站点令牌以登录",
-    "tips": "提示",
-    "preview_token": "预览模式的站点令牌是",
-    "submit": "登录",
-    "failed": "登录失败，请重试",
-    "token_label": "站点令牌",
-    "token_required": "请输入令牌"
+    "description": "使用 FlareAuth 登录以管理你的链接。",
+    "submit": "使用 FlareAuth 登录"
   },
   "logout": {
     "title": "退出登录？",

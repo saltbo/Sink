@@ -21,18 +21,13 @@
   },
   "login": {
     "title": "Login",
-    "description": "Enter your site token to login",
-    "tips": "Tips",
-    "preview_token": "The site token for preview mode is",
-    "submit": "Login",
-    "failed": "Login failed, please try again",
-    "token_label": "Site Token",
-    "token_required": "Token is required"
+    "description": "Sign in with FlareAuth to manage your links.",
+    "submit": "Sign in with FlareAuth"
   },
   "logout": {
-    "title": "LogOut?",
+    "title": "Log out?",
     "confirm": "Are you sure you want to log out?",
-    "action": "LogOut"
+    "action": "Log out"
   },
   "layouts": {
     "footer": {

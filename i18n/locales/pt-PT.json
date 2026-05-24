@@ -21,13 +21,8 @@
   },
   "login": {
     "title": "Iniciar sessão",
-    "description": "Insere o teu token do site para entrar",
-    "tips": "Dicas",
-    "preview_token": "O token do site para o modo de pré-visualização é",
-    "submit": "Entrar",
-    "failed": "O início de sessão falhou, por favor tenta novamente",
-    "token_label": "Token do site",
-    "token_required": "O token é obrigatório"
+    "description": "Inicia sessão com FlareAuth para gerir os teus links.",
+    "submit": "Iniciar sessão com FlareAuth"
   },
   "logout": {
     "title": "Terminar sessão?",

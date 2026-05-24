@@ -6,6 +6,7 @@ interface User {
   name: string
   email: string
   avatar: string
+  initials: string
 }
 
 const { isMobile } = useSidebar()
@@ -20,17 +21,13 @@ const { data: session } = await useFetch<{
   credentials: 'same-origin',
 })
 
-const hostname = computed<string>(() => {
-  if (import.meta.client) {
-    return window.location.hostname
-  }
-  return 'localhost'
-})
+const profile = computed(() => session.value?.user)
 
 const user = computed<User>(() => ({
-  name: session.value?.user?.name ?? 'Sink',
-  email: session.value?.user?.email ?? `user@${hostname.value}`,
+  name: profile.value?.name ?? profile.value?.email ?? 'FlareAuth user',
+  email: profile.value?.email ?? '',
   avatar: '/sink.png',
+  initials: (profile.value?.name ?? profile.value?.email ?? 'F').trim().charAt(0).toUpperCase(),
 }))
 
 async function logOut() {
@@ -57,12 +54,12 @@ async function logOut() {
             <Avatar class="h-8 w-8 rounded-full">
               <AvatarImage :src="user.avatar" :alt="user.name" />
               <AvatarFallback class="rounded-full">
-                R
+                {{ user.initials }}
               </AvatarFallback>
             </Avatar>
             <div class="grid flex-1 text-left text-sm leading-tight">
               <span class="truncate font-medium">{{ user.name }}</span>
-              <span class="truncate text-xs">{{ user.email }}</span>
+              <span v-if="user.email" class="truncate text-xs">{{ user.email }}</span>
             </div>
             <ChevronsUpDown class="ml-auto size-4" />
           </SidebarMenuButton>
@@ -78,12 +75,12 @@ async function logOut() {
               <Avatar class="h-8 w-8 rounded-full">
                 <AvatarImage :src="user.avatar" :alt="user.name" />
                 <AvatarFallback class="rounded-full">
-                  R
+                  {{ user.initials }}
                 </AvatarFallback>
               </Avatar>
               <div class="grid flex-1 text-left text-sm leading-tight">
                 <span class="truncate font-semibold">{{ user.name }}</span>
-                <span class="truncate text-xs">{{ user.email }}</span>
+                <span v-if="user.email" class="truncate text-xs">{{ user.email }}</span>
               </div>
             </div>
           </DropdownMenuLabel>
