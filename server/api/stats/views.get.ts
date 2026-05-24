@@ -18,8 +18,8 @@ const ViewsQuerySchema = QuerySchema.extend({
     .default('Etc/UTC'),
 })
 
-function query2sql(query: z.infer<typeof ViewsQuerySchema>, event: H3Event): string {
-  const filter = query2filter(query)
+function query2sql(query: z.infer<typeof ViewsQuerySchema>, event: H3Event, ownerLinkIds: string[]): string {
+  const filter = query2filter(query, ownerLinkIds)
   const { dataset } = useRuntimeConfig(event)
   const timezone = getSafeTimezone(query.clientTimezone)
   const sql = select(`formatDateTime(timestamp, '${unitMap[query.unit]}', '${timezone}') as time, SUM(_sample_interval) as visits, COUNT(DISTINCT ${logsMap.ip}) as visitors`).from(dataset).where(filter).groupBy('time').orderBy('time')
@@ -29,6 +29,7 @@ function query2sql(query: z.infer<typeof ViewsQuerySchema>, event: H3Event): str
 
 export default eventHandler(async (event) => {
   const query = await getValidatedQuery(event, ViewsQuerySchema.parse)
-  const sql = query2sql(query, event)
+  const scopedQuery = await scopeAnalyticsQuery(event, query)
+  const sql = query2sql(scopedQuery.query, event, scopedQuery.ownerLinkIds)
   return useWAE(event, sql)
 })

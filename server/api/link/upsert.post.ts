@@ -1,5 +1,14 @@
 import { LinkSchema } from '#shared/schemas/link'
 
+const UpsertLinkSchema = LinkSchema.omit({
+  id: true,
+  ownerId: true,
+  status: true,
+  createdAt: true,
+  updatedAt: true,
+  deletedAt: true,
+})
+
 defineRouteMeta({
   openAPI: {
     description: 'Create or update a short link (upsert)',
@@ -32,7 +41,8 @@ defineRouteMeta({
 })
 
 export default eventHandler(async (event) => {
-  const link = await readValidatedBody(event, LinkSchema.parse)
+  const linkInput = await readValidatedBody(event, UpsertLinkSchema.parse)
+  const link = LinkSchema.parse(linkInput)
   const ownerId = getCurrentLinkOwnerId(event)
 
   await prepareIncomingLink(event, link)

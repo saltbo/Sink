@@ -1,7 +1,7 @@
 import { generateMock } from '@anatine/zod-mock'
 import { afterAll, describe, expect, it } from 'vitest'
 import { z } from 'zod'
-import { deleteStoredLink, expectMaskedPassword, expectStoredHashedPassword, fetch, fetchWithAuth, getStoredLink, postJson, putJson } from '../utils'
+import { deleteStoredLink, expectMaskedPassword, expectStoredHashedPassword, fetch, fetchWithAuth, getStoredD1Link, getStoredLink, postJson, putJson, TEST_USER_ID } from '../utils'
 
 const linkSchema = z.object({
   url: z.string().url(),
@@ -91,6 +91,26 @@ describe.sequential('/api/link/create', () => {
     expect(duplicateResponse.status).toBe(409)
   })
 
+  it('ignores caller supplied id and owner id', async () => {
+    const suppliedId = `create-id-${crypto.randomUUID()}`
+    const slug = `create-server-id-${crypto.randomUUID()}`
+    const response = await postJson('/api/link/create', {
+      id: suppliedId,
+      ownerId: 'other-owner',
+      slug,
+      url: 'https://example.com/create-server-id',
+    })
+    expect(response.status).toBe(201)
+
+    const data = await response.json() as { link: { id: string, ownerId: string } }
+    expect(data.link.id).not.toBe(suppliedId)
+    expect(data.link.ownerId).toBe(TEST_USER_ID)
+
+    const storedLink = await getStoredD1Link(slug)
+    expect(storedLink?.id).toBe(data.link.id)
+    expect(storedLink?.owner_id).toBe(TEST_USER_ID)
+  })
+
   it('masks password in response and stores hashed password', async () => {
     const password = 'secret123'
     const payload = {
@@ -164,6 +184,26 @@ describe.sequential('/api/link/upsert', () => {
   it('updates existing link with valid data', async () => {
     const response = await postJson('/api/link/upsert', testLinkPayload)
     expect(response.status).toBe(200)
+  })
+
+  it('ignores caller supplied id and owner id when creating', async () => {
+    const suppliedId = `upsert-id-${crypto.randomUUID()}`
+    const slug = `upsert-server-id-${crypto.randomUUID()}`
+    const response = await postJson('/api/link/upsert', {
+      id: suppliedId,
+      ownerId: 'other-owner',
+      slug,
+      url: 'https://example.com/upsert-server-id',
+    })
+    expect(response.status).toBe(201)
+
+    const data = await response.json() as { link: { id: string, ownerId: string } }
+    expect(data.link.id).not.toBe(suppliedId)
+    expect(data.link.ownerId).toBe(TEST_USER_ID)
+
+    const storedLink = await getStoredD1Link(slug)
+    expect(storedLink?.id).toBe(data.link.id)
+    expect(storedLink?.owner_id).toBe(TEST_USER_ID)
   })
 
   it('masks password in response and stores hashed password', async () => {
@@ -472,5 +512,59 @@ describe.sequential('/api/link/delete', () => {
   it('returns 401 when accessing without auth', async () => {
     const response = await postJson('/api/link/delete', {}, false)
     expect(response.status).toBe(401)
+  })
+})
+
+describe.sequential('link owner isolation', () => {
+  const otherUser = { id: 'other-link-owner' }
+
+  it('hides another user link from query, edit, delete, list, search, and export', async () => {
+    const ownSlug = `owner-own-${crypto.randomUUID()}`
+    const otherSlug = `owner-other-${crypto.randomUUID()}`
+
+    const ownCreateResponse = await postJson('/api/link/create', {
+      slug: ownSlug,
+      url: 'https://example.com/owner-own',
+    }, true, { id: TEST_USER_ID })
+    expect(ownCreateResponse.status).toBe(201)
+
+    const otherCreateResponse = await postJson('/api/link/create', {
+      slug: otherSlug,
+      url: 'https://example.com/owner-other',
+    }, true, otherUser)
+    expect(otherCreateResponse.status).toBe(201)
+
+    const queryResponse = await fetchWithAuth(`/api/link/query?slug=${otherSlug}`)
+    expect(queryResponse.status).toBe(404)
+
+    const editResponse = await putJson('/api/link/edit', {
+      slug: otherSlug,
+      url: 'https://example.com/owner-other-edited',
+    })
+    expect(editResponse.status).toBe(404)
+
+    const deleteResponse = await postJson('/api/link/delete', { slug: otherSlug })
+    expect(deleteResponse.status).toBe(404)
+
+    const listResponse = await fetchWithAuth('/api/link/list?limit=999')
+    expect(listResponse.status).toBe(200)
+    const listData = await listResponse.json() as { links: Array<{ slug: string }> }
+    expect(listData.links).toContainEqual(expect.objectContaining({ slug: ownSlug }))
+    expect(listData.links).not.toContainEqual(expect.objectContaining({ slug: otherSlug }))
+
+    const searchResponse = await fetchWithAuth('/api/link/search')
+    expect(searchResponse.status).toBe(200)
+    const searchData = await searchResponse.json() as Array<{ slug: string }>
+    expect(searchData).toContainEqual(expect.objectContaining({ slug: ownSlug }))
+    expect(searchData).not.toContainEqual(expect.objectContaining({ slug: otherSlug }))
+
+    const exportResponse = await fetchWithAuth('/api/link/export')
+    expect(exportResponse.status).toBe(200)
+    const exportData = await exportResponse.json() as { links: Array<{ slug: string }> }
+    expect(exportData.links).toContainEqual(expect.objectContaining({ slug: ownSlug }))
+    expect(exportData.links).not.toContainEqual(expect.objectContaining({ slug: otherSlug }))
+
+    const otherQueryResponse = await fetchWithAuth(`/api/link/query?slug=${otherSlug}`, undefined, otherUser)
+    expect(otherQueryResponse.status).toBe(200)
   })
 })

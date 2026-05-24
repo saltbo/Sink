@@ -3,8 +3,8 @@ import { QuerySchema } from '#shared/schemas/query'
 
 const { select } = SqlBricks
 
-function query2sql(query: Query, event: H3Event): string {
-  const filter = query2filter(query)
+function query2sql(query: Query, event: H3Event, ownerLinkIds: string[]): string {
+  const filter = query2filter(query, ownerLinkIds)
   const { dataset } = useRuntimeConfig(event)
   // Weighted distinct count: COUNT(DISTINCT col) * SUM(_sample_interval) / COUNT() ≈ actual distinct count
   const weightedDistinct = (col: string) => `ROUND(COUNT(DISTINCT ${col}) * SUM(_sample_interval) / COUNT())`
@@ -23,6 +23,7 @@ function query2sql(query: Query, event: H3Event): string {
 
 export default eventHandler(async (event) => {
   const query = await getValidatedQuery(event, QuerySchema.parse)
-  const sql = query2sql(query, event)
+  const scopedQuery = await scopeAnalyticsQuery(event, query)
+  const sql = query2sql(scopedQuery.query, event, scopedQuery.ownerLinkIds)
   return useWAE(event, sql)
 })

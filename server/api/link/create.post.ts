@@ -1,5 +1,14 @@
 import { LinkSchema } from '#shared/schemas/link'
 
+const CreateLinkSchema = LinkSchema.omit({
+  id: true,
+  ownerId: true,
+  status: true,
+  createdAt: true,
+  updatedAt: true,
+  deletedAt: true,
+})
+
 defineRouteMeta({
   openAPI: {
     $global: {
@@ -47,7 +56,8 @@ defineRouteMeta({
 })
 
 export default eventHandler(async (event) => {
-  const link = await readValidatedBody(event, LinkSchema.parse)
+  const linkInput = await readValidatedBody(event, CreateLinkSchema.parse)
+  const link = LinkSchema.parse(linkInput)
   const ownerId = getCurrentLinkOwnerId(event)
 
   await prepareIncomingLink(event, link)

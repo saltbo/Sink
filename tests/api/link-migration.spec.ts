@@ -4,7 +4,7 @@ import { generateMock } from '@anatine/zod-mock'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
 import { LINK_PASSWORD_HASH_PREFIX, LINK_PASSWORD_MASK_PREFIX } from '../../shared/utils/link-password'
-import { expectStoredHashedPassword, fetch, fetchWithAuth, getStoredLink, postJson } from '../utils'
+import { expectStoredHashedPassword, fetch, fetchWithAuth, getStoredD1Link, getStoredLink, postJson } from '../utils'
 
 const linkSchema = z.object({
   url: z.string().url(),
@@ -90,6 +90,27 @@ describe.sequential('/api/link/import', () => {
     expect(data).toHaveProperty('skippedItems')
     expect(data).toHaveProperty('failedItems')
     expect(data.success).toBeGreaterThanOrEqual(0)
+  })
+
+  it('generates a fresh link id during import', async () => {
+    const suppliedId = 'import-supplied-id'
+    const slug = `import-fresh-id-${crypto.randomUUID()}`
+    const response = await postJson('/api/link/import', {
+      version: '1.0',
+      links: [{
+        id: suppliedId,
+        slug,
+        url: 'https://example.com/import-fresh-id',
+      }],
+    })
+    expect(response.status).toBe(200)
+
+    const data: ImportResult = await response.json()
+    expect(data.success).toBe(1)
+
+    const storedLink = await getStoredD1Link(slug)
+    expect(storedLink?.id).toBeDefined()
+    expect(storedLink?.id).not.toBe(suppliedId)
   })
 
   it('skips existing links during import', async () => {

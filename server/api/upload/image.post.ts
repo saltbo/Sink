@@ -52,8 +52,13 @@ export default eventHandler(async (event) => {
     throw createError({ status: 400, statusText: 'File size exceeds 5MB limit' })
   }
 
+  const normalizedSlug = normalizeSlug(event, slugResult.data)
+  if (!await getOwnerLink(event, getCurrentLinkOwnerId(event), normalizedSlug)) {
+    throw createError({ status: 404, statusText: 'Link not found' })
+  }
+
   const ext = file.type.split('/')[1]
-  const key = `images/${slug}/${nanoid(10)()}.${ext}`
+  const key = `images/${normalizedSlug}/${nanoid(10)()}.${ext}`
 
   const arrayBuffer = await file.arrayBuffer()
   await R2.put(key, arrayBuffer, {
