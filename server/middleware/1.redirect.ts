@@ -1,3 +1,4 @@
+import type { H3Event } from 'h3'
 import type { Link } from '@/types'
 import { parsePath, withQuery } from 'ufo'
 
@@ -53,7 +54,7 @@ export default eventHandler(async (event) => {
   const { homeURL, linkCacheTtl, caseSensitive, redirectWithQuery, redirectStatusCode } = useRuntimeConfig(event)
   const { cloudflare } = event.context
 
-  if (event.path === '/' && homeURL)
+  if (event.path === '/' && shouldRedirectHome(event, homeURL))
     return sendRedirect(event, homeURL)
 
   const { notFoundRedirect } = useRuntimeConfig(event)
@@ -197,3 +198,12 @@ export default eventHandler(async (event) => {
     }
   }
 })
+
+function shouldRedirectHome(event: H3Event, homeURL: string): boolean {
+  if (!homeURL)
+    return false
+
+  const requestUrl = getRequestURL(event)
+  const targetUrl = new URL(homeURL, requestUrl.origin)
+  return targetUrl.origin !== requestUrl.origin || targetUrl.pathname !== '/'
+}
