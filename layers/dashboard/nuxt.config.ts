@@ -3,9 +3,6 @@ export default defineNuxtConfig({
   ssr: false,
 
   routeRules: {
-    '/dashboard/**': {
-      prerender: true,
-    },
     '/dashboard': {
       redirect: '/dashboard/links',
     },
