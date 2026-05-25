@@ -1,7 +1,7 @@
 defineRouteMeta({
   openAPI: {
     description: 'Manually trigger a backup to R2',
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
   },
 })
 

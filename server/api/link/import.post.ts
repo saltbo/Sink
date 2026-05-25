@@ -21,7 +21,7 @@ function getImportErrorReason(error: unknown): string {
 defineRouteMeta({
   openAPI: {
     description: 'Import links from exported data',
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
     requestBody: {
       required: true,
       content: {

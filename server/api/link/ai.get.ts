@@ -7,7 +7,7 @@ import { stripCodeFence } from '../../utils/ai'
 defineRouteMeta({
   openAPI: {
     description: 'Generate a slug using AI based on the URL',
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
     parameters: [
       {
         name: 'url',
@@ -68,11 +68,11 @@ export default eventHandler(async (event) => {
     { role: 'user', content: 'https://github.com/nuxt/' },
     { role: 'assistant', content: '{"slug": "nuxt"}' },
 
-    { role: 'user', content: 'https://sink.cool/' },
-    { role: 'assistant', content: '{"slug": "sink-cool"}' },
+    { role: 'user', content: 'https://example.com/pricing' },
+    { role: 'assistant', content: '{"slug": "pricing"}' },
 
-    { role: 'user', content: 'https://github.com/miantiao-me/sink' },
-    { role: 'assistant', content: '{"slug": "sink"}' },
+    { role: 'user', content: 'https://developers.cloudflare.com/workers/' },
+    { role: 'assistant', content: '{"slug": "cloudflare-workers"}' },
 
     { role: 'user', content: userContent },
   ]

@@ -14,17 +14,17 @@ defineRouteMeta({
     $global: {
       components: {
         securitySchemes: {
-          sessionCookie: {
-            type: 'apiKey',
-            in: 'cookie',
-            name: 'sink_session',
-            description: 'Authenticated app session cookie',
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearer: 'JWT',
+            description: 'Use a FlareAuth access token',
           },
         },
       },
     },
     description: 'Create a new short link',
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
     requestBody: {
       required: true,
       content: {

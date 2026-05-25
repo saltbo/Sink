@@ -12,7 +12,7 @@ const UpsertLinkSchema = LinkSchema.omit({
 defineRouteMeta({
   openAPI: {
     description: 'Create or update a short link (upsert)',
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
     requestBody: {
       required: true,
       content: {

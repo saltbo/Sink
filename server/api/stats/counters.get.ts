@@ -3,7 +3,7 @@ import { QuerySchema } from '#shared/schemas/query'
 
 defineRouteMeta({
   openAPI: {
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
   },
 })
 

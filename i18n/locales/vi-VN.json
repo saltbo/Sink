@@ -22,7 +22,9 @@
   "login": {
     "title": "Đăng nhập",
     "description": "Đăng nhập bằng FlareAuth để quản lý liên kết của bạn.",
-    "submit": "Đăng nhập bằng FlareAuth"
+    "submit": "Đăng nhập bằng FlareAuth",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "Đăng xuất?",
@@ -30,17 +32,6 @@
     "action": "Đăng xuất"
   },
   "layouts": {
-    "footer": {
-      "copyright": "Sản phẩm của HTML.ZONE",
-      "social": {
-        "email": "Email",
-        "telegram": "Telegram",
-        "blog": "Blog",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "Chọn ngôn ngữ"
     }
@@ -57,17 +48,13 @@
     "platform": "Nền tảng",
     "settings": "Cài đặt",
     "import": "Nhập",
-    "export": "Xuất",
-    "coffee": "Mua cho tôi một ly cà phê",
-    "github": "GitHub",
-    "stars": "Stars",
-    "update": "Phiên bản mới {version} có sẵn (hiện tại: {current})"
+    "export": "Xuất"
   },
   "home": {
     "shortener": {
       "badge": "Liên kết rút gọn kèm phân tích",
-      "title": "Tạo liên kết ngắn trong vài giây.",
-      "description": "Dán URL đích, chọn slug dễ nhớ khi cần và quản lý mọi liên kết trong bảng điều khiển.",
+      "title": "Rút gọn URL.",
+      "description": "Dán URL dài và tạo liên kết ngắn.",
       "form_title": "Rút gọn URL",
       "form_description": "Liên kết đã xác thực được lưu vào không gian làm việc của bạn.",
       "url_label": "URL đích",
@@ -87,9 +74,6 @@
         "analytics": "Phân tích lượt nhấp",
         "control": "Kiểm soát liên kết"
       }
-    },
-    "hero": {
-      "github_repo": "Kho GitHub"
     },
     "features": {
       "title": "Tính năng",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "Xây dựng bằng những công nghệ tuyệt vời"
-    },
-    "twitter": {
-      "follow": "Theo dõi tôi trên X (Twitter)"
-    },
-    "stats": {
-      "title": "Số liệu Sink",
-      "subtitle": "Được tin dùng bởi các nhà phát triển trên toàn thế giới",
-      "stars": "Stars trên GitHub",
-      "forks": "Forks"
-    },
-    "testimonials": {
-      "title": "Người dùng yêu thích",
-      "subtitle": "Xem các nhà phát triển nói gì về Sink"
     }
   },
   "dashboard": {

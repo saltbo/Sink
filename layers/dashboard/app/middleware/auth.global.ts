@@ -2,15 +2,15 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.server)
     return
 
-  if (to.path.startsWith('/dashboard') && to.path !== '/dashboard/login') {
-    const session = await $fetch<{ authenticated: boolean }>('/api/auth/me', { credentials: 'same-origin' })
-    if (!session.authenticated)
+  if (to.path.startsWith('/dashboard') && !['/dashboard/login', '/dashboard/callback'].includes(to.path)) {
+    const user = await getFlareAuthUser()
+    if (!user)
       return navigateTo({ path: '/dashboard/login', query: { returnTo: to.fullPath } })
   }
 
   if (to.path === '/dashboard/login') {
-    const session = await $fetch<{ authenticated: boolean }>('/api/auth/me', { credentials: 'same-origin' })
-    if (session.authenticated)
+    const user = await getFlareAuthUser()
+    if (user)
       return navigateTo('/dashboard')
   }
 })

@@ -22,7 +22,9 @@
   "login": {
     "title": "Masuk",
     "description": "Masuk dengan FlareAuth untuk mengelola tautan Anda.",
-    "submit": "Masuk dengan FlareAuth"
+    "submit": "Masuk dengan FlareAuth",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "Keluar?",
@@ -30,17 +32,6 @@
     "action": "Keluar"
   },
   "layouts": {
-    "footer": {
-      "copyright": "Sebuah produk dari HTML.ZONE",
-      "social": {
-        "email": "Email",
-        "telegram": "Telegram",
-        "blog": "Blog",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "Pilih Bahasa"
     }
@@ -57,17 +48,13 @@
     "platform": "Platform",
     "settings": "Pengaturan",
     "import": "Impor",
-    "export": "Ekspor",
-    "coffee": "Traktir Kopi",
-    "github": "GitHub",
-    "stars": "Bintang",
-    "update": "Versi baru {version} tersedia (saat ini: {current})"
+    "export": "Ekspor"
   },
   "home": {
     "shortener": {
       "badge": "Tautan pendek dengan analitik",
-      "title": "Buat tautan pendek dalam hitungan detik.",
-      "description": "Tempel URL tujuan, pilih slug yang mudah diingat bila perlu, lalu kelola setiap tautan dari dasbor.",
+      "title": "Pendekkan URL.",
+      "description": "Tempel URL panjang dan buat tautan pendek.",
       "form_title": "Pendekkan URL",
       "form_description": "Tautan dari pengguna masuk disimpan ke ruang kerja Anda.",
       "url_label": "URL tujuan",
@@ -87,9 +74,6 @@
         "analytics": "Analitik klik",
         "control": "Kontrol tautan"
       }
-    },
-    "hero": {
-      "github_repo": "Repositori GitHub"
     },
     "features": {
       "title": "Fitur",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "Dibangun dengan teknologi terbaik"
-    },
-    "twitter": {
-      "follow": "Ikuti di X (Twitter)"
-    },
-    "stats": {
-      "title": "Sink dalam Angka",
-      "subtitle": "Dipercaya oleh developer di seluruh dunia",
-      "stars": "Bintang di GitHub",
-      "forks": "Fork"
-    },
-    "testimonials": {
-      "title": "Disukai Pengguna",
-      "subtitle": "Lihat apa kata developer tentang Sink"
     }
   },
   "dashboard": {

@@ -4,7 +4,7 @@ import { date2unix } from '@/utils/time'
 
 defineRouteMeta({
   openAPI: {
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
   },
 })
 

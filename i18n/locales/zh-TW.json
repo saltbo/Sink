@@ -22,7 +22,9 @@
   "login": {
     "title": "登入",
     "description": "使用 FlareAuth 登入以管理你的連結。",
-    "submit": "使用 FlareAuth 登入"
+    "submit": "使用 FlareAuth 登入",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "登出？",
@@ -30,17 +32,6 @@
     "action": "登出"
   },
   "layouts": {
-    "footer": {
-      "copyright": "產品來自 HTML.ZONE",
-      "social": {
-        "email": "信箱",
-        "telegram": "Telegram",
-        "blog": "部落格",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "選擇語言"
     }
@@ -57,17 +48,13 @@
     "platform": "平台",
     "settings": "設定",
     "import": "匯入",
-    "export": "匯出",
-    "coffee": "請我喝杯咖啡",
-    "github": "GitHub",
-    "stars": "Stars",
-    "update": "新版本 {version} 可用（當前: {current}）"
+    "export": "匯出"
   },
   "home": {
     "shortener": {
       "badge": "帶分析的短連結",
-      "title": "幾秒鐘建立短連結。",
-      "description": "貼上目標 URL，按需選擇好記的短連結後綴，並在儀表板管理每個連結。",
+      "title": "縮短 URL。",
+      "description": "貼上長連結，產生短連結。",
       "form_title": "縮短 URL",
       "form_description": "已登入建立的連結會儲存到你的工作區。",
       "url_label": "目標 URL",
@@ -87,9 +74,6 @@
         "analytics": "點擊分析",
         "control": "連結控制"
       }
-    },
-    "hero": {
-      "github_repo": "GitHub 倉庫"
     },
     "features": {
       "title": "功能特色",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "使用優秀的技術構建"
-    },
-    "twitter": {
-      "follow": "在 X(Twitter) 上追蹤我"
-    },
-    "stats": {
-      "title": "有關 Sink 的數據",
-      "subtitle": "受到全球開發者信賴",
-      "stars": "個 GitHub 星星",
-      "forks": "次分叉"
-    },
-    "testimonials": {
-      "title": "深受用戶喜愛",
-      "subtitle": "看看開發者們都怎麼描述 Sink"
     }
   },
   "dashboard": {

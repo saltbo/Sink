@@ -5,10 +5,6 @@ import { useClipboard } from '@vueuse/core'
 import { Check, Copy, ExternalLink, LayoutDashboard, Link2, LoaderCircle, LogIn } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
 
-interface AuthState {
-  authenticated: boolean
-}
-
 interface LinkCreateResponse {
   link: Link
   shortLink: string
@@ -22,15 +18,15 @@ const urlError = ref('')
 const slugError = ref('')
 const formMessage = ref('')
 const createPending = ref(false)
+const authPending = ref(true)
+const isAuthenticated = ref(false)
 const createdLink = ref<LinkCreateResponse | null>(null)
 
-const { data: authState, pending: authPending } = useFetch<AuthState>('/api/auth/me', {
-  credentials: 'same-origin',
-  server: false,
+onMounted(async () => {
+  isAuthenticated.value = Boolean(await getFlareAuthUser())
+  authPending.value = false
 })
 
-const isAuthenticated = computed(() => authState.value?.authenticated === true)
-const createLabel = computed(() => isAuthenticated.value ? t('home.shortener.create') : t('home.shortener.sign_in_to_create'))
 const createDisabled = computed(() => createPending.value || authPending.value)
 
 const shortLink = computed(() => createdLink.value?.shortLink ?? '')
@@ -55,19 +51,19 @@ function validateForm(): boolean {
   return !urlError.value && !slugError.value
 }
 
-function signInForCreation(): void {
+async function signInForCreation(): Promise<void> {
   formMessage.value = t('home.shortener.sign_in_hint')
-  navigateTo('/api/auth/login?returnTo=/dashboard', { external: true })
+  await signInWithFlareAuth('/dashboard')
 }
 
 async function createShortLink(): Promise<void> {
-  if (!validateForm())
-    return
-
   if (!isAuthenticated.value) {
-    signInForCreation()
+    await signInForCreation()
     return
   }
+
+  if (!validateForm())
+    return
 
   createPending.value = true
   createdLink.value = null
@@ -99,72 +95,55 @@ async function copyShortLink(): Promise<void> {
 </script>
 
 <template>
-  <section class="min-h-[calc(100vh-5rem)] border-b">
+  <section class="min-h-[calc(100vh-5rem)]">
     <div
       class="
-        mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl items-center gap-10 px-6
-        py-10
-        lg:grid-cols-[minmax(0,1fr)_minmax(380px,460px)] lg:py-14
+        mx-auto flex min-h-[calc(100vh-5rem)] max-w-2xl flex-col items-center
+        justify-center px-6 py-10
       "
     >
-      <div class="max-w-2xl">
-        <Badge variant="secondary" class="mb-5 gap-2">
-          <Link2 class="size-3.5" />
-          {{ $t('home.shortener.badge') }}
-        </Badge>
-
+      <div class="mb-8 max-w-xl text-center">
         <h1
           class="
-            max-w-3xl text-4xl font-semibold tracking-normal text-balance
+            text-4xl font-semibold tracking-normal text-balance
             md:text-5xl
           "
         >
           {{ $t('home.shortener.title') }}
         </h1>
         <p
-          class="
-            mt-5 max-w-xl text-base leading-7 text-pretty text-muted-foreground
-            md:text-lg
-          "
+          class="mt-4 text-base leading-7 text-pretty text-muted-foreground"
         >
           {{ $t('home.shortener.description') }}
         </p>
-
-        <div
-          class="
-            mt-8 grid gap-3 text-sm text-muted-foreground
-            sm:grid-cols-3
-          "
-        >
-          <div class="rounded-md border bg-muted/30 p-3">
-            {{ $t('home.shortener.points.custom') }}
-          </div>
-          <div class="rounded-md border bg-muted/30 p-3">
-            {{ $t('home.shortener.points.analytics') }}
-          </div>
-          <div class="rounded-md border bg-muted/30 p-3">
-            {{ $t('home.shortener.points.control') }}
-          </div>
-        </div>
       </div>
 
       <div
         class="
-          rounded-lg border bg-card p-5 shadow-sm
+          w-full rounded-lg border bg-card p-5 shadow-sm
           sm:p-6
         "
       >
         <form class="space-y-5" @submit.prevent="createShortLink">
-          <div>
-            <h2 class="text-xl font-semibold">
-              {{ $t('home.shortener.form_title') }}
-            </h2>
-            <p class="mt-1 text-sm text-muted-foreground">
-              {{ $t('home.shortener.form_description') }}
+          <div v-if="authPending" class="flex items-center justify-center py-10">
+            <LoaderCircle class="size-5 animate-spin text-muted-foreground" />
+          </div>
+
+          <div v-else-if="!isAuthenticated" class="space-y-4">
+            <Button type="button" size="lg" class="w-full gap-2" @click="signInForCreation">
+              <LogIn class="size-4" />
+              {{ $t('home.shortener.sign_in_to_create') }}
+            </Button>
+            <p
+              v-if="formMessage" class="
+                text-center text-sm text-muted-foreground
+              " role="status"
+            >
+              {{ formMessage }}
             </p>
           </div>
 
-          <FieldGroup>
+          <FieldGroup v-else>
             <Field :data-invalid="Boolean(urlError)">
               <FieldLabel for="home-url">
                 {{ $t('home.shortener.url_label') }}
@@ -202,16 +181,21 @@ async function copyShortLink(): Promise<void> {
             </Field>
           </FieldGroup>
 
-          <Button type="submit" size="lg" class="w-full gap-2" :disabled="createDisabled">
+          <Button
+            v-if="isAuthenticated" type="submit" size="lg" class="w-full gap-2" :disabled="createDisabled"
+          >
             <LoaderCircle
-              v-if="createPending || authPending" class="size-4 animate-spin"
+              v-if="createPending" class="size-4 animate-spin"
             />
-            <LogIn v-else-if="!isAuthenticated" class="size-4" />
             <Link2 v-else class="size-4" />
-            {{ createLabel }}
+            {{ $t('home.shortener.create') }}
           </Button>
 
-          <p v-if="formMessage" class="text-sm text-muted-foreground" role="status">
+          <p
+            v-if="formMessage && isAuthenticated" class="
+              text-sm text-muted-foreground
+            " role="status"
+          >
             {{ formMessage }}
           </p>
         </form>

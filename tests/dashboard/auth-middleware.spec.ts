@@ -1,18 +1,14 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-interface Session {
-  authenticated: boolean
-}
-
 interface RouteLike {
   path: string
   fullPath: string
 }
 
-async function loadMiddleware(session: Session, navigateTo = vi.fn()) {
+async function loadMiddleware(authenticated: boolean, navigateTo = vi.fn()) {
   vi.resetModules()
   vi.stubGlobal('defineNuxtRouteMiddleware', (fn: (to: RouteLike) => Promise<unknown>) => fn)
-  vi.stubGlobal('$fetch', vi.fn(async () => session))
+  vi.stubGlobal('getFlareAuthUser', vi.fn(async () => authenticated ? { access_token: 'token' } : null))
   vi.stubGlobal('navigateTo', navigateTo)
 
   const mod = await import('../../layers/dashboard/app/middleware/auth.global')
@@ -27,7 +23,7 @@ describe('dashboard auth middleware', () => {
 
   it('redirects unauthenticated dashboard routes to login with returnTo', async () => {
     const navigateTo = vi.fn()
-    const { middleware } = await loadMiddleware({ authenticated: false }, navigateTo)
+    const { middleware } = await loadMiddleware(false, navigateTo)
 
     await middleware({
       path: '/dashboard/links',
@@ -42,7 +38,7 @@ describe('dashboard auth middleware', () => {
 
   it('does not redirect authenticated dashboard routes', async () => {
     const navigateTo = vi.fn()
-    const { middleware } = await loadMiddleware({ authenticated: true }, navigateTo)
+    const { middleware } = await loadMiddleware(true, navigateTo)
 
     await middleware({
       path: '/dashboard/links',
@@ -54,7 +50,7 @@ describe('dashboard auth middleware', () => {
 
   it('redirects authenticated login visits back to the dashboard', async () => {
     const navigateTo = vi.fn()
-    const { middleware } = await loadMiddleware({ authenticated: true }, navigateTo)
+    const { middleware } = await loadMiddleware(true, navigateTo)
 
     await middleware({
       path: '/dashboard/login',
@@ -66,7 +62,7 @@ describe('dashboard auth middleware', () => {
 
   it('allows unauthenticated access to the login page', async () => {
     const navigateTo = vi.fn()
-    const { middleware } = await loadMiddleware({ authenticated: false }, navigateTo)
+    const { middleware } = await loadMiddleware(false, navigateTo)
 
     await middleware({
       path: '/dashboard/login',

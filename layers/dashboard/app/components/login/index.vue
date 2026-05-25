@@ -9,7 +9,7 @@ const returnTo = computed(() => {
 })
 
 function logIn() {
-  navigateTo(`/api/auth/login?returnTo=${encodeURIComponent(returnTo.value)}`, { external: true })
+  signInWithFlareAuth(returnTo.value)
 }
 </script>
 

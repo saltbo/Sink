@@ -22,7 +22,9 @@
   "login": {
     "title": "Login",
     "description": "Entre com FlareAuth para gerenciar seus links.",
-    "submit": "Entrar com FlareAuth"
+    "submit": "Entrar com FlareAuth",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "Sair?",
@@ -30,17 +32,6 @@
     "action": "Sair"
   },
   "layouts": {
-    "footer": {
-      "copyright": "Produtos da HTML.ZONE",
-      "social": {
-        "email": "E-mail",
-        "telegram": "Telegram",
-        "blog": "Blog",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "Selecionar idioma"
     }
@@ -57,17 +48,13 @@
     "platform": "Plataforma",
     "settings": "Configurações",
     "import": "Importar",
-    "export": "Exportar",
-    "coffee": "Pague-me um café",
-    "github": "GitHub",
-    "stars": "Estrelas",
-    "update": "Nova versão {version} disponível (atual: {current})"
+    "export": "Exportar"
   },
   "home": {
     "shortener": {
       "badge": "Links curtos com análises",
-      "title": "Crie um link curto em segundos.",
-      "description": "Cole uma URL de destino, escolha um slug memorável quando precisar e gerencie cada link pelo painel.",
+      "title": "Encurte uma URL.",
+      "description": "Cole uma URL longa e crie um link curto.",
       "form_title": "Encurtar uma URL",
       "form_description": "Links autenticados são salvos no seu espaço de trabalho.",
       "url_label": "URL de destino",
@@ -87,9 +74,6 @@
         "analytics": "Análise de cliques",
         "control": "Controles de link"
       }
-    },
-    "hero": {
-      "github_repo": "Repositório GitHub"
     },
     "features": {
       "title": "Funcionalidades",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "Construído com tecnologias incríveis"
-    },
-    "twitter": {
-      "follow": "Siga no X (Twitter)"
-    },
-    "stats": {
-      "title": "Mergulhe nos números",
-      "subtitle": "Confiado por desenvolvedores ao redor do mundo",
-      "stars": "Estrelas no GitHub",
-      "forks": "Forks"
-    },
-    "testimonials": {
-      "title": "Amado pelos usuários",
-      "subtitle": "Veja o que os desenvolvedores estão dizendo sobre o Sink"
     }
   },
   "dashboard": {

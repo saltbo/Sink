@@ -1,23 +1,21 @@
 defineRouteMeta({
   openAPI: {
-    description: 'Verify the current app session',
-    security: [{ sessionCookie: [] }],
+    description: 'Verify the current FlareAuth access token',
+    security: [{ bearerAuth: [] }],
     responses: {
       200: {
-        description: 'The current app session is valid',
+        description: 'The current access token is valid',
       },
       default: {
-        description: 'The current app session is invalid',
+        description: 'The current access token is invalid',
       },
     },
   },
 })
 
 export default eventHandler(async (event) => {
-  const session = await requireAuthSession(event)
-
   return {
     authenticated: true,
-    user: session.user,
+    user: event.context.auth?.user,
   }
 })

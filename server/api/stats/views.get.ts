@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 defineRouteMeta({
   openAPI: {
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
   },
 })
 

@@ -22,7 +22,9 @@
   "login": {
     "title": "登录",
     "description": "使用 FlareAuth 登录以管理你的链接。",
-    "submit": "使用 FlareAuth 登录"
+    "submit": "使用 FlareAuth 登录",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "退出登录？",
@@ -30,17 +32,6 @@
     "action": "退出登录"
   },
   "layouts": {
-    "footer": {
-      "copyright": "产品来自 HTML.ZONE",
-      "social": {
-        "email": "邮箱",
-        "telegram": "Telegram",
-        "blog": "博客",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "选择语言"
     }
@@ -57,17 +48,13 @@
     "platform": "平台",
     "settings": "设置",
     "import": "导入",
-    "export": "导出",
-    "coffee": "请我喝杯咖啡",
-    "github": "GitHub",
-    "stars": "Stars",
-    "update": "新版本 {version} 可用（当前: {current}）"
+    "export": "导出"
   },
   "home": {
     "shortener": {
       "badge": "带分析的短链接",
-      "title": "几秒钟创建短链接。",
-      "description": "粘贴目标 URL，按需选择好记的短链后缀，并在仪表盘管理每个链接。",
+      "title": "缩短 URL。",
+      "description": "粘贴长链接，生成短链接。",
       "form_title": "缩短 URL",
       "form_description": "已登录创建的链接会保存到你的工作区。",
       "url_label": "目标 URL",
@@ -87,9 +74,6 @@
         "analytics": "点击分析",
         "control": "链接控制"
       }
-    },
-    "hero": {
-      "github_repo": "GitHub 仓库"
     },
     "features": {
       "title": "功能特点",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "使用优秀的技术构建"
-    },
-    "twitter": {
-      "follow": "在 X(Twitter) 上关注我"
-    },
-    "stats": {
-      "title": "Sink 数据",
-      "subtitle": "受到全球开发者的信赖",
-      "stars": "GitHub Stars",
-      "forks": "Forks"
-    },
-    "testimonials": {
-      "title": "用户好评",
-      "subtitle": "看看开发者们怎么说"
     }
   },
   "dashboard": {

@@ -22,7 +22,9 @@
   "login": {
     "title": "Login",
     "description": "Sign in with FlareAuth to manage your links.",
-    "submit": "Sign in with FlareAuth"
+    "submit": "Sign in with FlareAuth",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "Log out?",
@@ -30,17 +32,6 @@
     "action": "Log out"
   },
   "layouts": {
-    "footer": {
-      "copyright": "Products of HTML.ZONE",
-      "social": {
-        "email": "Email",
-        "telegram": "Telegram",
-        "blog": "Blog",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "Select Language"
     }
@@ -57,17 +48,13 @@
     "platform": "Platform",
     "settings": "Settings",
     "import": "Import",
-    "export": "Export",
-    "coffee": "Buy me a coffee",
-    "github": "GitHub",
-    "stars": "Stars",
-    "update": "New version {version} available (current: {current})"
+    "export": "Export"
   },
   "home": {
     "shortener": {
       "badge": "Short links with analytics",
-      "title": "Create a short link in seconds.",
-      "description": "Paste a destination URL, choose a memorable slug when you need one, and manage every link from your dashboard.",
+      "title": "Shorten a URL.",
+      "description": "Paste a long URL and create a short link.",
       "form_title": "Shorten a URL",
       "form_description": "Authenticated links are saved to your workspace.",
       "url_label": "Destination URL",
@@ -87,9 +74,6 @@
         "analytics": "Click analytics",
         "control": "Link controls"
       }
-    },
-    "hero": {
-      "github_repo": "GitHub Repo"
     },
     "features": {
       "title": "Features",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "Built with awesome technologies"
-    },
-    "twitter": {
-      "follow": "Follow on X(Twitter)"
-    },
-    "stats": {
-      "title": "Sink in Numbers",
-      "subtitle": "Trusted by developers around the world",
-      "stars": "Stars on GitHub",
-      "forks": "Forks"
-    },
-    "testimonials": {
-      "title": "Loved by Users",
-      "subtitle": "See what developers are saying about Sink"
     }
   },
   "dashboard": {

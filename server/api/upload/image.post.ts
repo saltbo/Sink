@@ -6,7 +6,7 @@ const slugValidator = LinkSchema.shape.slug
 defineRouteMeta({
   openAPI: {
     description: 'Upload an image to R2 storage',
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
     requestBody: {
       required: true,
       content: {

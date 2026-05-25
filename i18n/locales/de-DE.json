@@ -22,7 +22,9 @@
   "login": {
     "title": "Anmelden",
     "description": "Melde dich mit FlareAuth an, um deine Links zu verwalten.",
-    "submit": "Mit FlareAuth anmelden"
+    "submit": "Mit FlareAuth anmelden",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "Abmelden?",
@@ -30,17 +32,6 @@
     "action": "Abmelden"
   },
   "layouts": {
-    "footer": {
-      "copyright": "Produkte von HTML.ZONE",
-      "social": {
-        "email": "E-Mail",
-        "telegram": "Telegram",
-        "blog": "Blog",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "Sprache auswählen"
     }
@@ -57,17 +48,13 @@
     "platform": "Plattform",
     "settings": "Einstellungen",
     "import": "Importieren",
-    "export": "Exportieren",
-    "coffee": "Kauf mir einen Kaffee",
-    "github": "GitHub",
-    "stars": "Stars",
-    "update": "Neue Version {version} verfügbar (aktuell: {current})"
+    "export": "Exportieren"
   },
   "home": {
     "shortener": {
       "badge": "Kurzlinks mit Analysen",
-      "title": "Erstelle in Sekunden einen Kurzlink.",
-      "description": "Füge eine Ziel-URL ein, wähle bei Bedarf einen einprägsamen Slug und verwalte jeden Link im Dashboard.",
+      "title": "URL kürzen.",
+      "description": "Füge eine lange URL ein und erstelle einen kurzen Link.",
       "form_title": "URL kürzen",
       "form_description": "Authentifizierte Links werden in deinem Arbeitsbereich gespeichert.",
       "url_label": "Ziel-URL",
@@ -87,9 +74,6 @@
         "analytics": "Klickanalysen",
         "control": "Link-Steuerung"
       }
-    },
-    "hero": {
-      "github_repo": "GitHub-Repository"
     },
     "features": {
       "title": "Funktionen",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "Entwickelt mit großartigen Technologien"
-    },
-    "twitter": {
-      "follow": "Folge mir auf X (Twitter)"
-    },
-    "stats": {
-      "title": "Sink in Zahlen",
-      "subtitle": "Von Entwicklern weltweit vertraut",
-      "stars": "Stars auf GitHub",
-      "forks": "Forks"
-    },
-    "testimonials": {
-      "title": "Von Nutzern geliebt",
-      "subtitle": "Erfahre, was Entwickler über Sink sagen"
     }
   },
   "dashboard": {

@@ -12,13 +12,13 @@ Visit your Sink instance at `https://your-domain/_docs/scalar` for interactive A
 
 ## Authentication
 
-Management API endpoints require the authenticated app session created by FlareAuth login. Browser requests from the dashboard send the HttpOnly `sink_session` cookie automatically.
+Management API endpoints require a FlareAuth JWT access token issued for the configured Sink API audience.
 
 ```http
-Cookie: sink_session=...
+Authorization: Bearer <access_token>
 ```
 
-To create a session, open `/dashboard/login`, complete the FlareAuth OIDC Authorization Code + PKCE flow, and return through `/api/auth/callback`. Unsafe methods also require a same-origin `Origin` header. Public API keys and Bearer-token access for headless clients are deferred and are not part of this MVP.
+The dashboard obtains this token by redirecting to FlareAuth with standard OIDC Authorization Code + PKCE. Sink does not expose login, callback, logout, or session-cookie APIs.
 
 ## API Endpoints
 
@@ -56,14 +56,13 @@ To create a session, open `/dashboard/login`, complete the FlareAuth OIDC Author
 
 ```http
 POST /api/link/create
-Cookie: sink_session=...
-Origin: https://your-domain.example
+Authorization: Bearer <access_token>
 Content-Type: application/json
 
 {
-  "url": "https://github.com/miantiao-me/Sink",
-  "slug": "sink",
-  "comment": "GitHub repo",
+  "url": "https://example.com/pricing",
+  "slug": "pricing",
+  "comment": "Pricing page",
   "expiration": 1767225599,
   "apple": "https://apps.apple.com/app/id6745417598",
   "google": "https://play.google.com/store/apps/details?id=com.example",
@@ -86,9 +85,9 @@ Content-Type: application/json
 {
   "link": {
     "id": "01jxyz...",
-    "url": "https://github.com/miantiao-me/Sink",
-    "slug": "sink",
-    "comment": "GitHub repo",
+    "url": "https://example.com/pricing",
+    "slug": "pricing",
+    "comment": "Pricing page",
     "createdAt": 1718119809,
     "updatedAt": 1718119809
   }
@@ -127,14 +126,14 @@ Password-protected links render an HTML password form for browser visitors. API 
 ### Example: Generate OpenGraph Metadata with AI
 
 ```http
-GET /api/link/og-ai?url=https%3A%2F%2Fgithub.com%2Fmiantiao-me%2FSink&locale=en-US
-Cookie: sink_session=...
+GET /api/link/og-ai?url=https%3A%2F%2Fexample.com%2Fpricing&locale=en-US
+Authorization: Bearer <access_token>
 ```
 
 ```json
 {
-  "title": "Sink",
-  "description": "A simple, speedy, secure link shortener with analytics on Cloudflare."
+  "title": "Pricing",
+  "description": "Pricing information for the example service."
 }
 ```
 
@@ -142,14 +141,14 @@ Cookie: sink_session=...
 
 ```http
 GET /api/stats/export?startAt=1717200000&endAt=1719791999&slug=sink
-Cookie: sink_session=...
+Authorization: Bearer <access_token>
 ```
 
 The response is `text/csv` with these columns:
 
 ```csv
 slug,url,viewer,views,referer
-sink,https://github.com/miantiao-me/Sink,123,456,12
+pricing,https://example.com/pricing,123,456,12
 ```
 
 ## CORS

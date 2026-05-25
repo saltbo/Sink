@@ -23,19 +23,19 @@ function operation(document: OpenApiDocument, path: string, method: string): Ope
 }
 
 describe('/_docs/openapi.json', () => {
-  it('documents session-cookie auth for protected management APIs', async () => {
+  it('documents bearer auth for protected management APIs', async () => {
     const response = await fetch('/_docs/openapi.json')
 
     expect(response.status).toBe(200)
 
     const document = await response.json() as OpenApiDocument
-    expect(document.components?.securitySchemes).toHaveProperty('sessionCookie')
-    expect(document.components?.securitySchemes).not.toHaveProperty('bearerAuth')
+    expect(document.components?.securitySchemes).toHaveProperty('bearerAuth')
+    expect(document.components?.securitySchemes).not.toHaveProperty('sessionCookie')
 
-    expect(operation(document, '/api/link/create', 'post').security).toEqual([{ sessionCookie: [] }])
-    expect(operation(document, '/api/link/list', 'get').security).toEqual([{ sessionCookie: [] }])
-    expect(operation(document, '/api/stats/counters', 'get').security).toEqual([{ sessionCookie: [] }])
-    expect(operation(document, '/api/logs/events', 'get').security).toEqual([{ sessionCookie: [] }])
-    expect(operation(document, '/api/verify', 'get').security).toEqual([{ sessionCookie: [] }])
+    expect(operation(document, '/api/link/create', 'post').security).toEqual([{ bearerAuth: [] }])
+    expect(operation(document, '/api/link/list', 'get').security).toEqual([{ bearerAuth: [] }])
+    expect(operation(document, '/api/stats/counters', 'get').security).toEqual([{ bearerAuth: [] }])
+    expect(operation(document, '/api/logs/events', 'get').security).toEqual([{ bearerAuth: [] }])
+    expect(operation(document, '/api/verify', 'get').security).toEqual([{ bearerAuth: [] }])
   })
 })

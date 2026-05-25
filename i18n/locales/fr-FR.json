@@ -22,7 +22,9 @@
   "login": {
     "title": "Connexion",
     "description": "Connectez-vous avec FlareAuth pour gérer vos liens.",
-    "submit": "Se connecter avec FlareAuth"
+    "submit": "Se connecter avec FlareAuth",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "Déconnexion ?",
@@ -30,17 +32,6 @@
     "action": "Déconnexion"
   },
   "layouts": {
-    "footer": {
-      "copyright": "Produits de HTML.ZONE",
-      "social": {
-        "email": "Email",
-        "telegram": "Telegram",
-        "blog": "Blog",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "Choisir la langue"
     }
@@ -57,17 +48,13 @@
     "platform": "Plateforme",
     "settings": "Paramètres",
     "import": "Importer",
-    "export": "Exporter",
-    "coffee": "Offrez-moi un café",
-    "github": "GitHub",
-    "stars": "Stars",
-    "update": "Nouvelle version {version} disponible (actuelle : {current})"
+    "export": "Exporter"
   },
   "home": {
     "shortener": {
       "badge": "Liens courts avec analyses",
-      "title": "Créez un lien court en quelques secondes.",
-      "description": "Collez une URL de destination, choisissez un slug mémorable si besoin, puis gérez chaque lien depuis le tableau de bord.",
+      "title": "Raccourcir une URL.",
+      "description": "Collez une URL longue et créez un lien court.",
       "form_title": "Raccourcir une URL",
       "form_description": "Les liens authentifiés sont enregistrés dans votre espace.",
       "url_label": "URL de destination",
@@ -87,9 +74,6 @@
         "analytics": "Analyse des clics",
         "control": "Contrôles de lien"
       }
-    },
-    "hero": {
-      "github_repo": "Dépôt GitHub"
     },
     "features": {
       "title": "Fonctionnalités",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "Construit avec de superbes technologies"
-    },
-    "twitter": {
-      "follow": "Suivez-moi sur X(Twitter)"
-    },
-    "stats": {
-      "title": "Sink en chiffres",
-      "subtitle": "Approuvé par les développeurs du monde entier",
-      "stars": "Stars sur GitHub",
-      "forks": "Forks"
-    },
-    "testimonials": {
-      "title": "Aimé par les utilisateurs",
-      "subtitle": "Découvrez ce que disent les développeurs à propos de Sink"
     }
   },
   "dashboard": {

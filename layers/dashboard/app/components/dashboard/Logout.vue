@@ -2,11 +2,7 @@
 import { LogOut } from 'lucide-vue-next'
 
 async function logOut() {
-  await $fetch('/api/auth/logout', {
-    method: 'POST',
-    credentials: 'same-origin',
-  })
-  navigateTo('/dashboard/login')
+  await signOutFromFlareAuth()
 }
 </script>
 

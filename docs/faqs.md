@@ -18,10 +18,10 @@ Check the required Cloudflare bindings and migrations:
 Check the FlareAuth OIDC configuration:
 
 1. `NUXT_AUTH_ISSUER` must point to the FlareAuth issuer used for OIDC discovery.
-2. `NUXT_AUTH_CLIENT_ID` and `NUXT_AUTH_CLIENT_SECRET` must match the FlareAuth application. Leave the secret empty only for public clients.
-3. `NUXT_AUTH_REDIRECT_URI` must exactly match the callback URL registered in FlareAuth, ending with `/api/auth/callback`.
-4. `NUXT_AUTH_SESSION_SECRET` must be configured.
-5. Production deployments must use HTTPS so the `sink_session` secure cookie can be set. Leave `NUXT_AUTH_ALLOW_INSECURE` unset in production; use literal `NUXT_AUTH_ALLOW_INSECURE=true` only for local HTTP testing.
+2. `NUXT_AUTH_AUDIENCE` must match the FlareAuth API resource audience requested by the dashboard.
+3. `NUXT_PUBLIC_AUTH_CLIENT_ID` must match the FlareAuth public OIDC application.
+4. `NUXT_PUBLIC_AUTH_REDIRECT_URI` must exactly match the callback URL registered in FlareAuth, ending with `/dashboard/callback`.
+5. `NUXT_PUBLIC_AUTH_RESOURCE` should match `NUXT_AUTH_AUDIENCE`.
 
 ## 3. Why can't I see the analytics data?
 

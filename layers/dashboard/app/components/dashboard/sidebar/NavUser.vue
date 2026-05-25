@@ -11,17 +11,15 @@ interface User {
 
 const { isMobile } = useSidebar()
 
-const { data: session } = await useFetch<{
-  authenticated: boolean
-  user: {
-    name?: string
-    email?: string
-  } | null
-}>('/api/auth/me', {
-  credentials: 'same-origin',
-})
+const profile = ref<{ name?: string, email?: string } | null>(null)
 
-const profile = computed(() => session.value?.user)
+onMounted(async () => {
+  const user = await getFlareAuthUser()
+  profile.value = {
+    name: typeof user?.profile.name === 'string' ? user.profile.name : undefined,
+    email: typeof user?.profile.email === 'string' ? user.profile.email : undefined,
+  }
+})
 
 const user = computed<User>(() => ({
   name: profile.value?.name ?? profile.value?.email ?? 'FlareAuth user',
@@ -31,11 +29,7 @@ const user = computed<User>(() => ({
 }))
 
 async function logOut() {
-  await $fetch('/api/auth/logout', {
-    method: 'POST',
-    credentials: 'same-origin',
-  })
-  navigateTo('/dashboard/login')
+  await signOutFromFlareAuth()
 }
 </script>
 

@@ -8,7 +8,7 @@ const EditLinkSchema = LinkSchema.extend({
 defineRouteMeta({
   openAPI: {
     description: 'Edit an existing short link',
-    security: [{ sessionCookie: [] }],
+    security: [{ bearerAuth: [] }],
     requestBody: {
       required: true,
       content: {

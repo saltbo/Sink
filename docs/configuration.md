@@ -24,43 +24,49 @@ Sets the maximum number of KV operations per request for import/export. Default 
 
 ## FlareAuth OIDC Authentication
 
-Sink uses FlareAuth through standard OpenID Connect Authorization Code + PKCE. Create a FlareAuth OIDC application and register this callback URL:
+Sink delegates login to FlareAuth and acts as a resource server. The dashboard uses standard OpenID Connect Authorization Code + PKCE in the browser, then sends the FlareAuth access token to Sink APIs as a Bearer token.
 
 ```txt
-https://your-sink-domain.example/api/auth/callback
+https://your-sink-domain.example/dashboard/callback
 ```
 
-Use scopes `openid profile email`. If your FlareAuth application is confidential, configure the client secret in Cloudflare as `NUXT_AUTH_CLIENT_SECRET`; public clients can leave it empty. Configure the application logout destination to your Sink origin or `/dashboard/login`; Sink clears the local `sink_session` cookie on `/api/auth/logout`, but identity-provider logout is handled by FlareAuth.
+Create a FlareAuth API resource for Sink and set its audience to your Sink API identifier, for example `https://your-sink-domain.example/api`. Add permissions such as `links.read`, `links.write`, `analytics.read`, and `sink.read`, then attach them to roles that FlareAuth emits into access-token claims.
 
 ### `NUXT_AUTH_ISSUER`
 
-The FlareAuth issuer URL. Sink uses OIDC discovery from this URL.
+The FlareAuth issuer URL used by the Sink API for OIDC discovery and JWT issuer validation.
 
-### `NUXT_AUTH_CLIENT_ID`
+### `NUXT_AUTH_AUDIENCE`
 
-The OIDC client ID for the Sink application.
+The expected FlareAuth access-token audience for Sink APIs.
 
-### `NUXT_AUTH_CLIENT_SECRET`
+### `NUXT_AUTH_JWKS_JSON`
 
-The OIDC client secret for the Sink application. Configure this as a secret in Cloudflare.
+Optional local JWKS JSON. Leave unset in production so Sink uses the issuer discovery `jwks_uri`.
 
-### `NUXT_AUTH_REDIRECT_URI`
+### `NUXT_PUBLIC_AUTH_ISSUER`
 
-The absolute callback URL registered in FlareAuth, ending with `/api/auth/callback`.
+The FlareAuth issuer URL used by the browser OIDC client.
 
-### `NUXT_AUTH_SESSION_SECRET`
+### `NUXT_PUBLIC_AUTH_CLIENT_ID`
 
-A long random secret used to sign Sink's HttpOnly session cookies. Rotate this value to invalidate all active Sink sessions.
+The public FlareAuth OIDC client ID for the Sink dashboard.
 
-Sink sets two HttpOnly cookies: `sink_oidc` for the temporary login transaction and `sink_session` for the app session. Both use `SameSite=Lax`, path `/`, and secure cookies by default.
+### `NUXT_PUBLIC_AUTH_REDIRECT_URI`
 
-### `NUXT_AUTH_SESSION_TTL_SECONDS`
+The dashboard callback URL registered in FlareAuth, ending with `/dashboard/callback`.
 
-The app session lifetime in seconds. Default is 604800 seconds (7 days).
+### `NUXT_PUBLIC_AUTH_POST_LOGOUT_REDIRECT_URI`
 
-### `NUXT_AUTH_ALLOW_INSECURE`
+The URL FlareAuth should return to after logout.
 
-Set to literal `true` only for local HTTP testing. Production deployments should leave this unset so auth cookies require HTTPS. Any other value, including the string `false`, is treated as disabled.
+### `NUXT_PUBLIC_AUTH_SCOPE`
+
+The OIDC scopes requested by the dashboard. Keep API authorization in FlareAuth resource permissions and role assignments rather than requesting resource scopes here.
+
+### `NUXT_PUBLIC_AUTH_RESOURCE`
+
+The FlareAuth resource indicator requested by the dashboard. This should match `NUXT_AUTH_AUDIENCE`.
 
 ## Cloudflare Bindings
 

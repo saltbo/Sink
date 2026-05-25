@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:test'
 import { describe, expect, it, vi } from 'vitest'
-import { deleteStoredLink, fetch, getAuthCookie, getStoredD1Link, getStoredLink, postJson, TEST_USER_ID } from '../utils'
+import { deleteStoredLink, fetch, getAuthHeader, getStoredD1Link, getStoredLink, postJson, TEST_USER_ID } from '../utils'
 
 describe.sequential('d1 link repository projection', () => {
   it('creates links in D1 and projects them to KV', async () => {
@@ -127,7 +127,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const response = await fetch('/api/link/list?limit=10', {
         headers: {
-          Cookie: await getAuthCookie(),
+          Authorization: await getAuthHeader(),
         },
       })
       expect(response.status).toBe(200)
@@ -161,7 +161,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const response = await fetch('/api/link/search', {
         headers: {
-          Cookie: await getAuthCookie(),
+          Authorization: await getAuthHeader(),
         },
       })
       expect(response.status).toBe(200)
@@ -198,7 +198,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const firstResponse = await fetch('/api/link/list?limit=2', {
         headers: {
-          Cookie: await getAuthCookie(),
+          Authorization: await getAuthHeader(),
         },
       })
       expect(firstResponse.status).toBe(200)
@@ -214,7 +214,7 @@ describe.sequential('d1 link repository projection', () => {
 
       const secondResponse = await fetch(`/api/link/list?limit=2&cursor=${firstPage.cursor}`, {
         headers: {
-          Cookie: await getAuthCookie(),
+          Authorization: await getAuthHeader(),
         },
       })
       expect(secondResponse.status).toBe(200)

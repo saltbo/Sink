@@ -22,7 +22,9 @@
   "login": {
     "title": "Accedi",
     "description": "Accedi con FlareAuth per gestire i tuoi link.",
-    "submit": "Accedi con FlareAuth"
+    "submit": "Accedi con FlareAuth",
+    "completing": "Completing sign in...",
+    "failed": "Sign in failed"
   },
   "logout": {
     "title": "Disconnettersi?",
@@ -30,17 +32,6 @@
     "action": "Disconnetti"
   },
   "layouts": {
-    "footer": {
-      "copyright": "Prodotto da HTML.ZONE",
-      "social": {
-        "email": "Email",
-        "telegram": "Telegram",
-        "blog": "Blog",
-        "twitter": "Twitter",
-        "mastodon": "Mastodon",
-        "github": "GitHub"
-      }
-    },
     "header": {
       "select_language": "Seleziona Lingua"
     }
@@ -57,17 +48,13 @@
     "platform": "Piattaforma",
     "settings": "Impostazioni",
     "import": "Importa",
-    "export": "Esporta",
-    "coffee": "Offrimi un caffè",
-    "github": "GitHub",
-    "stars": "Stelle",
-    "update": "Nuova versione {version} disponibile (attuale: {current})"
+    "export": "Esporta"
   },
   "home": {
     "shortener": {
       "badge": "Link brevi con analisi",
-      "title": "Crea un link breve in pochi secondi.",
-      "description": "Incolla un URL di destinazione, scegli uno slug memorabile quando serve e gestisci ogni link dalla dashboard.",
+      "title": "Accorcia un URL.",
+      "description": "Incolla un URL lungo e crea un link breve.",
       "form_title": "Accorcia un URL",
       "form_description": "I link autenticati vengono salvati nel tuo workspace.",
       "url_label": "URL di destinazione",
@@ -87,9 +74,6 @@
         "analytics": "Analisi dei clic",
         "control": "Controlli link"
       }
-    },
-    "hero": {
-      "github_repo": "Repository GitHub"
     },
     "features": {
       "title": "Funzionalità",
@@ -150,19 +134,6 @@
     },
     "logos": {
       "title": "Costruito con tecnologie eccezionali"
-    },
-    "twitter": {
-      "follow": "Segui su X(Twitter)"
-    },
-    "stats": {
-      "title": "Sink in Numeri",
-      "subtitle": "Affidabile per sviluppatori in tutto il mondo",
-      "stars": "Stelle su GitHub",
-      "forks": "Fork"
-    },
-    "testimonials": {
-      "title": "Amato dagli Utenti",
-      "subtitle": "Scopri cosa dicono gli sviluppatori su Sink"
     }
   },
   "dashboard": {

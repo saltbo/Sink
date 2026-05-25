@@ -1,7 +1,7 @@
-import type { AuthSession } from '../utils/auth-session'
+import type { TokenAuthContext } from '../utils/auth-token'
 
 declare module 'h3' {
   interface H3EventContext {
-    auth?: AuthSession
+    auth?: TokenAuthContext
   }
 }

@@ -37,9 +37,9 @@ describe('/api/verify', () => {
     expect(response.status).toBe(401)
   })
 
-  it('returns 401 with invalid session cookie', async () => {
+  it('returns 401 with invalid bearer token', async () => {
     const response = await fetch('/api/verify', {
-      headers: { Cookie: 'sink_session=invalid-token-12345' },
+      headers: { Authorization: 'Bearer invalid-token-12345' },
     })
     expect(response.status).toBe(401)
   })
