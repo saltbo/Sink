@@ -122,6 +122,14 @@ describe('/api/link/create', { concurrent: false }, () => {
     expect(duplicateResponse.status).toBe(409)
   })
 
+  it('returns 409 for a reserved application route', async () => {
+    const response = await postJson('/api/link/create', {
+      url: 'https://example.com/reserved',
+      slug: 'api',
+    })
+    expect(response.status).toBe(409)
+  })
+
   it('masks password in response and stores hashed password', async () => {
     const password = 'secret123'
     const payload = {

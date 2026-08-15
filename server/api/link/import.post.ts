@@ -63,6 +63,8 @@ export default eventHandler(async (event) => {
     })
   }
 
+  await consumeLinkCreateRateLimit(event, importData.links.length)
+
   const result: ImportResult = {
     success: 0,
     skipped: 0,
@@ -80,6 +82,7 @@ export default eventHandler(async (event) => {
 
       try {
         const slug = normalizeSlug(event, linkData.slug)
+        assertSlugIsNotReserved(event, slug)
         const now = Math.floor(Date.now() / 1000)
         const link = {
           ...linkData,
@@ -98,7 +101,10 @@ export default eventHandler(async (event) => {
     }))
 
     const writable = prepared.filter(item => 'link' in item)
+    await reserveLinkCreateQuota(event, writable.length)
     const writeResults = await createLinks(event, writable.map(item => item.link!))
+    const createdCount = writeResults.filter(result => !('error' in result) && result.created).length
+    await releaseLinkCreateQuota(event, writable.length - createdCount)
     let writeIndex = 0
     for (const item of prepared) {
       if ('error' in item) {

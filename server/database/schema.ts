@@ -67,3 +67,15 @@ export const linkMigrationRuns = sqliteTable('link_migration_runs', {
     sql`${table.id} desc`,
   ),
 ])
+
+export const linkCreateCounters = sqliteTable('link_create_counters', {
+  ownerId: text('owner_id').notNull(),
+  counterType: text('counter_type', { enum: ['quota', 'rate'] }).notNull(),
+  windowStart: integer('window_start').notNull(),
+  windowSeconds: integer('window_seconds').notNull(),
+  count: integer().notNull(),
+  updatedAt: integer('updated_at').notNull(),
+}, table => [
+  primaryKey({ columns: [table.ownerId, table.counterType] }),
+  index('link_create_counters_updated_at_idx').on(table.updatedAt),
+])

@@ -23,6 +23,7 @@ interface LinkResponse {
 
 export async function prepareIncomingLink(event: H3Event, link: Link): Promise<void> {
   link.slug = normalizeSlug(event, link.slug)
+  assertSlugIsNotReserved(event, link.slug)
   await detectUnsafeLink(event, link)
 }
 

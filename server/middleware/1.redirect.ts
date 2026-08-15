@@ -53,7 +53,7 @@ export default eventHandler(async (event) => {
   const { homeURL, linkCacheTtl, caseSensitive, redirectWithQuery, redirectStatusCode, redirectNoStore } = useRuntimeConfig(event)
   const { cloudflare } = event.context
 
-  if (event.path === '/' && homeURL)
+  if (event.path === '/' && shouldRedirectHome(getRequestURL(event), homeURL))
     return sendRedirect(event, homeURL)
 
   const { notFoundRedirect } = useRuntimeConfig(event)

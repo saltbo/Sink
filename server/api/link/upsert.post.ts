@@ -42,13 +42,24 @@ export default eventHandler(async (event) => {
     return { ...buildLinkResponse(event, existingLink), status: 'existing' }
   }
 
-  await hashLinkPasswordForCreate(link)
-
-  if (!await createLink(event, link)) {
-    const racedLink = await getAuthoritativeLink(event, link.slug)
-    if (racedLink)
-      return { ...buildLinkResponse(event, racedLink), status: 'existing' }
-    throw createError({ status: 409, statusText: 'Link already exists' })
+  await consumeLinkCreateRateLimit(event)
+  await reserveLinkCreateQuota(event, 1)
+  try {
+    await hashLinkPasswordForCreate(link)
+    if (!await createLink(event, link)) {
+      const racedLink = await getAuthoritativeLink(event, link.slug)
+      if (racedLink) {
+        await releaseLinkCreateQuota(event, 1)
+        return { ...buildLinkResponse(event, racedLink), status: 'existing' }
+      }
+      throw createError({ status: 409, statusText: 'Link already exists' })
+    }
+  }
+  catch (error) {
+    const persisted = await getAuthoritativeLink(event, link.slug)
+    if (persisted?.id !== link.id)
+      await releaseLinkCreateQuota(event, 1)
+    throw error
   }
   setResponseStatus(event, 201)
   return { ...buildLinkResponse(event, link), status: 'created' }
