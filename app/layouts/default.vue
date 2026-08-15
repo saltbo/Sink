@@ -55,8 +55,8 @@ function closeMobileMenu() {
               lg:py-4
             "
           >
-            <NuxtLink
-              to="/"
+            <a
+              href="/"
               :title="title"
               :aria-label="$t('layouts.links.home_aria_label')"
               class="flex items-center space-x-2"
@@ -71,7 +71,7 @@ function closeMobileMenu() {
                 >
               </span>
               <span class="text-xl font-black">{{ title }}</span>
-            </NuxtLink>
+            </a>
 
             <div
               class="
@@ -251,8 +251,8 @@ function closeMobileMenu() {
             md:flex-row md:justify-between
           "
         >
-          <NuxtLink
-            to="/"
+          <a
+            href="/"
             :title="title"
             :aria-label="$t('layouts.links.home_aria_label')"
             class="block size-fit"
@@ -271,7 +271,7 @@ function closeMobileMenu() {
               </span>
               <span class="text-xl font-black">{{ title }}</span>
             </div>
-          </NuxtLink>
+          </a>
 
           <nav
             :aria-label="$t('layouts.links.resources_aria_label')"

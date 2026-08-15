@@ -15,17 +15,17 @@ defineProps<{
       <h1 class="sr-only">
         {{ error.statusCode }} {{ error.statusMessage }}
       </h1>
-      <NuxtLink
+      <a
         class="
           flex w-full max-w-[600px] items-center justify-center rounded-2xl
           focus-visible:ring-2 focus-visible:ring-ring
           [&_svg]:h-auto [&_svg]:w-full
         "
-        to="/"
+        href="/"
         :aria-label="$t('layouts.links.home_aria_label')"
       >
         <span class="contents" v-html="errorImage" />
-      </NuxtLink>
+      </a>
     </section>
   </NuxtLayout>
 </template>
