@@ -92,3 +92,10 @@ changes until the next operating period is agreed.
   login entry passed smoke checks. AI binding remains absent; all three existing
   secret bindings retained. One-time generated deployment config was restored
   to keep_vars=true after the release to preserve future secret retention.
+
+- Final production release: `2d8b051`, Worker version
+  `a5539ca8-d417-4ce0-80bd-acd5f8445144` at 100%. Production-build browser
+  acceptance verified English copy, interactive demo and Chinese switching;
+  live English page and demo also passed after deployment. Type check and
+  targeted lint passed. Google confirmed "Indexing requested" for the homepage;
+  it is queued for crawling, not yet confirmed indexed.
