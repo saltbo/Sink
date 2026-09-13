@@ -8,8 +8,8 @@ within 30 days of the marketing launch. Report the latest complete day and the
 7-day average; do not count bots, self-tests or Worker request volume as clicks.
 Search platform reporting may lag. Missing data is unavailable, never zero.
 
-Launch date: pending verified production deployment.
-Deadline: 30 days after the verified launch date.
+Launch date: 2026-09-13.
+Deadline: 2026-10-13 (30 days after launch).
 Automation: `tftt-cc-seo-geo`, daily 09:00 America/Toronto, 30 runs.
 
 ## Release and identity
@@ -60,5 +60,35 @@ changes until the next operating period is agreed.
 
 - Preparation: user corrected audience to English-first overseas market; release
   paused for complete bilingual implementation. Search Console property exists.
-- Baseline clicks, impressions, indexed pages and GEO referrals: unavailable until
-  the property reports are read and scoped to the apex site.
+- 2026-09-13: English-first bilingual marketing release `256b711`; initial Worker
+  version `a494df9d-c0e7-47e7-b181-f1dde4bf4726`. Ten marketing URLs passed public
+  HTTP, language, canonical and hreflang checks. Build, type checking, locale
+  contract checks and 20 affected tests passed. Browser production verification
+  then caught i18n message-AST objects rendered after hydration; follow-up imports
+  raw locale JSON to preserve strings in production client bundles.
+- Search Console baseline (2026-06-11 through 2026-09-10, page contains
+  `https://tftt.cc/`): 0 clicks, 0 impressions; CTR/position not meaningful without
+  impressions. Domain-wide historical data includes other subdomains and is
+  excluded. Google generative-AI report with the same filter: 0 impressions;
+  AI referrals and actual citations are unavailable, not measured as zero.
+- Domain-wide indexing overview: 0 indexed and 9 excluded, not a count specific
+  to the new ten marketing pages. Homepage's old Aug 30 crawl reported duplicate
+  without user-selected canonical. Current live URL test on Sep 13 says
+  "URL is available to Google" and "Page can be indexed". This is eligibility,
+  not proof of indexing.
+- Sitemap submitted Sep 13; submission accepted, but ingestion currently reports
+  "Couldn't fetch" / "Sitemap could not be read". Ordinary curl gets valid XML
+  with ten URLs. Python's default HTTP client gets Cloudflare 1010; Browser
+  Integrity Check is on. Google homepage live fetch succeeds, so this is not
+  evidence that Google is globally blocked. No security settings were weakened.
+  Recheck sitemap processing in the next daily run; investigate a persistent
+  error using Google's fetch details before changing firewall rules.
+- Identity audit: Search Console read and sitemap submission used the existing
+  Jasper Chrome account because no matching Realmroot resource exists. GitHub
+  and Cloudflare release operations used Agent identity. One migration check
+  accidentally used the local developer Cloudflare login and reported no
+  migrations to apply; no database migration was performed.
+- Removed runtime NUXT_HOME_URL redirect; existing short-link redirect and OIDC
+  login entry passed smoke checks. AI binding remains absent; all three existing
+  secret bindings retained. One-time generated deployment config was restored
+  to keep_vars=true after the release to preserve future secret retention.
