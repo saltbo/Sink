@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /dashboard/
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /_docs/
+
+Sitemap: https://tftt.cc/sitemap.xml

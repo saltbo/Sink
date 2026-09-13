@@ -2,10 +2,11 @@ import { randomBytes } from 'node:crypto'
 import process from 'node:process'
 import tailwindcss from '@tailwindcss/vite'
 import { currentLocales } from './i18n/i18n'
+import { marketingGuides } from './shared/marketing/guides'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   modules: [
     '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
@@ -63,10 +64,18 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
+    '/': { prerender: true },
+    '/zh': { prerender: true },
+    ...Object.fromEntries(marketingGuides.map(guide => [`/zh/guides/${guide.slug}`, { prerender: true }])),
+    ...Object.fromEntries(marketingGuides.map(guide => [`/guides/${guide.slug}`, { prerender: true }])),
+    '/dashboard/**': { ssr: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/dashboard': {
+      ssr: false,
+      headers: { 'X-Robots-Tag': 'noindex, nofollow' },
       redirect: '/dashboard/links',
     },
     '/api/**': {
+      headers: { 'X-Robots-Tag': 'noindex, nofollow' },
       cors: process.env.NUXT_API_CORS === 'true',
     },
     '/_docs/**': {
@@ -94,6 +103,9 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2026-07-13',
   nitro: {
+    prerender: {
+      crawlLinks: false,
+    },
     preset: import.meta.env.CF_PAGES !== '1' ? 'cloudflare-module' : undefined,
     experimental: {
       openAPI: true,

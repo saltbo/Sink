@@ -1,21 +1,21 @@
 # tftt.cc production deployment
 
 The `internal/main` branch runs the `sink` Worker at <https://tftt.cc>.
-The Worker custom domain is managed in Cloudflare. The home route redirects to
-`/dashboard`; short links and OIDC callbacks use the same origin.
+The Worker custom domain is managed in Cloudflare. The home route serves the public landing page; short links and OIDC callbacks
+use the same origin. English guides live under `/guides/`; Chinese pages live under `/zh`.
 
 ## Runtime configuration
 
 Use ordinary Worker variables for configuration:
 
-| Variable                 | Value                                        |
-| ------------------------ | -------------------------------------------- |
-| `NUXT_CF_ACCOUNT_ID`     | The account hosting the analytics dataset    |
-| `NUXT_HOME_URL`          | `/dashboard`                                 |
-| `NUXT_OIDC_ISSUER`       | `https://id.realmroot.dev/api/auth`          |
-| `NUXT_OIDC_CLIENT_ID`    | The existing Sink confidential Web client ID |
-| `NUXT_OIDC_REDIRECT_URI` | `https://tftt.cc/api/auth/callback`          |
-| `NUXT_SITE_ADMIN_EMAILS` | The existing administrator email allowlist   |
+| Variable             | Value                                     |
+| -------------------- | ----------------------------------------- |
+| `NUXT_CF_ACCOUNT_ID` | The account hosting the analytics dataset |
+
+| `NUXT_OIDC_ISSUER` | `https://id.realmroot.dev/api/auth` |
+| `NUXT_OIDC_CLIENT_ID` | The existing Sink confidential Web client ID |
+| `NUXT_OIDC_REDIRECT_URI` | `https://tftt.cc/api/auth/callback` |
+| `NUXT_SITE_ADMIN_EMAILS` | The existing administrator email allowlist |
 
 Only these runtime values require encrypted secrets:
 
@@ -68,3 +68,23 @@ read token. `wrangler.jsonc` preserves dashboard variables with `keep_vars`.
 
 Retain the previous Worker version ID before releasing for rollback. Do not
 restore obsolete environment variables as part of a normal code rollback.
+
+## Public landing page and search indexing
+
+Before releasing the marketing pages, remove `NUXT_HOME_URL` from the Worker
+runtime and build variables. A nonempty runtime value redirects visitors away from the
+landing page when the request is handled by the Worker. Prerendering deliberately
+ignores this runtime redirect so build artifacts always contain real homepage HTML.
+For local builds with older `.env` files, use `NUXT_HOME_URL= pnpm build`.
+
+The homepage and four guides in both English and Chinese are prerendered. Dashboard routes
+remain client-rendered and have noindex headers. The sitemap only lists the ten
+public marketing pages; it never enumerates user links. English is the default; Chinese uses `/zh` paths. Marketing language follows
+the URL and does not follow the dashboard locale cookie.
+
+After deployment verify HTTP 200 with real headline/body HTML at `/` and every
+sitemap URL, unique self-canonical links, the correct language and reciprocal hreflang, and the sharing image.
+Verify unknown guide paths return 404 and existing short links still redirect.
+Submit `https://tftt.cc/sitemap.xml` in the verified Search Console property.
+Search Console verification and submission are separate account operations;
+creating these files does not automatically submit the site or guarantee ranking.
