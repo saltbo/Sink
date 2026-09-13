@@ -44,7 +44,7 @@ export default eventHandler(async (event) => {
     url: z.url(),
   }).parse)).url
   const { cloudflare } = event.context
-  const { AI } = cloudflare.env
+  const { AI } = cloudflare.env as Env & { AI?: Ai }
 
   if (!AI) {
     throw createError({ status: 501, statusText: 'AI not enabled' })

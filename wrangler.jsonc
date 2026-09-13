@@ -21,10 +21,6 @@
       "enabled": true
     }
   },
-  "ai": {
-    "binding": "AI",
-    "remote": true
-  },
   // Values marked with DEPLOY_* below are placeholders for local/dev.
   // CLI deploy (pnpm deploy:worker / deploy:config) rewrites them into gitignored wrangler.deploy.jsonc.
   // Prefer setting DEPLOY_* in .env or Workers Builds / Pages variables — do not hardcode production IDs here.
