@@ -99,3 +99,16 @@ changes until the next operating period is agreed.
   live English page and demo also passed after deployment. Type check and
   targeted lint passed. Google confirmed "Indexing requested" for the homepage;
   it is queued for crawling, not yet confirmed indexed.
+
+- 2026-09-13 02:08 America/Toronto: direct Google live inspection of
+  `https://tftt.cc/sitemap.xml` completed. Crawl allowed: Yes; Page fetch:
+  Successful; crawler: Google Inspection Tool smartphone. This establishes
+  current inspection-tool reachability of the actual XML endpoint, not sitemap
+  ingestion or indexing. Submitted-sitemaps table still says Couldn't fetch.
+  XML response is HTTP 200, application/xml, ten marketing URLs; robots.txt
+  allows the endpoint and advertises its correct absolute URL. Keep firewall
+  protections unchanged. Next scheduled check should compare the sitemap's
+  last-read/status and discovered pages; avoid repeated same-session submission
+  or requesting indexing of the XML file itself. Reference: Google Sitemaps
+  report help, https://support.google.com/webmasters/answer/7451001?hl=en.
+  This check used the same Jasper Chrome Search Console fallback identity.
