@@ -112,3 +112,31 @@ changes until the next operating period is agreed.
   or requesting indexing of the XML file itself. Reference: Google Sitemaps
   report help, https://support.google.com/webmasters/answer/7451001?hl=en.
   This check used the same Jasper Chrome Search Console fallback identity.
+
+## Scheduled check: 2026-09-13 09:01 UTC
+
+- All ten sitemap URLs returned 200 with one H1, correct en/zh-CN language,
+  self-canonical and three alternate-language links; no robots noindex or
+  rendered object strings in the fetched HTML. robots.txt and login returned
+  200; unauthenticated API verification returned 401. This is HTTP/HTML
+  verification, not a fresh browser hydration or authenticated-session test.
+- Agent read of current Worker settings confirms no AI binding and three
+  secret bindings retained. No cloud configuration or product changes made.
+- Search Console apex filter `https://tftt.cc/`, Web, three months: range
+  June 11–September 10; 0 clicks and 0 impressions; last update 4.5 hours ago.
+  CTR/position N/A with no impressions. Latest displayed complete date remains
+  September 10, before launch; post-launch daily/7-day clicks unavailable.
+  No query rows or language-specific performance can yet guide edits.
+- Sitemap table unchanged: Couldn't fetch, type Unknown, discovered pages 0,
+  last-read field blank. Earlier direct Google live fetch success remains
+  historical evidence; ingestion is not confirmed. Fresh apex indexed-page
+  count unavailable in this check. Do not substitute domain-wide exclusions.
+- Google generative-AI report, same apex filter and three-month selection:
+  0 impressions, no page rows, last update 4.5 hours ago. Actual AI citations
+  and referral sessions unavailable. No claimed GEO growth.
+- Search Console reads used existing Jasper Chrome account because the known
+  Realmroot discovery has no matching service. Cloudflare read and GitHub
+  operations use Realmroot Agent. No repeated index requests or resubmission.
+- Next action: next daily run checks for ingestion and post-launch data;
+  investigate a persistent sitemap failure with fresh Google fetch evidence.
+  No new actionable change or user input required today.
