@@ -166,3 +166,29 @@ changes until the next operating period is agreed.
   security controls. No duplicate index request for the XML. Continue checking
   processing status and post-launch data on the next scheduled run.
 - No actionable new search/query evidence supports editorial changes today.
+
+## Scheduled check: 2026-09-15 09:01 UTC
+
+- Ten sitemap marketing URLs pass HTTP 200, one H1, correct language,
+  self-canonical and three hreflang links; no robots noindex or object-string
+  rendering in HTML. robots.txt and login 200; API verify 401. These are
+  HTTP/HTML checks, not authenticated-session or fresh hydration acceptance.
+- Cloudflare Agent read confirms no AI binding and three secret bindings.
+- Search Console Web, apex contains filter, June 13–September 12: 0 clicks,
+  0 impressions, no queries; last update 5 hours ago. CTR/position N/A.
+  The latest data still predates launch; post-launch daily and seven-day
+  clicks unavailable. No measured query signal supports editorial changes.
+- Google generative-AI report, same filter and range: 0 impressions, no pages,
+  last update 5.5 hours ago. Actual AI citations and referral sessions unavailable.
+- Sitemap remained Unknown / Couldn't fetch with 0 discovered pages and blank
+  last-read, despite earlier successful live fetches on Sep 13 and Sep 14 and
+  current valid public XML. Resubmitted the same canonical sitemap once today.
+  Google confirmed submission; table now shows Submitted Sep 15 but still
+  Couldn't fetch. Do not interpret submission as ingestion or indexing.
+  No duplicate XML indexing request, no firewall changes or URL-name workaround.
+- Next run checks sitemap processing and first post-launch metrics; if the
+  sitemap remains unread, inspect crawl diagnostics before further submission.
+  Fresh apex indexed-page total unavailable in this run.
+- Search Console read/resubmission used Jasper Chrome fallback because no
+  matching Realmroot integration exists; Cloudflare and GitHub use Agent.
+  No product deployment was needed; only this operational record changed.
