@@ -192,3 +192,35 @@ changes until the next operating period is agreed.
 - Search Console read/resubmission used Jasper Chrome fallback because no
   matching Realmroot integration exists; Cloudflare and GitHub use Agent.
   No product deployment was needed; only this operational record changed.
+
+## Scheduled check: 2026-09-16 09:00 UTC
+
+- Ten marketing URLs pass public HTTP/HTML checks: 200, one H1, correct language,
+  self-canonical, three hreflang links, no robots noindex or object strings.
+  robots.txt/login 200 and unauthenticated API verify 401. No fresh hydration
+  or authenticated session check. Agent Cloudflare read: AI absent, three secrets.
+- New indexing evidence: URL Inspection for https://tftt.cc/ now says URL is on
+  Google / Page is indexed. Last crawl Sep 13 02:08:11 America/Toronto, Googlebot
+  smartphone, fetch successful, crawl/index allowed. Declared canonical is
+  https://tftt.cc/ and Google-selected canonical is Inspected URL. This resolves
+  the old duplicate-canonical diagnosis for the homepage only.
+- Sitemap table still Unknown / Couldn't fetch, submitted Sep 15, discovered
+  pages 0, last-read blank. Homepage inspection says Sitemaps: Temporary
+  processing error. No further resubmission today; sitemap processing remains
+  unconfirmed despite successful homepage indexing.
+- Web report: apex page-contains filter, June 14–September 13, 0 clicks and
+  0 impressions, no query rows, last update 5 hours ago. First displayed
+  launch-day data: September 13 has zero reported clicks/impressions. CTR and
+  position N/A; a complete seven-day post-launch average is not yet available.
+- Google generative-AI report: same filter/range, 0 impressions, no page rows,
+  last update 5 hours ago. Actual AI citations and referrals unavailable.
+- Inspected /guides/shorten-url: URL unknown to Google, not indexed. Requested
+  indexing of this useful English entry page while sitemap processing is pending.
+- Private service access: Jasper Chrome Search Console fallback due to missing
+  Realmroot integration; Cloudflare and GitHub use Agent identity. Shell PATH
+  initially selected an outdated Realmroot binary; login-shell resolution uses
+  the working /opt/data/go/bin/realmroot without switching credentials.
+- Google confirmed Indexing requested for /guides/shorten-url and added it to
+  the priority crawl queue; this is not proof the guide is indexed. No CAPTCHA
+  challenge was manually completed. Next check verifies guide indexing and
+  watches for the first genuine impressions before choosing content revisions.
