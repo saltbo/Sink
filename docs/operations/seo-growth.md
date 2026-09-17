@@ -224,3 +224,31 @@ changes until the next operating period is agreed.
   the priority crawl queue; this is not proof the guide is indexed. No CAPTCHA
   challenge was manually completed. Next check verifies guide indexing and
   watches for the first genuine impressions before choosing content revisions.
+
+## Scheduled check: 2026-09-17 09:00 UTC
+
+- All ten marketing URLs pass HTTP/HTML checks (200, one H1, correct language,
+  self-canonical, three hreflang links, no robots noindex or object strings).
+  robots.txt and login 200, API verify 401. This is not a fresh hydration or
+  authenticated-session test. Agent Cloudflare read: AI absent, three secrets.
+- /guides/shorten-url is now on Google / indexed. Last crawl Sep 16 05:04:58
+  America/Toronto, Googlebot smartphone, fetch successful, crawl/index allowed.
+  Declared canonical matches inspected URL and Google selected that URL.
+  Referring page is https://tftt.cc/; no referring sitemap detected. Breadcrumbs
+  report shows one valid item. This verifies this guide only, not all guides.
+- Sitemap remains Unknown / Couldn't fetch, submitted Sep 15, discovered pages
+  0, last-read blank. No further sitemap submission or firewall changes today.
+- Web report, apex contains filter, June 15–September 14: 0 clicks/impressions,
+  no query rows, last update 7.5 hours ago. Latest displayed date September 14
+  therefore has zero reported clicks/impressions; CTR/position N/A. No full
+  seven-day post-launch average yet. English/Chinese rows unavailable.
+- Google generative-AI report with same filter/range: 0 impressions, no pages,
+  update 7.5 hours ago. Actual AI citations/referral visits unavailable.
+- /guides/custom-short-links inspection says URL unknown to Google, not indexed.
+  Initiated its first indexing request; no repeat request for the indexed guide.
+- Search Console reads/request use existing Jasper Chrome account because no
+  matching Realmroot integration exists. Cloudflare/GitHub use Agent identity.
+  No product edits or deployment needed; no evidence yet for query-led rewrites.
+- Google confirmed Indexing requested for /guides/custom-short-links, queued
+  for crawling; not confirmed indexed. No manual CAPTCHA challenge interaction.
+  Next daily run checks this guide, sitemap processing and emerging impressions.
