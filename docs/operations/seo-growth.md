@@ -252,3 +252,34 @@ changes until the next operating period is agreed.
 - Google confirmed Indexing requested for /guides/custom-short-links, queued
   for crawling; not confirmed indexed. No manual CAPTCHA challenge interaction.
   Next daily run checks this guide, sitemap processing and emerging impressions.
+
+## Scheduled check: 2026-09-19 09:01 UTC
+
+- No Sep 18 check is recorded; do not infer an unobserved run or backfill data.
+- All ten marketing URLs pass public HTML/HTTP checks: 200, one H1, correct
+  language, self-canonical, three hreflang links, no robots noindex or object
+  strings. robots.txt/login 200; API verify 401. No fresh hydration or logged-in
+  session test. Cloudflare Agent read confirms AI absent and three secrets.
+- /guides/custom-short-links is indexed, with one valid Breadcrumbs item.
+  Last crawl Sep 17 05:04:51 America/Toronto, Googlebot smartphone, successful
+  fetch, crawl/index allowed. Declared and selected canonicals both point to
+  the inspected URL. Referrer: homepage. Sitemap discovery: Temporary processing
+  error. Homepage and first guide indexing are historical observations, not
+  a fresh full-site indexed-page count.
+- Sitemap remains Unknown / Couldn't fetch, submitted Sep 15, discovered pages
+  0, no last-read shown. No further resubmission or protection changes.
+- Web: apex page-contains filter, June 17–September 16, 0 clicks/impressions,
+  no query rows, last update 7 hours ago. Latest complete displayed day Sep 16
+  thus has 0 reported clicks/impressions. CTR/position N/A; seven full days of
+  post-launch reporting are not available yet. No language-specific page rows.
+- Google generative-AI: same filter/range, 0 impressions, no pages, update
+  7 hours ago. Actual AI citations and referral visits unavailable.
+- /guides/qr-code-links is unknown to Google, not indexed. Initiated its first
+  indexing request. No repeat request for already indexed pages.
+- Search Console reads/request use Jasper Chrome fallback because no matching
+  Realmroot integration is available; Cloudflare/GitHub operations use Agent.
+  No product deployment. No measured queries justify speculative title rewrites.
+- Google confirmed Indexing requested for /guides/qr-code-links; now queued,
+  not confirmed indexed. No manual CAPTCHA interaction. Next check verifies
+  this guide and the remaining analytics guide, then prepares the first weekly
+  review using available complete dates without treating a partial week as full.
