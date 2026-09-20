@@ -283,3 +283,64 @@ changes until the next operating period is agreed.
   not confirmed indexed. No manual CAPTCHA interaction. Next check verifies
   this guide and the remaining analytics guide, then prepares the first weekly
   review using available complete dates without treating a partial week as full.
+
+
+## Scheduled check and first weekly review: 2026-09-20 09:02 UTC
+
+- All ten marketing URLs pass public HTTP/HTML checks: 200, one H1, correct
+  en/zh-CN language, self-canonical, three hreflang links, no robots noindex or
+  rendered object strings. Valid sitemap XML lists ten URLs. robots.txt/login
+  return 200; unauthenticated API verification returns 401. These checks do
+  not establish fresh browser hydration or authenticated-session acceptance.
+  Cloudflare Agent read confirms AI absent and three secret bindings retained.
+- First apex search traffic: Web report with page-contains filter
+  `https://tftt.cc/`, June 18–September 17, reports 1 click, 1 impression,
+  100% CTR and average position 1. Last update: 5 hours ago. DAYS confirms
+  September 17 has 1 click/1 impression; September 13–16 each have zero.
+  PAGES attributes the single click/impression to https://tftt.cc/; QUERIES
+  has no rows. Other subdomains are excluded. This is platform-reported
+  search traffic, not a Worker request or agent search self-test. One sample
+  cannot establish ranking strength, audience geography or a growth trend.
+- Latest complete displayed day is September 17, three calendar days behind
+  this run. Only five post-launch dates are available: 1 total click and
+  1 impression, 0.2 clicks/day across September 13–17. The latest seven
+  displayed days September 11–17 total 1 click (1/7 = 0.143 clicks/day),
+  but include two pre-launch dates. A full seven-day post-launch average
+  remains unavailable; do not label either partial-period metric a full
+  launch-week result. The daily target of 100 clicks is not met.
+- Google generative-AI report, same apex filter/range, now reports 1 impression.
+  PAGES identifies the homepage; DAYS identifies September 17. Last update
+  5 hours ago. This is a platform-reported AI-feature impression only;
+  actual citation content, AI referral sessions and attributable conversions
+  remain unavailable. Do not add this impression to Web clicks or infer a
+  separate visitor from overlapping reports.
+- /guides/qr-code-links is now indexed, with one valid Breadcrumbs item.
+  Last crawl September 19 05:04:12 America/Toronto, Googlebot smartphone;
+  crawl/index allowed, fetch successful, declared canonical is this guide,
+  Google-selected canonical is Inspected URL. Referrers: homepage and custom
+  short links guide. Sitemap discovery still says Temporary processing error.
+- /guides/link-analytics is unknown to Google, not indexed. Its first indexing
+  request was accepted and Google confirmed addition to the priority crawl
+  queue. This is not indexing confirmation. No manual CAPTCHA interaction.
+- Sitemap table remains Unknown / Couldn't fetch, submitted September 15,
+  0 discovered pages and blank last-read. No repeated sitemap submission,
+  XML indexing request or speculative firewall change. Public XML remains
+  valid; historical Google live fetches succeeded, but ingestion is unresolved.
+- Weekly outcome: English homepage and three English guides have individually
+  confirmed indexing observations (homepage/first two guides from earlier
+  runs, QR guide fresh today). This is not a fresh whole-site index count.
+  The final English guide is queued; Chinese page indexing is unavailable.
+  Ten public marketing pages remain healthy and English-first. There is no
+  recorded September 18 run. First Web click and AI-feature impression are
+  early evidence only; the 30-day goal remains at risk and unachieved.
+- Next priorities: verify analytics guide indexing, continue sitemap diagnosis
+  with fresh crawl evidence if it persists, and examine emerging query/page
+  data before rewriting titles or creating demand-specific pages. No query
+  evidence currently supports speculative content expansion. Continue daily
+  checks; next weekly review September 27, final evaluation October 13.
+- Search Console reads and indexing request used existing Jasper Chrome
+  account (obyz2018@gmail.com), because known Realmroot discovery has no
+  matching integration. Cloudflare read and GitHub commit/push use Agent.
+  Only this operations document changed; no product deployment, configuration
+  mutation or rollback required. Last known product release and rollback
+  references remain unchanged; no new version is claimed by this check.
