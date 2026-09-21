@@ -344,3 +344,52 @@ changes until the next operating period is agreed.
   Only this operations document changed; no product deployment, configuration
   mutation or rollback required. Last known product release and rollback
   references remain unchanged; no new version is claimed by this check.
+
+
+## Scheduled check: 2026-09-21 (heartbeat 09:13 UTC)
+
+- All ten marketing URLs pass public HTTP/HTML checks: 200, one H1, correct
+  language, self-canonical, exact reciprocal en/zh-CN/x-default destinations,
+  no robots noindex or rendered object strings. robots.txt/login 200; API
+  verify 401. XML is 200 application/xml, UTF-8, ten URLs. No fresh browser
+  hydration or authenticated-session acceptance claimed. Cloudflare Agent read
+  confirms no AI binding and three secret bindings.
+- Web report, apex contains filter `https://tftt.cc/`, June 20–September 19:
+  1 click, 1 impression, 100% CTR, average position 1; no query rows. Last
+  update 4 hours ago. DAYS shows Sep 18 and Sep 19 each 0 clicks/impressions;
+  Sep 17 has 1/1 and Sep 13–16 each 0/0. Latest complete displayed date
+  September 19 is two calendar days behind this check; its CTR/position are
+  N/A without impressions. First complete post-launch seven days Sep 13–19
+  total 1 click/1 impression, average 1/7 = 0.143 clicks/day. No sustained
+  growth or achievement of the 100-click daily goal. The aggregate position
+  and CTR describe one sample, not reliable ranking or conversion strength.
+- Google generative-AI report with same filter/range: 1 homepage impression,
+  last update 4 hours ago. Actual citation content and referral sessions remain
+  unavailable. No additional GEO improvement claimed or double-counting with
+  Web traffic. No language-specific guide traffic is evidenced by these data.
+- /guides/link-analytics is now indexed, with one valid Breadcrumbs item.
+  Last crawl Sep 20 05:10:40 AM as shown by Search Console, Googlebot smartphone;
+  fetch successful, crawl/index allowed, declared canonical is inspected URL
+  and Google selected that URL. Referrer is homepage; sitemap discovery says
+  Temporary processing error. All four English guides now have individual
+  indexing observations, alongside the earlier homepage observation. This is
+  not a fresh full-site indexed-page total; Chinese indexing remains unavailable.
+- Sitemap table still Unknown / Couldn't fetch, submitted Sep 15, 0 discovered
+  pages, no last-read in table. New detail-view evidence shows Last read
+  9/15/26 and Sitemap could not be read; no more specific cause is displayed.
+  Prefer this detail date over interpreting the table's blank as never fetched.
+- Fresh Google live test of sitemap.xml succeeds: Sep 21 09:07:53 AM as shown
+  in the browser, Google Inspection Tool smartphone, crawl allowed Yes,
+  Page fetch Successful, indexing allowed Yes. This verifies current test-tool
+  access, not successful sitemap ingestion or all crawler access. The actual
+  run occurred later than the heartbeat timestamp. No XML indexing request,
+  repetitive resubmission, firewall relaxation or speculative endpoint rename.
+- Next check watches for a newer sitemap last-read and query/page evidence.
+  The four useful English guides have completed the pending manual indexing
+  checks. Continue diagnosis if ingestion stays stale; do not duplicate pages
+  or rewrite titles solely on a single homepage impression. No product edit
+  or deployment warranted by today's findings; rollback references unchanged.
+- Search Console reads/live test used existing Jasper Chrome fallback account
+  (obyz2018@gmail.com), because known Realmroot discovery has no matching
+  integration. Cloudflare and GitHub operations use Realmroot Agent. This run
+  only updates the operational record on internal/main.
