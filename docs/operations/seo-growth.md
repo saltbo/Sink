@@ -393,3 +393,39 @@ changes until the next operating period is agreed.
   (obyz2018@gmail.com), because known Realmroot discovery has no matching
   integration. Cloudflare and GitHub operations use Realmroot Agent. This run
   only updates the operational record on internal/main.
+
+
+## Scheduled check: 2026-09-22 09:00 UTC
+
+- Ten public marketing URLs pass HTTP/HTML checks: 200, one H1, correct
+  English/Chinese language, self-canonical, exact reciprocal en/zh-CN/x-default
+  links, no robots noindex or rendered object strings. Sitemap parses as valid
+  XML with ten URLs; robots.txt advertises it. Login returns 200 and API verify
+  returns 401. No fresh hydration or authenticated-session test claimed.
+  Cloudflare Agent read confirms AI absent and three secret bindings retained.
+- Search Console Web, apex page-contains filter `https://tftt.cc/`, range
+  June 20–September 19: 1 click, 1 impression, CTR 100%, average position 1;
+  no query rows. Last update 5.5 hours ago. DAYS again confirms Sep 19 and
+  Sep 18 each 0/0, Sep 17 1/1, Sep 13–16 each 0/0. Latest complete date
+  remains Sep 19, three calendar days behind this check. Latest-day CTR and
+  position N/A without impressions. Sep 13–19 seven-day total remains 1
+  click/1 impression; average 0.143 clicks/day. No new growth or target success.
+- Google generative-AI report, same apex filter/range: 1 homepage impression,
+  last update 5.5 hours ago. Actual AI citation content and referral visits
+  unavailable. No additional GEO effect or language-specific guide traffic
+  can be established from the current report.
+- Sitemap table unchanged: Unknown / Couldn't fetch, submitted Sep 15,
+  discovered pages 0. Detail view still says Last read 9/15/26 and Sitemap
+  could not be read. Yesterday's successful Google live fetch remains relevant
+  historical evidence, not proof of ingestion. No repeated live test,
+  resubmission, XML indexing request or security configuration changes today.
+- Indexing evidence remains the individually confirmed English homepage and
+  four guides from prior runs. Fresh whole-site indexed-page count and Chinese
+  indexing are unavailable in this check; no claim of new indexing today.
+- No actionable new query, crawl or production failure justifies a product
+  change. No deployment or rollback needed. Continue checking for a newer
+  sitemap read and complete search data; next weekly review remains Sep 27.
+- Search Console reads used existing Jasper Chrome account
+  (obyz2018@gmail.com), because known Realmroot discovery has no matching
+  integration. Cloudflare and GitHub use Realmroot Agent. Only this operations
+  record is updated on internal/main; no user action is required today.
