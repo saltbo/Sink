@@ -429,3 +429,46 @@ changes until the next operating period is agreed.
   (obyz2018@gmail.com), because known Realmroot discovery has no matching
   integration. Cloudflare and GitHub use Realmroot Agent. Only this operations
   record is updated on internal/main; no user action is required today.
+
+
+## Scheduled check: 2026-09-23 09:01 UTC
+
+- All ten public marketing URLs pass HTTP/HTML checks: 200, one H1, correct
+  language, self-canonical, exact reciprocal en/zh-CN/x-default destinations,
+  no robots noindex or rendered object strings. Sitemap XML parses with ten
+  URLs; robots.txt advertises it. Login 200, unauthenticated API verify 401.
+  No fresh browser hydration or authenticated-session test claimed. Cloudflare
+  Agent read confirms no AI binding and three secret bindings retained.
+- Search Console Web with apex page-contains filter `https://tftt.cc/`,
+  June 21–September 20: 1 click, 2 impressions, CTR 50%, average position
+  42.5; last update 6.5 hours ago. Latest complete displayed day September 20
+  has 0 clicks, 1 impression, CTR 0%, position 84.0, three calendar days
+  behind this run. Sep 14–20 seven-day total is 1 click/2 impressions,
+  average 0.143 clicks/day. Daily 100-click target remains unachieved.
+- First visible non-brand English query: `link click analytics`, 0 clicks,
+  1 impression. PAGES identifies /guides/link-analytics at position 84.0;
+  selecting that exact page confirms the same query, 0 clicks/1 impression,
+  CTR 0%, position 84.0. Homepage remains 1 click/1 impression at position 1.
+  This is a single newly observed guide impression, not a stable ranking trend.
+- Reviewed shared/marketing/guides-en.ts against this query. The existing guide
+  already explains click requests versus people/conversions, consistent time
+  windows, referrers/countries, separate campaign links, UTM attribution and
+  differences from website analytics. Its title and description match this
+  intent. No concrete missing answer or inaccurate promise was identified.
+  Preserve the current baseline rather than infer a title problem from one
+  impression; prioritize this page if repeated query evidence exposes gaps.
+- Google generative-AI report, same apex filter and June 21–September 20 range:
+  1 homepage impression, last update 6.5 hours ago. Actual citation content and
+  referral visits remain unavailable. No additional GEO improvement claimed.
+- Sitemap submission table still Unknown / Couldn't fetch, submitted Sep 15,
+  0 discovered pages and blank last-read. Sep 21 detailed last-read and
+  successful live fetch are historical evidence, not refreshed today. No
+  repeated submission/live test or speculative firewall change. Previously
+  confirmed indexing of the homepage and four English guides remains historical;
+  fresh full-site indexed-page count and Chinese indexing are unavailable.
+- Next checks: follow the analytics query's impressions, rankings and related
+  terms; monitor sitemap processing. No product deployment or rollback needed
+  today; only the operational record changed. Next weekly review September 27.
+- Search Console reads used Jasper Chrome account (obyz2018@gmail.com), because
+  known Realmroot discovery has no matching integration. Cloudflare and GitHub
+  operations use Realmroot Agent. No third-party message or paid action.
