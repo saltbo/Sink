@@ -509,3 +509,48 @@ changes until the next operating period is agreed.
 - Search Console reads used Jasper Chrome account (obyz2018@gmail.com), because
   known Realmroot discovery has no matching integration. Cloudflare and GitHub
   use Realmroot Agent. Only this operations record changed on internal/main.
+
+
+## Scheduled check: 2026-09-25 09:00 UTC
+
+- Ten public marketing URLs pass HTTP/HTML checks: 200, one H1, correct
+  language, self-canonical, reciprocal en/zh-CN/x-default destinations, no
+  robots noindex or object strings. Sitemap XML lists ten URLs; robots.txt
+  advertises it. Login 200, API verify 401. No fresh browser hydration or
+  authenticated-session acceptance claimed. Cloudflare Agent read confirms
+  AI absent and three secret bindings retained.
+- Search Console apex contains filter `https://tftt.cc/`, June 23–Sep 22:
+  2 clicks, 11 impressions, CTR 18.2%, average position 64.6; updated 3.5
+  hours ago. The UI now labels search type Web (text), with a new multimodal
+  search notice; record the displayed scope, not an assumed all-modality total.
+  Latest complete day Sep 22 has 1 click, 6 impressions, CTR 16.7%, position
+  103.3. Data is three calendar days behind. Sep 16–22 totals 2 clicks and
+  11 impressions, average 0.286 clicks/day. Daily 100-click goal remains unmet.
+- Language/page split: English homepage 1 click/4 impressions, CTR 25%,
+  position 1.8; English analytics guide 0 clicks/6 impressions, CTR 0%,
+  position 94.8; Chinese homepage /zh 1 click/1 impression, CTR 100%, position
+  135.0. Chinese query `短链接在线生成` has 1 click/1 impression. The new click
+  is on the Chinese page; do not present it as English or overseas growth.
+  English pages total 1 click/10 impressions; visitor geography is unavailable.
+- Exact-page drilldown confirms /guides/link-analytics queries:
+  `campaign link analytics` 0 clicks/5 impressions, CTR 0%, position 97;
+  `link click analytics` 0 clicks/1 impression, CTR 0%, position 84. The five
+  new English impressions match a campaign-comparison intent already covered
+  by the guide. This is one day's sample, not a stable ranking trend. Keep
+  this page as the first editorial priority for the upcoming weekly review;
+  a concrete channel-comparison worked example is a candidate enhancement,
+  not an implemented change or proven traffic improvement.
+- GEO report with apex filter and June 23–Sep 22 range: 1 homepage impression,
+  updated 3.5 hours ago. Citation content and referral visits unavailable;
+  no new GEO effect claimed or double-counting with Web metrics.
+- Sitemap table unchanged: Unknown / Couldn't fetch, submitted Sep 15,
+  0 discovered pages, blank table last-read. Prior Sep 21 live-fetch success
+  is historical evidence only. No repeated submissions or firewall changes.
+  Fresh full-site indexed-page count unavailable. /zh now has reported search
+  performance, but no fresh URL Inspection was performed for it today.
+- English-first layout and all existing URLs retained. No product deployment
+  or rollback required today. Next weekly review Sep 27 will assess the
+  analytics guide's campaign-query signal and the persistent sitemap error.
+- Search Console reads used Jasper Chrome account (obyz2018@gmail.com), because
+  known Realmroot discovery has no matching integration. Cloudflare/GitHub use
+  Realmroot Agent. Only this operations record changed on internal/main.
