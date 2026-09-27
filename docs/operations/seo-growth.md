@@ -10,7 +10,7 @@ Search platform reporting may lag. Missing data is unavailable, never zero.
 
 Launch date: 2026-09-13.
 Deadline: 2026-10-13 (30 days after launch).
-Automation: `tftt-cc-seo-geo`, daily 09:00 America/Toronto, 30 runs.
+Automation: `tftt-cc-seo-geo`, daily heartbeat observed around 09:00 UTC, 30 runs.
 
 ## Release and identity
 
@@ -590,3 +590,78 @@ changes until the next operating period is agreed.
   (obyz2018@gmail.com), because known Realmroot discovery has no matching
   integration. Cloudflare/GitHub operations use Realmroot Agent. Only this
   operational record changed on internal/main; no user action required.
+
+
+## Second weekly review and release: 2026-09-27 09:01 UTC
+
+- Search Console Web (text), apex contains filter `https://tftt.cc/`,
+  June 25–Sep 24: 2 clicks, 13 impressions, CTR 15.4%, position 55.3;
+  last update 4.5 hours ago. Latest complete day Sep 24: 0 clicks,
+  2 impressions, CTR 0%, position 4.0. Reporting lag: three calendar days.
+  Sep 18–24 totals 1 click/12 impressions, 0.143 clicks/day, CTR 8.3%.
+  The prior Sep 17 click has left the seven-day window; that explains the
+  rolling click total dropping from 2 to 1, not a negative click correction.
+- Period page rows: English homepage 1 click/5 impressions, CTR 20%, position
+  2.0; Chinese homepage 1/1, CTR 100%, position 135; English analytics guide
+  0/6, CTR 0%, position 94.8; English shorten-URL guide 0/1, CTR 0%, position
+  5.0. English page totals 1 click/12 impressions, Chinese 1/1. The latest
+  seven-day click is Chinese; no new English clicks this week. Geography is
+  unavailable and page language is not proof of visitor country.
+- Visible queries remain campaign link analytics (0 clicks/5 impressions),
+  link click analytics (0/1), and 短链接在线生成 (1/1). New shorten-guide
+  impression has no visible query attribution. Small samples do not establish
+  ranking strength or a durable traffic trend. The 100-click daily target is
+  unachieved and at significant risk; no extrapolated success claim.
+- GEO: same apex filter and June 25–Sep 24, 1 homepage impression, updated
+  4.5 hours ago. Actual citation content and AI referral visits unavailable.
+  No measured GEO growth. First weekly review used a partial post-launch week;
+  do not describe this as a like-for-like full-week growth comparison.
+- Sitemap table still Unknown / Couldn't fetch, submitted Sep 15, discovered
+  pages 0. Fresh detail view still reports Last read 9/15/26 and Sitemap could
+  not be read. Prior Google live fetch success is historical, not ingestion
+  confirmation. No new cause justifies weakening protection or renaming XML.
+  Homepage/four English guides have historical inspection confirmations; fresh
+  whole-site indexed count unavailable. Continue this unresolved investigation.
+- Evidence-led content change: add a worked campaign comparison to the existing
+  English analytics guide, not a duplicate page. It explains consistent UTM
+  campaign/source/medium values, equal reporting periods, requests versus
+  sessions, and destination-derived conversion rates. All numeric examples are
+  explicitly hypothetical. UTM semantics checked against Google Analytics help:
+  https://support.google.com/analytics/answer/10917952?hl=en.
+- Browser acceptance found two hardcoded Chinese section headings on English
+  guides. Localized Frequently asked questions and Related guides by the
+  existing URL language. Chinese headings remain Chinese. No new locale keys,
+  dependencies, bindings, schema migrations or runtime behavior changes.
+- Local acceptance: targeted ESLint, production build and typecheck passed.
+  Build used Node 24.19.0 (satisfies package.json >=22), pnpm 11.11.0; existing
+  dependency/CSS build warnings remain. Ten local HTTP/HTML checks passed,
+  including canonical/hreflang and new copy; browser verified hydrated English
+  copy. Synthetic arithmetic checked: 10/100=10%, 8/160=5%. No new tests needed
+  for this copy change. Source commit: 6c7ef1a.
+- Release used Realmroot Agent and installed Wrangler 4.110.0, versions upload
+  with keep_vars, then 100% deploy. Version e3aad522-1e9c-4709-8748-1648fe998264.
+  Actual pre-release rollback version: f4c75d01-7eb8-41a0-ba7e-524181a31769.
+  No database migration. Initial native pnpm wrapper was unsupported before
+  upload; using advertised wrangler native command succeeded without fallback.
+- Production regression: all ten pages 200, one H1, correct en/zh-CN,
+  self-canonical, reciprocal en/zh-CN/x-default, no noindex/object strings;
+  sitemap valid ten URLs, robots correct, login 200, API verify 401. Live
+  browser confirms new example, English headings and table-of-contents jump.
+  AI absent, three secrets retained, observability unchanged from pre-release.
+  Manual/public verification covers the content boundary; authenticated sessions
+  and link creation were not exercised or claimed. Local preview stopped after
+  verification; no production test links or customer writes were created.
+- Correction to previous logs: daily entries saying no deployment meant no
+  explicit deployment command in that run. Today's cloud deployment history
+  shows additional versions following document pushes (latest Sep 26). These
+  timestamps are consistent with a connected build trigger; the exact trigger
+  was not inspected. Do not equate a docs-only push with no cloud deployment.
+  Subsequent pushes may rebuild the same source; verify release content and
+  actual versions rather than assuming the September 13 version stayed active.
+- Next week: observe analytics-query impressions after this release and preserve
+  the baseline; follow sitemap processing and other useful English queries.
+  No claimed SEO/GEO uplift from the release yet. Next weekly review Oct 4;
+  final 30-day evaluation remains Oct 13. English remains the primary audience.
+- Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
+  because known Realmroot discovery has no matching integration. GitHub and
+  Cloudflare reads/deployment used Realmroot Agent. No paid or outreach action.
