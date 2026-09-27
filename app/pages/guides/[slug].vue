@@ -89,7 +89,7 @@ useMarketingSeo({ title: guide.title, description: guide.description, path: `${p
       </section>
       <section class="mb-12">
         <h2 class="mb-5 text-2xl font-semibold">
-          常见问题
+          {{ isChinese ? '常见问题' : 'Frequently asked questions' }}
         </h2>
         <div
           v-for="question in guide.questions" :key="question.question" class="
@@ -110,7 +110,7 @@ useMarketingSeo({ title: guide.title, description: guide.description, path: `${p
     </article>
     <aside class="mt-16 border-t pt-8" :aria-label="isChinese ? '相关阅读' : 'Related guides'">
       <h2 class="mb-5 text-xl font-semibold">
-        继续了解
+        {{ isChinese ? '继续了解' : 'Related guides' }}
       </h2>
       <a
         v-for="related in guides.filter(item => item.slug !== guide.slug)" :key="related.slug" :href="`${prefix}/guides/${related.slug}`" class="
