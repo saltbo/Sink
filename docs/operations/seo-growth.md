@@ -665,3 +665,48 @@ changes until the next operating period is agreed.
 - Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
   because known Realmroot discovery has no matching integration. GitHub and
   Cloudflare reads/deployment used Realmroot Agent. No paid or outreach action.
+
+
+## Scheduled check: 2026-09-30 09:01 UTC
+
+- Sep 28 and Sep 29 heartbeats have no completed run in this record. Do not
+  backfill execution claims. Today's Search Console historical rows can report
+  those earlier data dates only when explicitly observed.
+- Ten production marketing pages pass the existing HTTP/HTML probe, including
+  correct language, canonical/hreflang, one H1, indexability, new campaign
+  example and English guide headings. Sitemap valid ten URLs; robots correct;
+  login 200, API verify 401. No fresh hydration/authenticated-session claim.
+  Cloudflare Agent read confirms AI absent and three secrets retained.
+- Current deployment before this record push: 5c6f2afd-9703-483e-8a24-c394f33f5145
+  at 100%, created Sep 27 09:13:00 UTC. This supersedes the explicit Sep 27
+  release version; live content still passes its acceptance assertions.
+  No explicit deployment command today; document pushes may trigger rebuilds.
+- Web (text), apex contains filter `https://tftt.cc/`, June 28–Sep 27:
+  2 clicks, 17 impressions, CTR 11.8%, position 62; last update 6 hours ago.
+  Latest complete day Sep 27: 0 clicks, 3 impressions, CTR 0%, position 80.3.
+  Sep 26: 0/1, Sep 25: 0/0. Sep 21–27 totals 1 click/15 impressions,
+  CTR 6.7%, average 0.143 clicks/day. Reporting lag three calendar days.
+  Target remains unachieved. This period only reaches release day, so it
+  cannot establish a post-release effect for the new campaign example.
+- Visible queries: 短链接在线生成 1 click/1 impression; campaign link analytics
+  0/5; link click analytics 0/3; 短 链接 0/1; link analytics 0/1. New English
+  impressions remain small. Fresh page-language split/geography not inspected;
+  do not attribute new impressions to a page solely from query wording.
+- GEO, same apex filter/range: 1 homepage impression, updated 6 hours ago.
+  Citation content and AI referral visits unavailable; no new GEO effect.
+- Fresh /guides/link-analytics inspection: indexed, Googlebot smartphone last
+  crawl Sep 27 19:50:15 as displayed, successful fetch, crawl/index allowed,
+  declared and Google-selected canonical both inspected URL; referrer homepage,
+  no referring sitemap. Crawl occurred after release, but exact crawled copy
+  was not inspected; do not assert the new example is in Google's stored HTML.
+  Fresh whole-site indexed-page count remains unavailable.
+- Sitemap table still Unknown / Couldn't fetch, submitted Sep 15, discovered
+  pages 0, blank last-read. Public XML passes. No repetitive submission or
+  speculative security change; prior detailed/live-test evidence remains
+  historical. Browser connection failed on the first tab; a new tab on the
+  same browser restored access and all reported checks completed.
+- Maintain released content while post-release complete dates accumulate;
+  next weekly review Oct 4, final evaluation Oct 13. No product change today.
+- Search Console reads used Jasper Chrome (obyz2018@gmail.com), because known
+  Realmroot discovery has no matching integration. Cloudflare and GitHub use
+  Agent identity. Only the operational record changed on internal/main.
