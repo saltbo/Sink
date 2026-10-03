@@ -771,3 +771,31 @@ changes until the next operating period is agreed.
 - Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
   because known Realmroot discovery has no matching integration. Cloudflare
   and GitHub use Realmroot Agent identity.
+
+
+## Scheduled check: 2026-10-03 09:00 UTC
+
+- All ten marketing URLs pass HTTP/HTML checks: 200, correct language, one H1,
+  self-canonical and exact reciprocal hreflang, no noindex/object strings,
+  English guide headings and campaign example present. Sitemap valid ten URLs;
+  robots correct; login 200, API verify 401. No fresh hydration or logged-in
+  session acceptance claimed. Cloudflare Agent confirms AI absent, three secrets.
+- Search Console Web (text), apex contains filter `https://tftt.cc/`, still
+  June 30–Sep 29: 2 clicks, 17 impressions, CTR 11.8%, position 62; updated
+  7.5 hours ago. Latest complete displayed day Sep 29 remains 0/0, daily
+  CTR/position N/A. Four calendar days of data lag; do not fill Sep 30 with
+  zero. Sep 23–29 remains 0 clicks/6 impressions, CTR 0%, 0 clicks/day.
+  No new growth evidence or achievement of the daily 100-click target.
+- GEO same apex filter/range: 1 homepage impression, updated 7.5 hours ago.
+  Actual citation content and referral visits unavailable; no new effect claimed.
+- Sitemap table still Unknown / Couldn't fetch, submitted Sep 15, discovered
+  pages 0 and blank last-read. Public XML remains valid. Historical inspection
+  evidence remains unchanged; fresh whole-site indexed-page count unavailable.
+  No repeated submission, fresh live test or security configuration change.
+- No new actionable signal today. Retain content baseline for tomorrow's Oct 4
+  weekly review; final assessment remains Oct 13. Only this operations record
+  changed; no explicit deployment command. A push may trigger a rebuild as
+  previously observed, so no claim of unchanged cloud version is made.
+- Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
+  because known Realmroot discovery has no matching integration. Cloudflare
+  and GitHub operations use Realmroot Agent. No user action required today.
