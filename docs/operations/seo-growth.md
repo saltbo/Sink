@@ -904,3 +904,33 @@ changes until the next operating period is agreed.
 - Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
   because known Realmroot discovery has no matching integration. Cloudflare
   and GitHub use Realmroot Agent. No user action required today.
+
+
+## Scheduled check: 2026-10-07 09:03 UTC
+
+- Ten public marketing URLs pass HTTP/HTML checks: 200, correct language, one
+  H1, self-canonical, reciprocal hreflang, indexability, English headings and
+  campaign example. Sitemap valid ten URLs; robots correct; login 200 and
+  unauthenticated API verify 401. No fresh hydration/authenticated-session test.
+  Cloudflare Agent read confirms AI absent and three secrets retained.
+- Search Console apex contains filter `https://tftt.cc/`, three-month selection:
+  2 clicks, 20 impressions, CTR 10%, average position 66.1, updated 12 hours
+  ago. UI search type is labelled Web today, previously Web (text); do not
+  infer a modality equivalence beyond the displayed report. Latest complete
+  day Oct 4: 0 clicks/1 impression, CTR 0%, position 87.0. Three calendar days
+  of lag. Sep 28–Oct 4 totals 0 clicks/3 impressions, CTR 0%, 0 clicks/day.
+  No daily-target achievement or measured click uplift. No fresh query/page
+  attribution collected for the one additional impression.
+- GEO apex filter, July 5–Oct 4: 1 homepage impression, updated 12 hours ago.
+  Actual citation content and referral sessions unavailable; no new effect.
+- Sitemap table unchanged: Unknown / Couldn't fetch, submitted Sep 15,
+  discovered pages 0 and blank last-read. Public XML valid. No repeated
+  submission or security changes. Prior indexing observations remain historical;
+  fresh whole-site indexed count unavailable.
+- No actionable new signal or production failure today. Only the operations
+  record changes, no explicit deployment command; existing push-triggered
+  rebuild remains possible. Preserve English-first content and AI-disabled
+  state. Next weekly review Oct 11; final assessment and pause Oct 13.
+- Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
+  because known Realmroot discovery has no matching integration. Cloudflare
+  and GitHub use Realmroot Agent identity. No user action required today.
