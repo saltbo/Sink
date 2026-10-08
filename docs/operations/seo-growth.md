@@ -934,3 +934,31 @@ changes until the next operating period is agreed.
 - Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
   because known Realmroot discovery has no matching integration. Cloudflare
   and GitHub use Realmroot Agent identity. No user action required today.
+
+
+## Scheduled check: 2026-10-08 08:57 UTC
+
+- All ten public marketing URLs pass HTTP/HTML checks: 200, correct language,
+  one H1, self-canonical and reciprocal hreflang, indexability, English guide
+  headings and campaign example. Sitemap valid ten URLs; robots correct;
+  login 200, API verify 401. No fresh hydration/authenticated-session claim.
+  Cloudflare Agent read confirms AI absent and three secret bindings retained.
+- Search Console Web, apex contains filter `https://tftt.cc/`, July 6–Oct 5:
+  2 clicks, 20 impressions, CTR 10%, position 66.1; updated 25.5 hours ago.
+  Latest complete displayed day Oct 5: 0 clicks/0 impressions, CTR/position
+  N/A. Reporting lag three calendar days, with the separate update age recorded
+  above. Sep 29–Oct 5 totals 0 clicks/3 impressions, CTR 0%, 0 clicks/day.
+  No target attainment or new growth evidence. Missing later days unavailable.
+- GEO, same apex filter/range: 1 homepage impression, updated 25.5 hours ago.
+  Actual citation content and referral sessions unavailable; no new GEO effect.
+- Sitemap table unchanged: Unknown / Couldn't fetch, submitted Sep 15,
+  discovered pages 0 and blank last-read. Public XML valid. Prior indexing and
+  live-fetch observations remain historical; fresh whole-site indexed count
+  unavailable. No repeated submission or speculative protection changes.
+- No product changes or explicit deployment command today; only this operations
+  record changes. Existing push-triggered rebuild remains possible. Maintain
+  English-first content and AI-disabled state. Next weekly review Oct 11;
+  final evaluation and pause Oct 13. No user action required today.
+- Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
+  because known Realmroot discovery has no matching integration. Cloudflare
+  and GitHub use Realmroot Agent identity.
