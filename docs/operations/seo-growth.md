@@ -994,3 +994,31 @@ changes until the next operating period is agreed.
 - Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
   because known Realmroot discovery has no matching integration. Cloudflare
   and GitHub use Realmroot Agent. No user action required today.
+
+
+## Scheduled check: 2026-10-10 09:02 UTC
+
+- Ten public marketing pages pass HTTP/HTML checks: 200, correct language,
+  one H1, self-canonical, reciprocal hreflang, indexability, English headings
+  and campaign example present. Sitemap valid ten URLs; robots correct;
+  login 200, API verify 401. No fresh hydration/authenticated-session claim.
+  Cloudflare Agent confirms AI absent and three secrets retained.
+- Search Console Web, apex contains filter `https://tftt.cc/`, July 7–Oct 6:
+  2 clicks, 25 impressions, CTR 8%, position 67.6; updated 39 hours ago.
+  Latest complete displayed day remains Oct 6: 0 clicks/5 impressions, CTR
+  0%, position 73.8. Four calendar days of lag; Oct 7 onward unavailable.
+  Sep 30–Oct 6 remains 0 clicks/8 impressions, CTR 0%, 0 clicks/day.
+  No new growth evidence or daily-target achievement.
+- GEO same apex filter/range: 1 homepage impression, updated 39 hours ago.
+  Actual citation content and referral sessions unavailable; no new effect.
+- Sitemap table still Unknown / Couldn't fetch, submitted Sep 15, discovered
+  pages 0 and blank last-read. Public XML valid. Previous inspection evidence
+  remains historical; fresh whole-site indexed count unavailable. No repeated
+  submission or security configuration change.
+- No actionable new signal today. Only operational documentation changes, no
+  explicit deployment command; existing push-triggered rebuild remains possible.
+  English-first content and AI-disabled state retained. Weekly review tomorrow
+  Oct 11; final evaluation and pause Oct 13. No user action required today.
+- Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
+  because known Realmroot discovery has no matching integration. Cloudflare
+  and GitHub use Realmroot Agent.
