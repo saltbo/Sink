@@ -1022,3 +1022,48 @@ changes until the next operating period is agreed.
 - Search Console read-only checks used Jasper Chrome (obyz2018@gmail.com),
   because known Realmroot discovery has no matching integration. Cloudflare
   and GitHub use Realmroot Agent.
+
+
+## Fourth weekly review: 2026-10-11 09:02 UTC
+
+- Ten production marketing URLs pass HTTP/HTML checks: 200, correct language,
+  one H1, self-canonical and reciprocal hreflang, indexability, English headings
+  and campaign example. Sitemap valid ten URLs; robots correct; login 200,
+  API verify 401. No fresh hydration/authenticated-session acceptance claimed.
+  Cloudflare Agent confirms AI absent and three secret bindings retained.
+- Search Console Web, apex contains filter `https://tftt.cc/`, July 9–Oct 8:
+  2 clicks, 29 impressions, CTR 6.9%, position 64.8; last update 62 hours ago.
+  Latest complete displayed day Oct 8: 0 clicks/3 impressions, CTR 0%, position
+  60.7. Oct 7: 0/1, position 8.0. Three-calendar-day reporting lag and separate
+  62-hour update age retained. Oct 2–8 totals 0 clicks/12 impressions, CTR 0%,
+  average 0 clicks/day. Target not achieved. Last review's available Sep 23–29
+  window had 0 clicks/6 impressions; doubled impressions are only six additional
+  observations across different reporting windows, not evidence of click growth.
+- Period page split: English homepage 1 click/6 impressions, CTR 16.7%, position
+  2.7; Chinese homepage 1/5, CTR 20%, position 94.4; analytics guide 0/15,
+  CTR 0%, position 91.3; shorten-URL guide 0/2, CTR 0%, position 7; custom-short-
+  links guide 0/1, CTR 0%, position 8. English totals 1 click/24 impressions,
+  Chinese 1/5. Custom guide's first observed impression is not a new indexing
+  confirmation or stable ranking. Visitor geography and conversion counts
+  unavailable. No English guide clicks are reported.
+- GEO same apex filter/range: 1 homepage impression, updated 62 hours ago.
+  Actual citation content and AI referral visits unavailable. No measured
+  GEO growth or additional visitor attributed to that report.
+- Sitemap table still Unknown / Couldn't fetch, submitted Sep 15, discovered
+  pages 0, blank last-read. Public XML valid. Prior live-fetch and individual
+  indexing evidence remain historical; fresh whole-site indexed count
+  unavailable. Ingestion problem remains unresolved, with no newly established
+  cause warranting security changes or speculative endpoint edits.
+- Weekly outcome: production stayed healthy and AI disabled; reporting advanced,
+  but the Sep 27 content change has not produced a verifiable click uplift.
+  No product edit or explicit deployment this week; operations pushes can
+  trigger rebuilds as documented. Daily checks and honest measurement do not
+  constitute achieving the traffic objective. The 100/day target remains far
+  from observed results, with two days until the recorded Oct 13 deadline.
+- Continue bounded checks through the deadline. On Oct 13 evaluate latest
+  complete day and seven-day average, report whether the target was achieved,
+  then pause autonomous changes and wait for the user's next-cycle decision.
+  No last-minute thin pages, paid traffic or fabricated forecasts.
+- Search Console reads used Jasper Chrome (obyz2018@gmail.com), because known
+  Realmroot discovery has no matching integration. Cloudflare and GitHub use
+  Realmroot Agent. Only this operational record changed today.
